@@ -3,2466 +3,817 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Θαύμα</title>
+<title>Θαύμα ― 世界の外側にある物語 ―</title>
 
 <style>
-*{
-  box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#090912;
-  color:#fff;
+body {
+  margin: 0;
+  background: #101018;
+  color: #fff;
+  font-family: sans-serif;
 }
 
-button{
-  width:100%;
-  padding:14px;
-  margin:6px 0;
-  border:1px solid #555;
-  border-radius:10px;
-  background:#171725;
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 10px;
+  background: #35355a;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-button:hover{
-  background:#25253a;
+button:hover {
+  background: #505080;
 }
 
-button:disabled{
-  opacity:.5;
-  cursor:not-allowed;
+.container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
 }
 
-h1,h2,h3{
-  margin-top:0;
+.title {
+  text-align: center;
+  margin: 50px 0 30px;
 }
 
-#app{
-  max-width:900px;
-  margin:auto;
-  padding:20px;
+.title h1 {
+  font-size: 42px;
+  margin-bottom: 5px;
 }
 
-.screen{
-  display:none;
+.subtitle {
+  color: #aaa;
 }
 
-.screen.active{
-  display:block;
+.screen {
+  display: none;
 }
 
-.title{
-  text-align:center;
-  padding:60px 10px 30px;
+.screen.active {
+  display: block;
 }
 
-.title h1{
-  font-size:52px;
-  letter-spacing:8px;
+.panel {
+  background: #1b1b29;
+  padding: 18px;
+  margin: 12px 0;
+  border-radius: 12px;
 }
 
-.subtitle{
-  color:#aaa;
-  margin-bottom:30px;
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 }
 
-.panel{
-  background:#11111d;
-  border:1px solid #303044;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:15px;
+.hp {
+  width: 100%;
+  height: 22px;
+  background: #333;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 5px 0 15px;
 }
 
-.menu-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:8px;
+.hp-inner {
+  width: 100%;
+  height: 100%;
+  background: #4caf50;
+  transition: width .3s;
 }
 
-@media(max-width:600px){
-  .menu-grid{
-    grid-template-columns:1fr;
-  }
+.enemy-card,
+.character-card,
+.skill-card {
+  background: #202032;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
 }
 
-.back{
-  margin-bottom:15px;
+.log {
+  min-height: 100px;
+  max-height: 250px;
+  overflow-y: auto;
+  background: #09090e;
+  padding: 12px;
+  border-radius: 10px;
+  line-height: 1.7;
 }
 
-.story-box{
-  min-height:300px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+.small {
+  color: #aaa;
+  font-size: 13px;
 }
 
-.chapter{
-  color:#b9a7ff;
-  font-size:14px;
-  margin-bottom:10px;
+.gold {
+  color: #ffd54f;
 }
 
-.story-title{
-  font-size:28px;
-  margin-bottom:20px;
-}
-
-.story-text{
-  white-space:pre-wrap;
-  line-height:2;
-  color:#eee;
-  font-size:17px;
-}
-
-.character{
-  border:1px solid #33334a;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
-}
-
-.character h3{
-  margin-bottom:6px;
-}
-
-.stat{
-  color:#bbb;
-  line-height:1.7;
-}
-
-.skill{
-  border:1px solid #33334a;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:10px;
-}
-
-.rarity{
-  font-weight:bold;
-}
-
-.r{
-  color:#aaa;
-}
-
-.sr{
-  color:#72a7ff;
-}
-
-.ssr{
-  color:#c38cff;
-}
-
-.ur{
-  color:#ffb84d;
-}
-
-.lr{
-  color:#ff5d8f;
-}
-
-.log{
-  background:#08080e;
-  border:1px solid #292936;
-  border-radius:10px;
-  padding:12px;
-  height:180px;
-  overflow-y:auto;
-  white-space:pre-wrap;
-  margin-bottom:15px;
-}
-
-.hp{
-  height:20px;
-  background:#292936;
-  border-radius:10px;
-  overflow:hidden;
-  margin:8px 0 15px;
-}
-
-.hp-inner{
-  height:100%;
-  background:#d84b63;
-  transition:width .25s;
-}
-
-.notice{
-  padding:15px;
-  background:#1d1830;
-  border:1px solid #5d4a91;
-  border-radius:12px;
-  margin-bottom:15px;
-}
-
-.toast{
-  position:fixed;
-  left:50%;
-  bottom:25px;
-  transform:translateX(-50%);
-  background:#20202d;
-  border:1px solid #777;
-  padding:13px 20px;
-  border-radius:30px;
-  display:none;
-  z-index:999;
-}
-
-.small{
-  color:#999;
-  font-size:13px;
-}
-
-.center{
-  text-align:center;
-}
-
-select{
-  width:100%;
-  padding:12px;
-  background:#171725;
-  color:#fff;
-  border:1px solid #555;
-  border-radius:8px;
-  margin:5px 0;
+#battleSkillButtons button {
+  background: #514080;
 }
 </style>
 </head>
 
 <body>
 
-<div id="app">
+<div class="container">
 
-<!-- ==================== TITLE ==================== -->
-
+<!-- タイトル -->
 <div id="titleScreen" class="screen active">
+
   <div class="title">
     <h1>Θαύμα</h1>
     <div class="subtitle">―― 世界の外側にある物語 ――</div>
   </div>
 
+  <button onclick="newGame()">はじめから</button>
+  <button onclick="loadGame()">つづきから</button>
+
+</div>
+
+
+<!-- メインメニュー -->
+<div id="menuScreen" class="screen">
+
   <div class="panel">
-    <button onclick="startNewGame()">はじめから</button>
-    <button onclick="continueGame()">つづきから</button>
-
-    <div class="menu-grid">
-      <button onclick="showScreen('charactersScreen')">キャラクター図鑑</button>
-      <button onclick="showScreen('skillsScreen')">スキル図鑑</button>
-      <button onclick="showScreen('gachaScreen')">スキルガチャ</button>
-      <button onclick="showScreen('challengeScreen')">挑戦</button>
-      <button onclick="showScreen('equipScreen')">スキルセット</button>
-      <button onclick="showScreen('battleCharacterScreen')">戦闘キャラ選択</button>
-      <button onclick="showScreen('settingsScreen')">設定</button>
-    </div>
+    <h2>Θαύμα</h2>
+    <p>所持石：<span id="menuGems">300</span> 💎</p>
   </div>
 
-  <div class="panel center">
-    <div>所持石：<span id="titleStones">300</span></div>
+  <div class="menu-grid">
+
+    <button onclick="showScreen('charactersScreen')">
+      キャラクター図鑑
+    </button>
+
+    <button onclick="showScreen('skillsScreen')">
+      スキル図鑑
+    </button>
+
+    <button onclick="showScreen('gachaScreen')">
+      スキルガチャ
+    </button>
+
+    <button onclick="showScreen('challengeScreen')">
+      挑戦
+    </button>
+
+    <button onclick="showScreen('equipScreen')">
+      スキルセット
+    </button>
+
+    <button onclick="showScreen('battleCharacterScreen')">
+      戦闘キャラ選択
+    </button>
+
+    <button onclick="showScreen('settingsScreen')">
+      設定
+    </button>
+
   </div>
+
 </div>
 
 
-<!-- ==================== STORY ==================== -->
-
-<div id="storyScreen" class="screen">
-
-  <button class="back" onclick="backToTitle()">← タイトルへ</button>
-
-  <div class="panel story-box">
-    <div id="storyChapter" class="chapter"></div>
-    <div id="storyTitle" class="story-title"></div>
-    <div id="storyText" class="story-text"></div>
-  </div>
-
-  <button id="nextStoryButton" onclick="nextStory()">次へ</button>
-
-</div>
-
-
-<!-- ==================== CHARACTERS ==================== -->
-
+<!-- キャラクター図鑑 -->
 <div id="charactersScreen" class="screen">
 
-  <button class="back" onclick="backToTitle()">← 戻る</button>
+  <button onclick="showScreen('menuScreen')">← 戻る</button>
 
-  <div class="panel">
-    <h2>キャラクター図鑑</h2>
+  <h2>キャラクター図鑑</h2>
+
+  <div class="character-card">
+    <h3>旅人</h3>
+    <p>世界の外側を目指す主人公。</p>
+    <p>HP：1000 / 攻撃：100</p>
   </div>
 
-  <div id="characterList"></div>
+  <div class="character-card">
+    <h3>星詠み</h3>
+    <p>星の力を操る謎の人物。</p>
+    <p>HP：850 / 攻撃：130</p>
+  </div>
 
 </div>
 
 
-<!-- ==================== SKILLS ==================== -->
-
+<!-- スキル図鑑 -->
 <div id="skillsScreen" class="screen">
 
-  <button class="back" onclick="backToTitle()">← 戻る</button>
+  <button onclick="showScreen('menuScreen')">← 戻る</button>
 
-  <div class="panel">
-    <h2>スキル図鑑</h2>
+  <h2>スキル図鑑</h2>
+
+  <div class="skill-card">
+    <h3>斬撃</h3>
+    <p>敵に通常ダメージを与える。</p>
   </div>
 
-  <div id="skillList"></div>
+  <div class="skill-card">
+    <h3>星の閃光</h3>
+    <p>強力な光属性攻撃。</p>
+  </div>
+
+  <div class="skill-card">
+    <h3>再生</h3>
+    <p>自分のHPを回復する。</p>
+  </div>
 
 </div>
 
 
-<!-- ==================== GACHA ==================== -->
-
+<!-- ガチャ -->
 <div id="gachaScreen" class="screen">
 
-  <button class="back" onclick="backToTitle()">← 戻る</button>
+  <button onclick="showScreen('menuScreen')">← 戻る</button>
 
-  <div class="panel center">
-    <h2>スキルガチャ</h2>
-    <p>所持石：<span id="gachaStones">0</span></p>
+  <h2>スキルガチャ</h2>
 
-    <button onclick="gacha(1)">1回引く　300石</button>
-    <button onclick="gacha(10)">10回引く　3000石</button>
-
-    <div id="gachaResult"></div>
+  <div class="panel">
+    所持石：<span id="gachaGems">300</span> 💎
   </div>
+
+  <button onclick="gacha(1)">
+    1回引く　300石
+  </button>
+
+  <button onclick="gacha(10)">
+    10回引く　3000石
+  </button>
+
+  <div id="gachaResult" class="panel"></div>
 
 </div>
 
 
-<!-- ==================== CHALLENGE ==================== -->
-
+<!-- 挑戦 -->
 <div id="challengeScreen" class="screen">
 
-  <button class="back" onclick="backToTitle()">← 戻る</button>
+  <button onclick="showScreen('menuScreen')">← 戻る</button>
 
-  <div id="challengeMenu">
+  <div class="panel">
+    <h2>挑戦</h2>
+    <p class="small">
+      強敵との戦闘に挑めます。<br>
+      敵を倒すと石を獲得できます。
+    </p>
+  </div>
 
-    <div class="panel">
-      <h2>挑戦</h2>
-      <p class="small">強敵との戦闘に挑めます。</p>
+  <div id="enemyList"></div>
+
+</div>
+
+
+<!-- 戦闘 -->
+<div id="battleScreen" class="screen">
+
+  <div class="panel">
+
+    <h2 id="battleEnemyName"></h2>
+
+    <div>
+      敵HP
+      <span id="enemyHpText"></span>
     </div>
 
-    <div id="enemyList"></div>
+    <div class="hp">
+      <div id="enemyHpBar" class="hp-inner"></div>
+    </div>
+
+    <div>
+      味方HP
+      <span id="playerHpText"></span>
+    </div>
+
+    <div class="hp">
+      <div id="playerHpBar" class="hp-inner"></div>
+    </div>
 
   </div>
 
-  <div id="challengeBattle" style="display:none;">
+  <div id="battleLog" class="log"></div>
 
-    <div class="panel">
-      <h2 id="battleEnemyName"></h2>
+  <div class="panel">
 
-      <div>敵HP</div>
-      <div class="hp">
-        <div id="enemyHpBar" class="hp-inner"></div>
-      </div>
+    <button onclick="battleAttack()">
+      攻撃
+    </button>
 
-      <div>味方HP</div>
-      <div class="hp">
-        <div id="playerHpBar" class="hp-inner"></div>
-      </div>
-    </div>
+    <button onclick="battleGuard()">
+      防御
+    </button>
 
-    <div id="battleLog" class="log"></div>
-
-    <div class="panel">
-      <button onclick="battleAttack()">攻撃</button>
-      <button onclick="battleGuard()">防御</button>
-      <div id="battleSkillButtons"></div>
-    </div>
+    <div id="battleSkillButtons"></div>
 
   </div>
 
 </div>
 
 
-<!-- ==================== EQUIP ==================== -->
-
+<!-- スキルセット -->
 <div id="equipScreen" class="screen">
 
-  <button class="back" onclick="backToTitle()">← 戻る</button>
+  <button onclick="showScreen('menuScreen')">← 戻る</button>
+
+  <h2>スキルセット</h2>
+
+  <p>
+    各キャラクター最大3個まで装備できます。
+  </p>
 
   <div class="panel">
-    <h2>スキルセット</h2>
-    <p class="small">各キャラクター最大3個まで装備できます。</p>
+    <p>旅人</p>
+    <p>① 斬撃</p>
+    <p>② 星の閃光</p>
+    <p>③ 再生</p>
   </div>
-
-  <div id="equipList"></div>
 
 </div>
 
 
-<!-- ==================== BATTLE CHARACTER ==================== -->
-
+<!-- 戦闘キャラ選択 -->
 <div id="battleCharacterScreen" class="screen">
 
-  <button class="back" onclick="backToTitle()">← 戻る</button>
+  <button onclick="showScreen('menuScreen')">← 戻る</button>
+
+  <h2>戦闘キャラ選択</h2>
+
+  <button onclick="selectCharacter('旅人')">
+    旅人
+  </button>
+
+  <button onclick="selectCharacter('星詠み')">
+    星詠み
+  </button>
 
   <div class="panel">
-    <h2>戦闘キャラ選択</h2>
-    <div id="battleCharacterList"></div>
+    現在のキャラクター：
+    <span id="selectedCharacter">旅人</span>
   </div>
 
 </div>
 
 
-<!-- ==================== SETTINGS ==================== -->
-
+<!-- 設定 -->
 <div id="settingsScreen" class="screen">
 
-  <button class="back" onclick="backToTitle()">← 戻る</button>
+  <button onclick="showScreen('menuScreen')">← 戻る</button>
 
-  <div class="panel">
+  <h2>設定</h2>
 
-    <h2>設定</h2>
+  <button onclick="toggleBGM()">
+    BGM：<span id="bgmState">ON</span>
+  </button>
 
-    <button onclick="toggleBGM()">
-      BGM：<span id="bgmState">ON</span>
-    </button>
-
-    <button onclick="deleteSave()">
-      セーブデータ削除
-    </button>
-
-  </div>
+  <button onclick="deleteSave()">
+    セーブデータ削除
+  </button>
 
 </div>
 
 </div>
-
-<div id="toast" class="toast"></div>
 
 
 <script>
-"use strict";
 
-/* =========================================================
-   データ
-========================================================= */
+/* =========================
+   ゲームデータ
+========================= */
 
-const STORAGE_KEY = "THAUMA_REMAKE_SAVE_V1";
-
-
-const characters = {
-
-  gouen:{
-    name:"皇 紅蓮",
-    title:"霊界追放者",
-    species:"最上位吸血鬼 × 幽霊",
-    hp:1000,
-    attack:210,
-    defense:100,
-    abilities:[
-      "真祖の血統",
-      "幽体化",
-      "血界支配",
-      "血液再生",
-      "武神"
-    ],
-    curses:[
-      "本音を隠せない",
-      "タンスの呪い"
-    ],
-    weakness:[
-      "推し・焔緋 灯影の命令には逆らえない",
-      "タンスだけはどうにもならない"
-    ]
-  },
-
-  geboku:{
-    name:"下僕",
-    title:"究極眷属",
-    species:"スライム（眷属・人間型）",
-    hp:1200,
-    attack:190,
-    defense:120,
-    abilities:[
-      "完全適応",
-      "未来予知",
-      "圧倒的戦闘技術"
-    ],
-    curses:[
-      "主人への忠誠が強すぎる"
-    ],
-    weakness:[
-      "主人を守ることを最優先する"
-    ]
-  },
-
-  homurabikun:{
-    name:"焔緋くん",
-    title:"裏社会の何でも屋",
-    species:"人間",
-    hp:900,
-    attack:230,
-    defense:80,
-    abilities:[
-      "戦闘能力 ★★★★★",
-      "判断力 ★★★★★",
-      "潜入能力 ★★★★★",
-      "交渉能力 ★★★★★",
-      "身体能力 ★★★★★"
-    ],
-    curses:[
-      "危険な状況ほど冷静になる"
-    ],
-    weakness:[
-      "仲間を見捨てられない"
-    ]
-  },
-
-  touei:{
-    name:"焔緋 灯影",
-    title:"終焉の管理者",
-    species:"？？？",
-    hp:5000,
-    attack:650,
-    defense:500,
-    abilities:[
-      "終焉支配",
-      "永劫の焔",
-      "完全解析",
-      "無限再構築",
-      "神域武装"
-    ],
-    curses:[
-      "世界の理から外れすぎている"
-    ],
-    weakness:[
-      "本人にも目的が分からないことがある"
-    ]
-  }
-
+let gameData = {
+  gems: 300,
+  character: "旅人",
+  bgm: true
 };
 
-
-const skills = {
-
-  slash:{
-    name:"斬撃",
-    rarity:"R",
-    description:"単純な攻撃スキル。",
-    damage:70
-  },
-
-  blood:{
-    name:"血界",
-    rarity:"SR",
-    description:"血の力をまとわせて攻撃する。",
-    damage:140
-  },
-
-  guard:{
-    name:"幽体化",
-    rarity:"SR",
-    description:"攻撃を回避しやすくする。",
-    damage:0
-  },
-
-  shadow:{
-    name:"潜影",
-    rarity:"SSR",
-    description:"影に潜み、強烈な一撃を放つ。",
-    damage:180
-  },
-
-  eternalflame:{
-    name:"永劫の焔",
-    rarity:"UR",
-    description:"永遠に消えない焔を操る。",
-    damage:500
-  },
-
-  end:{
-    name:"終焉支配",
-    rarity:"LR",
-    description:"終焉そのものを支配する。",
-    damage:1200
-  },
-
-  adaptation:{
-    name:"完全適応",
-    rarity:"SSR",
-    description:"敵の攻撃に適応する。",
-    damage:160
-  },
-
-  future:{
-    name:"未来予知",
-    rarity:"UR",
-    description:"敵の行動を先読みする。",
-    damage:250
-  },
-
-  copy:{
-    name:"コピー",
-    rarity:"LR",
-    description:"【覚醒スキル】敵が使用したスキルを解析し、一時的に再現する。",
-    damage:400
-  }
-
-};
+let currentEnemy = null;
+let playerHP = 1000;
+let playerMaxHP = 1000;
+let enemyHP = 0;
+let enemyMaxHP = 0;
+let guarding = false;
+let battleFinished = false;
 
 
-/* =========================================================
-   ガチャ
-   ※ コピーは覚醒限定
-========================================================= */
+/* =========================
+   敵データ
+========================= */
 
-const gachaPool = {
-
-  R:[
-    "slash"
-  ],
-
-  SR:[
-    "blood",
-    "guard"
-  ],
-
-  SSR:[
-    "shadow",
-    "adaptation"
-  ],
-
-  UR:[
-    "eternalflame",
-    "future"
-  ],
-
-  LR:[
-    "end"
-  ]
-
-};
-
-
-/* =========================================================
-   敵
-========================================================= */
-
-const enemies = {
-
-  goblin:{
-    name:"ゴブリン",
-    hp:500,
-    attack:50,
-    defense:20,
-    reward:500
-  },
-
-  orc:{
-    name:"オーク",
-    hp:1000,
-    attack:100,
-    defense:40,
-    reward:500
-  },
-
-  demon:{
-    name:"魔王級悪魔",
-    hp:2000,
-    attack:180,
-    defense:70,
-    reward:500
-  },
-
-  knight:{
-    name:"終焉騎士",
-    hp:3500,
-    attack:250,
-    defense:100,
-    reward:500
-  },
-
-  apocalypse:{
-    name:"虚空喰らい・アポカリプス",
-    hp:100000,
-    attack:9999,
-    defense:9999,
-    reward:5000,
-    boss:true
-  }
-
-};
-
-
-/* =========================================================
-   ストーリー
-========================================================= */
-
-const story = [
+const enemies = [
 
   {
-    chapter:"第1章",
-    title:"始まり",
-    text:
-`皇 紅蓮は、目を覚ました。
-
-そこがどこなのか、分からない。
-
-ただ一つ分かることがある。
-
-自分は――霊界から追放された。
-
-「……俺は、何をした？」
-
-答えは返ってこなかった。`
+    id: "slime",
+    name: "深淵スライム",
+    hp: 500,
+    attack: 45,
+    reward: 50
   },
 
   {
-    chapter:"第1章",
-    title:"Θαύμα",
-    text:
-`目の前に奇妙な紋章が浮かぶ。
-
-Θαύμα。
-
-その文字を見た瞬間、紅蓮の中で何かが反応した。
-
-「この世界……普通じゃないな」`
+    id: "knight",
+    name: "黒鉄の騎士",
+    hp: 1000,
+    attack: 75,
+    reward: 100
   },
 
   {
-    chapter:"第2章",
-    title:"下僕",
-    text:
-`森の奥で、一匹のスライムと出会った。
-
-しかし普通のスライムではなかった。
-
-人の姿へ変化すると、その存在は紅蓮の前に跪く。
-
-「あなたに従います」
-
-それが下僕との出会いだった。`
+    id: "dragon",
+    name: "終焉竜",
+    hp: 1800,
+    attack: 110,
+    reward: 200
   },
 
   {
-    chapter:"第2章",
-    title:"究極眷属",
-    text:
-`下僕には異常な能力があった。
-
-敵の動きを理解する。
-
-攻撃を受ければ適応する。
-
-そして――未来すら読む。
-
-「お前……本当にスライムか？」
-
-下僕は静かに答えた。
-
-「はい。ですが、あなたの眷属です」`
-  },
-
-  {
-    chapter:"第3章",
-    title:"裏社会",
-    text:
-`二人は裏社会を通ることになった。
-
-そこで出会ったのが――焔緋くん。
-
-裏社会の何でも屋。
-
-「依頼なら聞くよ」
-
-穏やかな笑顔。
-
-しかし、その目だけは全く笑っていなかった。`
-  },
-
-  {
-    chapter:"第3章",
-    title:"笑顔",
-    text:
-`焔緋くんは強かった。
-
-戦闘。
-
-潜入。
-
-交渉。
-
-どれも一流。
-
-それでも彼は、いつも笑っていた。
-
-「まあ、何とかなるでしょ」
-
-その言葉の裏には、何かが隠されている。`
-  },
-
-  {
-    chapter:"第4章",
-    title:"終焉の管理者",
-    text:
-`その人物が現れた瞬間。
-
-空気が変わった。
-
-焔緋 灯影。
-
-終焉の管理者。
-
-彼は紅蓮たちを見つめる。
-
-「……まだ、この世界は終わっていない」
-
-それだけを告げた。`
-  },
-
-  {
-    chapter:"第4章",
-    title:"三人",
-    text:
-`紅蓮。
-
-下僕。
-
-焔緋くん。
-
-そして灯影。
-
-四人は、それぞれ違う目的を持ちながら同じ道を進むことになった。
-
-誰も知らない。
-
-この出会いが、世界そのものを変えることを。`
-  },
-
-  {
-    chapter:"第5章",
-    title:"黒い亀裂",
-    text:
-`空に黒い亀裂が走った。
-
-灯影が初めて表情を変える。
-
-「これは……この世界のものじゃない」
-
-下僕が警戒する。
-
-紅蓮は拳を握る。
-
-焔緋くんは静かに周囲を見る。
-
-何かが来る。`
-  },
-
-  {
-    chapter:"第5章",
-    title:"名前のない敵",
-    text:
-`亀裂の向こう側。
-
-そこには名前すら存在しない何かがいた。
-
-灯影が言う。
-
-「まだ戦うな」
-
-「相手を知らなければ、終焉すら意味を持たない」
-
-誰も動かなかった。`
-  },
-
-  {
-    chapter:"第5章",
-    title:"アポカリプス",
-    text:
-`そして、それは姿を現した。
-
-虚空喰らい・アポカリプス。
-
-存在するだけで空間が歪む。
-
-紅蓮が呟く。
-
-「……強すぎる」
-
-灯影ですら、すぐには動かなかった。`
-  },
-
-  {
-    chapter:"第5章",
-    title:"最初の伏線",
-    text:
-`アポカリプスが紅蓮を見る。
-
-「……見つけた」
-
-紅蓮は眉をひそめる。
-
-「俺を知っているのか？」
-
-返事の代わりに、一瞬だけ白い部屋が見えた。
-
-そこには――一枚の扉があった。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"霊界追放者",
-    text:
-`戦いは再び始まった。
-
-紅蓮は、自分の血統を解放する。
-
-幽体化。
-
-血界支配。
-
-武神。
-
-全てを使う。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"再戦",
-    text:
-`アポカリプスが迫る。
-
-その力は、以前よりさらに大きくなっていた。
-
-下僕が未来を読む。
-
-「……勝率が低い」
-
-焔緋くんが答える。
-
-「それでもやるしかない」`
-  },
-
-  {
-    chapter:"第6章",
-    title:"全力",
-    text:
-`紅蓮は限界まで力を引き出した。
-
-「俺は……ここで終わるわけにはいかない」
-
-血の力が広がる。
-
-幽体化。
-
-武神。
-
-全てを重ねる。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"解析",
-    text:
-`しかし、アポカリプスは紅蓮の能力を解析していく。
-
-一つ。
-
-また一つ。
-
-対策されていく。
-
-灯影が初めて低い声で言った。
-
-「まずい」`
-  },
-
-  {
-    chapter:"第6章",
-    title:"最後まで",
-    text:
-`紅蓮は仲間を見る。
-
-「逃げろ」
-
-下僕は首を横に振る。
-
-「嫌です」
-
-焔緋くんも動かない。
-
-灯影は黙っている。
-
-紅蓮は笑った。
-
-「……そうか」`
-  },
-
-  {
-    chapter:"第6章",
-    title:"敗北",
-    text:
-`戦いの結果。
-
-紅蓮は力尽き、意識を失った。
-
-下僕が駆け寄る。
-
-「主様……！」
-
-返事はない。
-
-しかし、その瞬間。
-
-何かが下僕の中で変わり始めていた。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"意識の彼方",
-    text:
-`紅蓮の意識は、遠くへ沈んでいく。
-
-そこで聞こえた。
-
-――声。
-
-「まだ終わっていない」
-
-誰の声なのか。
-
-紅蓮には分からなかった。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"下僕",
-    text:
-`下僕は紅蓮のそばに座っていた。
-
-「主様を……守れなかった」
-
-拳を握る。
-
-その瞬間。
-
-身体の奥から、今までにない力が溢れ始めた。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"焔緋くん",
-    text:
-`焔緋くんは黙っていた。
-
-いつもの笑顔はない。
-
-「……調べる」
-
-彼は一人で歩き出す。
-
-アポカリプスが何なのか。
-
-そして、紅蓮がなぜ狙われたのか。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"灯影",
-    text:
-`灯影は空を見上げた。
-
-「……この世界の外側から来たか」
-
-静かな怒り。
-
-それは、終焉の管理者としてのものだった。
-
-「ならば、こちらから行く」`
-  },
-
-  {
-    chapter:"第6章",
-    title:"終焉",
-    text:
-`灯影が手を掲げる。
-
-世界の法則が書き換わる。
-
-しかし、アポカリプスの姿は消えていた。
-
-倒したのか。
-
-それとも――最初からここには存在していなかったのか。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"白い部屋",
-    text:
-`紅蓮の意識の中。
-
-白い部屋。
-
-中央には扉がある。
-
-扉には文字が刻まれていた。
-
-Θαύμα。
-
-紅蓮が手を伸ばす。
-
-しかし――届かない。`
-  },
-
-  {
-    chapter:"第6章",
-    title:"もう一人の声",
-    text:
-`「どうして追放された？」
-
-声がする。
-
-紅蓮は答えようとする。
-
-しかし、記憶がない。
-
-「……分からない」
-
-声は静かに笑った。
-
-「なら、思い出せ」`
-  },
-
-  {
-    chapter:"第6章",
-    title:"第6章・終",
-    text:
-`扉は開かなかった。
-
-まだ、その時ではない。
-
-しかし現実では。
-
-下僕の身体から、眩い光が溢れていた。
-
-「主様……」
-
-その目が変わる。`
-  },
-
-  {
-    chapter:"第6章・終章",
-    title:"覚醒",
-    text:
-`下僕が立ち上がる。
-
-今までとは違う。
-
-力の流れ。
-
-思考速度。
-
-存在そのもの。
-
-全てが変わっていた。
-
-「……理解しました」
-
-下僕は静かに呟く。
-
-「敵の力を、理解できます」`
-  },
-
-  {
-    chapter:"第6章・終章",
-    title:"コピー",
-    text:
-`覚醒した下僕の新たなスキル。
-
-――コピー。
-
-敵が使用したスキルを解析し、一時的に再現する。
-
-それは、これまでの下僕には存在しなかった力だった。
-
-「これで……次は守ります」`
-  },
-
-  {
-    chapter:"第6章・終章",
-    title:"新たな物語",
-    text:
-`第6章――終。
-
-しかし、物語は終わっていない。
-
-紅蓮は眠っている。
-
-焔緋くんは調査を始めた。
-
-灯影は世界の外側を見ている。
-
-そして下僕は――
-
-新たな力を手に入れた。
-
-Θαύμα。
-
-扉の向こうには、何があるのか。
-
-それはまだ、誰にも分からない。`
+    id: "boss",
+    name: "世界の外側に立つ者",
+    
+    /*
+      ラスボスを少し弱体化。
+      以前より戦いやすい設定。
+    */
+    hp: 3500,
+    attack: 145,
+    reward: 500
   }
 
 ];
 
 
-/* =========================================================
-   初期セーブ
-========================================================= */
+/* =========================
+   初期化
+========================= */
 
-function createDefaultSave(){
+function updateGemDisplays() {
 
-  return {
-    stones:300,
+  document.getElementById("menuGems").textContent =
+    gameData.gems;
 
-    storyIndex:0,
-
-    ownedSkills:[
-      "slash",
-      "blood",
-      "guard"
-    ],
-
-    equippedSkills:{
-      gouen:["slash","blood","guard"],
-      geboku:["slash","guard"],
-      homurabikun:["slash"],
-      touei:["eternalflame","end"]
-    },
-
-    defeatedEnemies:[],
-
-    selectedCharacter:"gouen",
-
-    bgm:true,
-
-    flags:{
-      gouenUnconscious:false,
-      whiteRoomSeen:false,
-      toueiAngered:false,
-      gebokuAwakened:false
-    }
-  };
-
+  document.getElementById("gachaGems").textContent =
+    gameData.gems;
 }
 
 
-let game = createDefaultSave();
+function saveGame() {
 
-
-/* =========================================================
-   戦闘状態
-========================================================= */
-
-let battle = null;
-
-
-/* =========================================================
-   セーブ
-========================================================= */
-
-function saveGame(){
-
-  try{
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(game)
-    );
-  }catch(error){
-    console.warn("セーブ失敗",error);
-  }
-
-}
-
-
-function loadGame(){
-
-  try{
-
-    const raw = localStorage.getItem(STORAGE_KEY);
-
-    if(!raw){
-      return false;
-    }
-
-    const saved = JSON.parse(raw);
-
-    const defaults = createDefaultSave();
-
-    game = {
-
-      ...defaults,
-      ...saved,
-
-      equippedSkills:{
-        ...defaults.equippedSkills,
-        ...(saved.equippedSkills || {})
-      },
-
-      flags:{
-        ...defaults.flags,
-        ...(saved.flags || {})
-      }
-
-    };
-
-    if(!Array.isArray(game.ownedSkills)){
-      game.ownedSkills = [...defaults.ownedSkills];
-    }
-
-    if(!Array.isArray(game.defeatedEnemies)){
-      game.defeatedEnemies = [];
-    }
-
-    if(typeof game.storyIndex !== "number"){
-      game.storyIndex = 0;
-    }
-
-    if(typeof game.stones !== "number"){
-      game.stones = 300;
-    }
-
-    return true;
-
-  }catch(error){
-
-    console.warn("セーブデータ破損。初期化します。");
-
-    game = createDefaultSave();
-
-    return false;
-  }
-
-}
-
-
-/* =========================================================
-   画面
-========================================================= */
-
-function showScreen(id){
-
-  document.querySelectorAll(".screen").forEach(screen=>{
-    screen.classList.remove("active");
-  });
-
-  const target = document.getElementById(id);
-
-  if(target){
-    target.classList.add("active");
-  }
-
-  if(id === "charactersScreen"){
-    renderCharacters();
-  }
-
-  if(id === "skillsScreen"){
-    renderSkills();
-  }
-
-  if(id === "gachaScreen"){
-    renderGacha();
-  }
-
-  if(id === "challengeScreen"){
-    renderChallengeMenu();
-  }
-
-  if(id === "equipScreen"){
-    renderEquip();
-  }
-
-  if(id === "battleCharacterScreen"){
-    renderBattleCharacters();
-  }
-
-  if(id === "settingsScreen"){
-    renderSettings();
-  }
-
-  updateTitleInfo();
-}
-
-
-function backToTitle(){
-
-  if(battle){
-    battle = null;
-  }
-
-  showScreen("titleScreen");
-}
-
-
-/* =========================================================
-   新規 / 続き
-========================================================= */
-
-function startNewGame(){
-
-  const ok = confirm(
-    "現在のセーブデータを消して、最初から始めますか？"
+  localStorage.setItem(
+    "thavmaSave",
+    JSON.stringify(gameData)
   );
 
-  if(!ok){
-    return;
+}
+
+
+function loadGameData() {
+
+  const saved =
+    localStorage.getItem("thavmaSave");
+
+  if (saved) {
+
+    try {
+
+      gameData =
+        JSON.parse(saved);
+
+    } catch {
+
+      console.log("セーブデータを読み込めませんでした");
+
+    }
+
   }
 
-  game = createDefaultSave();
+  updateGemDisplays();
+
+  document.getElementById(
+    "selectedCharacter"
+  ).textContent =
+    gameData.character;
+
+}
+
+
+/* =========================
+   画面切り替え
+========================= */
+
+function showScreen(screenId) {
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+
+      screen.classList.remove("active");
+
+    });
+
+  document
+    .getElementById(screenId)
+    .classList.add("active");
+
+  updateGemDisplays();
+
+  if (screenId === "challengeScreen") {
+
+    renderEnemies();
+
+  }
+
+}
+
+
+/* =========================
+   ゲーム開始
+========================= */
+
+function newGame() {
+
+  gameData = {
+
+    gems: 300,
+    character: "旅人",
+    bgm: true
+
+  };
 
   saveGame();
 
-  startStory();
+  updateGemDisplays();
+
+  document.getElementById(
+    "selectedCharacter"
+  ).textContent = "旅人";
+
+  showScreen("menuScreen");
 
 }
 
 
-function continueGame(){
+function loadGame() {
 
-  const loaded = loadGame();
+  loadGameData();
 
-  if(!loaded){
-    alert("セーブデータがありません。");
-    return;
-  }
-
-  startStory();
+  showScreen("menuScreen");
 
 }
 
 
-/* =========================================================
-   ストーリー
-========================================================= */
+/* =========================
+   敵一覧
+========================= */
 
-function startStory(){
+function renderEnemies() {
 
-  showScreen("storyScreen");
-
-  renderStory();
-
-}
-
-
-function renderStory(){
-
-  if(game.storyIndex < 0){
-    game.storyIndex = 0;
-  }
-
-  if(game.storyIndex >= story.length){
-    game.storyIndex = story.length - 1;
-  }
-
-  const scene = story[game.storyIndex];
-
-  document.getElementById("storyChapter").textContent =
-    scene.chapter;
-
-  document.getElementById("storyTitle").textContent =
-    scene.title;
-
-  document.getElementById("storyText").textContent =
-    scene.text;
-
-  const button =
-    document.getElementById("nextStoryButton");
-
-  if(game.storyIndex === story.length - 1){
-    button.textContent = "タイトルへ";
-  }else{
-    button.textContent = "次へ";
-  }
-
-}
-
-
-function nextStory(){
-
-  /*
-    最後のシーンなら終了。
-  */
-
-  if(game.storyIndex >= story.length - 1){
-
-    finishChapter6();
-
-    showScreen("titleScreen");
-
-    return;
-  }
-
-
-  game.storyIndex++;
-
-  handleStoryFlags();
-
-  saveGame();
-
-  renderStory();
-
-}
-
-
-/* =========================================================
-   ストーリーイベント
-========================================================= */
-
-function handleStoryFlags(){
-
-  const scene = story[game.storyIndex];
-
-  if(!scene){
-    return;
-  }
-
-
-  /* 皇が倒れた */
-
-  if(
-    scene.chapter === "第6章" &&
-    scene.title === "敗北"
-  ){
-
-    game.flags.gouenUnconscious = true;
-
-  }
-
-
-  /* 灯影が怒る */
-
-  if(
-    scene.chapter === "第6章" &&
-    scene.title === "灯影"
-  ){
-
-    game.flags.toueiAngered = true;
-
-  }
-
-
-  /* 白い部屋 */
-
-  if(
-    scene.chapter === "第6章" &&
-    scene.title === "白い部屋"
-  ){
-
-    game.flags.whiteRoomSeen = true;
-
-  }
-
-}
-
-
-/* =========================================================
-   第6章終了
-========================================================= */
-
-function finishChapter6(){
-
-  if(!game.flags.gebokuAwakened){
-
-    game.flags.gebokuAwakened = true;
-
-    if(!game.ownedSkills.includes("copy")){
-      game.ownedSkills.push("copy");
-    }
-
-    if(!Array.isArray(game.equippedSkills.geboku)){
-      game.equippedSkills.geboku = [];
-    }
-
-    if(!game.equippedSkills.geboku.includes("copy")){
-
-      if(game.equippedSkills.geboku.length >= 3){
-        game.equippedSkills.geboku.shift();
-      }
-
-      game.equippedSkills.geboku.push("copy");
-
-    }
-
-    saveGame();
-
-    alert(
-      "【覚醒】\n\n" +
-      "下僕が覚醒した！\n\n" +
-      "新スキル「コピー」を習得しました。"
-    );
-
-  }else{
-
-    saveGame();
-
-  }
-
-}
-
-
-/* =========================================================
-   キャラクター図鑑
-========================================================= */
-
-function renderCharacters(){
-
-  const container =
-    document.getElementById("characterList");
-
-  container.innerHTML = "";
-
-  Object.entries(characters).forEach(([id,c])=>{
-
-    const div = document.createElement("div");
-
-    div.className = "character";
-
-    div.innerHTML = `
-      <h3>${escapeHTML(c.name)}</h3>
-      <div class="small">${escapeHTML(c.title)}</div>
-      <p>種族：${escapeHTML(c.species)}</p>
-
-      <div class="stat">
-        HP：${c.hp}<br>
-        攻撃：${c.attack}<br>
-        防御：${c.defense}
-      </div>
-
-      <p>
-        <strong>能力</strong><br>
-        ${c.abilities.map(escapeHTML).join("<br>")}
-      </p>
-
-      <p>
-        <strong>呪い</strong><br>
-        ${c.curses.map(escapeHTML).join("<br>")}
-      </p>
-
-      <p>
-        <strong>弱点</strong><br>
-        ${c.weakness.map(escapeHTML).join("<br>")}
-      </p>
-    `;
-
-    container.appendChild(div);
-
-  });
-
-}
-
-
-/* =========================================================
-   スキル図鑑
-========================================================= */
-
-function renderSkills(){
-
-  const container =
-    document.getElementById("skillList");
-
-  container.innerHTML = "";
-
-  Object.entries(skills).forEach(([id,s])=>{
-
-    const owned =
-      game.ownedSkills.includes(id);
-
-    const div = document.createElement("div");
-
-    div.className = "skill";
-
-    div.innerHTML = `
-      <h3>
-        ${escapeHTML(s.name)}
-        <span class="rarity ${rarityClass(s.rarity)}">
-          [${s.rarity}]
-        </span>
-      </h3>
-
-      <p>${escapeHTML(s.description)}</p>
-
-      <div class="small">
-        所持：${owned ? "○" : "×"}
-      </div>
-
-      ${
-        id === "copy"
-        ? `<div class="small">入手：下僕覚醒限定</div>`
-        : ""
-      }
-    `;
-
-    container.appendChild(div);
-
-  });
-
-}
-
-
-function rarityClass(rarity){
-
-  return rarity.toLowerCase();
-
-}
-
-
-/* =========================================================
-   ガチャ
-========================================================= */
-
-function renderGacha(){
-
-  document.getElementById("gachaStones").textContent =
-    game.stones;
-
-}
-
-
-function gacha(count){
-
-  const cost = count * 300;
-
-  if(game.stones < cost){
-
-    toast("石が足りません。");
-
-    return;
-  }
-
-  game.stones -= cost;
-
-  const results = [];
-
-  for(let i=0;i<count;i++){
-
-    const rarity = rollRarity();
-
-    const pool = gachaPool[rarity];
-
-    const skillId =
-      pool[Math.floor(Math.random()*pool.length)];
-
-    results.push(skillId);
-
-    if(!game.ownedSkills.includes(skillId)){
-      game.ownedSkills.push(skillId);
-    }
-
-  }
-
-  saveGame();
-
-  renderGacha();
-
-  let html = "<h3>結果</h3>";
-
-  results.forEach(id=>{
-
-    const skill = skills[id];
-
-    html += `
-      <div class="skill">
-        ${escapeHTML(skill.name)}
-        <span class="rarity ${rarityClass(skill.rarity)}">
-          [${skill.rarity}]
-        </span>
-      </div>
-    `;
-
-  });
-
-  document.getElementById("gachaResult").innerHTML =
-    html;
-
-  updateTitleInfo();
-
-}
-
-
-function rollRarity(){
-
-  const n = Math.random() * 100;
-
-  if(n < 0.2){
-    return "LR";
-  }
-
-  if(n < 2){
-    return "UR";
-  }
-
-  if(n < 8){
-    return "SSR";
-  }
-
-  if(n < 25){
-    return "SR";
-  }
-
-  return "R";
-
-}
-
-
-/* =========================================================
-   挑戦メニュー
-========================================================= */
-
-function renderChallengeMenu(){
-
-  document.getElementById("challengeMenu").style.display =
-    "block";
-
-  document.getElementById("challengeBattle").style.display =
-    "none";
-
-  const container =
+  const list =
     document.getElementById("enemyList");
 
-  container.innerHTML = "";
+  list.innerHTML = "";
 
-  Object.entries(enemies).forEach(([id,e])=>{
+  enemies.forEach(enemy => {
 
-    const defeated =
-      game.defeatedEnemies.includes(id);
+    const div =
+      document.createElement("div");
 
-    const div = document.createElement("div");
-
-    div.className = "character";
+    div.className = "enemy-card";
 
     div.innerHTML = `
-      <h3>${escapeHTML(e.name)}</h3>
 
-      <div class="stat">
-        HP：${e.hp}<br>
-        攻撃：${e.attack}<br>
-        防御：${e.defense}<br>
-        初回報酬：${e.reward}石
-      </div>
+      <h3>${enemy.name}</h3>
 
-      <button onclick="startChallenge('${id}')">
+      <p>
+        HP：${enemy.hp}
+      </p>
+
+      <p>
+        攻撃力：${enemy.attack}
+      </p>
+
+      <p class="gold">
+        撃破報酬：💎 ${enemy.reward}石
+      </p>
+
+      <button onclick="startBattle('${enemy.id}')">
         挑戦する
       </button>
 
-      ${
-        defeated
-        ? `<div class="small">撃破済み</div>`
-        : ""
-      }
     `;
 
-    container.appendChild(div);
+    list.appendChild(div);
 
   });
 
 }
 
 
-/* =========================================================
+/* =========================
    戦闘開始
-========================================================= */
+========================= */
 
-function startChallenge(enemyId){
+function startBattle(enemyId) {
 
-  const enemy = enemies[enemyId];
+  const enemy =
+    enemies.find(e => e.id === enemyId);
 
-  if(!enemy){
-    return;
-  }
+  if (!enemy) return;
 
-  const character =
-    characters[game.selectedCharacter];
+  currentEnemy = enemy;
 
-  if(!character){
-    return;
-  }
+  enemyMaxHP = enemy.hp;
+  enemyHP = enemy.hp;
 
-  battle = {
+  playerMaxHP = 1000;
+  playerHP = playerMaxHP;
 
-    enemyId:enemyId,
+  guarding = false;
+  battleFinished = false;
 
-    enemyHp:enemy.hp,
-
-    playerHp:character.hp,
-
-    maxEnemyHp:enemy.hp,
-
-    maxPlayerHp:character.hp,
-
-    guard:false,
-
-    ended:false
-
-  };
-
-
-  document.getElementById("challengeMenu").style.display =
-    "none";
-
-  document.getElementById("challengeBattle").style.display =
-    "block";
-
-
-  document.getElementById("battleEnemyName").textContent =
+  document.getElementById(
+    "battleEnemyName"
+  ).textContent =
     enemy.name;
 
+  document.getElementById(
+    "battleLog"
+  ).innerHTML =
+    `⚔️ ${enemy.name}が現れた！<br>`;
 
-  document.getElementById("battleLog").textContent = "";
+  updateBattleUI();
 
+  createBattleSkills();
 
-  addBattleLog(
-    `${character.name} VS ${enemy.name}`
-  );
-
-  addBattleLog(
-    "戦闘開始！"
-  );
-
-
-  renderBattleSkills();
-
-  renderBattle();
+  showScreen("battleScreen");
 
 }
 
 
-/* =========================================================
-   戦闘表示
-========================================================= */
+/* =========================
+   戦闘UI
+========================= */
 
-function renderBattle(){
-
-  if(!battle){
-    return;
-  }
-
-  const enemy =
-    enemies[battle.enemyId];
-
-  const player =
-    characters[game.selectedCharacter];
-
+function updateBattleUI() {
 
   const enemyPercent =
     Math.max(
       0,
-      Math.min(
-        100,
-        battle.enemyHp / battle.maxEnemyHp * 100
-      )
+      enemyHP / enemyMaxHP * 100
     );
-
 
   const playerPercent =
     Math.max(
       0,
-      Math.min(
-        100,
-        battle.playerHp / battle.maxPlayerHp * 100
-      )
+      playerHP / playerMaxHP * 100
     );
 
-
-  document.getElementById("enemyHpBar").style.width =
+  document.getElementById(
+    "enemyHpBar"
+  ).style.width =
     enemyPercent + "%";
 
-  document.getElementById("playerHpBar").style.width =
+  document.getElementById(
+    "playerHpBar"
+  ).style.width =
     playerPercent + "%";
 
+  document.getElementById(
+    "enemyHpText"
+  ).textContent =
+    ` ${enemyHP} / ${enemyMaxHP}`;
 
-  document.getElementById("battleEnemyName").textContent =
-    enemy.name +
-    `　HP ${Math.max(0,battle.enemyHp)} / ${battle.maxEnemyHp}`;
+  document.getElementById(
+    "playerHpText"
+  ).textContent =
+    ` ${playerHP} / ${playerMaxHP}`;
 
 }
 
 
-/* =========================================================
-   戦闘ログ
-========================================================= */
+/* =========================
+   ログ
+========================= */
 
-function addBattleLog(text){
+function battleLog(text) {
 
   const log =
     document.getElementById("battleLog");
 
-  log.textContent += text + "\n";
+  log.innerHTML +=
+    text + "<br>";
 
-  log.scrollTop = log.scrollHeight;
-
-}
-
-
-/* =========================================================
-   攻撃
-========================================================= */
-
-function battleAttack(){
-
-  if(!canBattle()){
-    return;
-  }
-
-  const player =
-    characters[game.selectedCharacter];
-
-  const enemy =
-    enemies[battle.enemyId];
-
-
-  let damage =
-    player.attack -
-    Math.floor(enemy.defense * 0.3);
-
-  damage = Math.max(1,damage);
-
-
-  /*
-    アポカリプスは簡単に倒せない。
-  */
-
-  if(enemy.boss){
-
-    damage =
-      Math.min(
-        damage,
-        1000
-      );
-
-  }
-
-
-  battle.enemyHp -= damage;
-
-
-  addBattleLog(
-    `${player.name}の攻撃！ ${damage}ダメージ！`
-  );
-
-
-  afterPlayerAction();
+  log.scrollTop =
+    log.scrollHeight;
 
 }
 
 
-/* =========================================================
-   防御
-========================================================= */
+/* =========================
+   通常攻撃
+========================= */
 
-function battleGuard(){
+function battleAttack() {
 
-  if(!canBattle()){
-    return;
-  }
+  if (battleFinished) return;
 
-  battle.guard = true;
-
-  addBattleLog(
-    "防御態勢に入った！"
-  );
-
-  enemyTurn();
-
-}
-
-
-/* =========================================================
-   スキル
-========================================================= */
-
-function useBattleSkill(skillId){
-
-  if(!canBattle()){
-    return;
-  }
-
-  if(!game.ownedSkills.includes(skillId)){
-    return;
-  }
-
-  const skill =
-    skills[skillId];
-
-  const player =
-    characters[game.selectedCharacter];
-
-  const enemy =
-    enemies[battle.enemyId];
-
-
-  if(skillId === "guard"){
-
-    battle.guard = true;
-
-    addBattleLog(
-      `${skill.name}！ 次の攻撃を回避しやすくする！`
+  const damage =
+    Math.floor(
+      90 + Math.random() * 31
     );
 
-    enemyTurn();
-
-    return;
-  }
-
-
-  let damage =
-    player.attack +
-    skill.damage -
-    Math.floor(enemy.defense * 0.3);
-
-
-  damage = Math.max(1,damage);
-
-
-  if(skillId === "future"){
-
-    battle.guard = true;
-
-    addBattleLog(
-      "未来予知により、次の攻撃を読み取る！"
+  enemyHP =
+    Math.max(
+      0,
+      enemyHP - damage
     );
 
-  }
-
-
-  /*
-    コピー
-    アポカリプス相手なら強化。
-  */
-
-  if(skillId === "copy"){
-
-    if(enemy.boss){
-
-      damage = 2500;
-
-      addBattleLog(
-        "【覚醒】コピーが敵の力を解析した！"
-      );
-
-    }else{
-
-      damage = 400;
-
-      addBattleLog(
-        "コピーした力を再現！"
-      );
-
-    }
-
-  }
-
-
-  /*
-    終焉支配もボスには上限を設定。
-  */
-
-  if(enemy.boss && skillId === "end"){
-
-    damage = 1000;
-
-    addBattleLog(
-      "終焉支配が抵抗された！"
-    );
-
-  }
-
-
-  battle.enemyHp -= damage;
-
-
-  addBattleLog(
-    `${skill.name}！ ${damage}ダメージ！`
+  battleLog(
+    `⚔️ ${damage}ダメージを与えた！`
   );
 
+  updateBattleUI();
 
-  afterPlayerAction();
-
-}
-
-
-/* =========================================================
-   プレイヤー行動後
-========================================================= */
-
-function afterPlayerAction(){
-
-  if(checkBattleEnd()){
-    return;
-  }
-
-  enemyTurn();
-
-}
-
-
-/* =========================================================
-   敵ターン
-========================================================= */
-
-function enemyTurn(){
-
-  if(!battle || battle.ended){
-    return;
-  }
-
-  const enemy =
-    enemies[battle.enemyId];
-
-  const player =
-    characters[game.selectedCharacter];
-
-
-  let damage =
-    enemy.attack -
-    Math.floor(player.defense * 0.3);
-
-
-  damage = Math.max(1,damage);
-
-
-  /*
-    防御
-  */
-
-  if(battle.guard){
-
-    const evade =
-      Math.random() < 0.75;
-
-    if(evade){
-
-      addBattleLog(
-        `${player.name}は攻撃を回避した！`
-      );
-
-      battle.guard = false;
-
-      renderBattle();
-
-      return;
-
-    }else{
-
-      damage =
-        Math.floor(damage * 0.4);
-
-      addBattleLog(
-        `${player.name}は防御した！`
-      );
-
-    }
-
-  }
-
-
-  /*
-    アポカリプス
-  */
-
-  if(enemy.boss){
-
-    damage = Math.max(
-      500,
-      damage
-    );
-
-  }
-
-
-  battle.playerHp -= damage;
-
-
-  addBattleLog(
-    `${enemy.name}の攻撃！ ${damage}ダメージ！`
-  );
-
-
-  battle.guard = false;
-
-  checkBattleEnd();
-
-  renderBattle();
-
-}
-
-
-/* =========================================================
-   戦闘終了判定
-========================================================= */
-
-function checkBattleEnd(){
-
-  if(!battle){
-    return true;
-  }
-
-  if(battle.enemyHp <= 0){
+  if (enemyHP <= 0) {
 
     winBattle();
 
-    return true;
-  }
-
-
-  if(battle.playerHp <= 0){
-
-    loseBattle();
-
-    return true;
-  }
-
-
-  renderBattle();
-
-  return false;
-
-}
-
-
-/* =========================================================
-   勝利
-========================================================= */
-
-function winBattle(){
-
-  if(!battle || battle.ended){
     return;
-  }
-
-  battle.ended = true;
-
-  const enemyId =
-    battle.enemyId;
-
-  const enemy =
-    enemies[enemyId];
-
-
-  addBattleLog(
-    "勝利！"
-  );
-
-
-  if(!game.defeatedEnemies.includes(enemyId)){
-
-    game.defeatedEnemies.push(enemyId);
-
-    game.stones += enemy.reward;
-
-    addBattleLog(
-      `${enemy.reward}石を獲得！`
-    );
-
-  }else{
-
-    addBattleLog(
-      "この敵はすでに撃破済みです。"
-    );
 
   }
 
-
-  saveGame();
-
-  setTimeout(()=>{
-
-    alert(
-      `${enemy.name}に勝利しました！`
-    );
-
-    battle = null;
-
-    renderChallengeMenu();
-
-  },100);
+  enemyTurn();
 
 }
 
 
-/* =========================================================
-   敗北
-========================================================= */
+/* =========================
+   防御
+========================= */
 
-function loseBattle(){
+function battleGuard() {
 
-  if(!battle || battle.ended){
-    return;
-  }
+  if (battleFinished) return;
 
-  battle.ended = true;
+  guarding = true;
 
-  addBattleLog(
-    "敗北……"
+  battleLog(
+    "🛡️ 防御態勢に入った！"
   );
 
-
-  setTimeout(()=>{
-
-    alert(
-      "戦闘に敗北しました。"
-    );
-
-    battle = null;
-
-    renderChallengeMenu();
-
-  },100);
+  enemyTurn();
 
 }
 
 
-/* =========================================================
-   戦闘ボタン
-========================================================= */
+/* =========================
+   スキル
+========================= */
 
-function canBattle(){
-
-  return (
-    battle !== null &&
-    !battle.ended
-  );
-
-}
-
-
-function renderBattleSkills(){
+function createBattleSkills() {
 
   const container =
-    document.getElementById("battleSkillButtons");
+    document.getElementById(
+      "battleSkillButtons"
+    );
 
   container.innerHTML = "";
 
-  const equipped =
-    game.equippedSkills[
-      game.selectedCharacter
-    ] || [];
+  const skills = [
 
+    {
+      name: "星の閃光",
+      damage: 190
+    },
 
-  equipped.forEach(skillId=>{
-
-    const skill =
-      skills[skillId];
-
-    if(!skill){
-      return;
+    {
+      name: "再生",
+      heal: 220
     }
+
+  ];
+
+  skills.forEach(skill => {
 
     const button =
       document.createElement("button");
 
     button.textContent =
-      `${skill.name} [${skill.rarity}]`;
+      skill.name;
 
-    button.onclick =
-      ()=>useBattleSkill(skillId);
+    button.onclick = () => {
+
+      useSkill(skill);
+
+    };
 
     container.appendChild(button);
 
@@ -2471,340 +822,331 @@ function renderBattleSkills(){
 }
 
 
-/* =========================================================
-   スキルセット
-========================================================= */
+function useSkill(skill) {
 
-function renderEquip(){
+  if (battleFinished) return;
 
-  const container =
-    document.getElementById("equipList");
+  if (skill.damage) {
 
-  container.innerHTML = "";
+    enemyHP =
+      Math.max(
+        0,
+        enemyHP - skill.damage
+      );
 
-
-  Object.entries(characters).forEach(([characterId,c])=>{
-
-    const div =
-      document.createElement("div");
-
-    div.className = "character";
-
-
-    let html = `
-      <h3>${escapeHTML(c.name)}</h3>
-    `;
-
-
-    for(let slot=0;slot<3;slot++){
-
-      const current =
-        game.equippedSkills[characterId]?.[slot] || "";
-
-
-      html += `
-        <label>
-          スロット${slot+1}
-        </label>
-
-        <select
-          onchange="changeEquip(
-            '${characterId}',
-            ${slot},
-            this.value
-          )"
-        >
-
-          <option value="">なし</option>
-
-          ${game.ownedSkills.map(skillId=>{
-
-            const skill = skills[skillId];
-
-            if(!skill){
-              return "";
-            }
-
-            return `
-              <option
-                value="${skillId}"
-                ${current === skillId ? "selected":""}
-              >
-                ${escapeHTML(skill.name)}
-                [${skill.rarity}]
-              </option>
-            `;
-
-          }).join("")}
-
-        </select>
-      `;
-
-    }
-
-
-    div.innerHTML = html;
-
-    container.appendChild(div);
-
-  });
-
-}
-
-
-function changeEquip(characterId,slot,value){
-
-  if(!game.equippedSkills[characterId]){
-    game.equippedSkills[characterId] = [];
-  }
-
-
-  const equipped =
-    game.equippedSkills[characterId];
-
-
-  /*
-    同じスキルの重複装備を防ぐ
-  */
-
-  if(value){
-
-    const existing =
-      equipped.indexOf(value);
-
-    if(existing !== -1 && existing !== slot){
-
-      equipped[slot] = "";
-
-      saveGame();
-
-      renderEquip();
-
-      toast("同じスキルは2個装備できません。");
-
-      return;
-    }
+    battleLog(
+      `✨ ${skill.name}！ ${skill.damage}ダメージ！`
+    );
 
   }
 
+  if (skill.heal) {
 
-  equipped[slot] = value;
+    const before =
+      playerHP;
 
-  /*
-    後ろの空スロットを整理
-  */
+    playerHP =
+      Math.min(
+        playerMaxHP,
+        playerHP + skill.heal
+      );
 
-  game.equippedSkills[characterId] =
-    equipped.slice(0,3);
+    const healed =
+      playerHP - before;
 
+    battleLog(
+      `💚 ${skill.name}！ HPが${healed}回復した！`
+    );
 
-  saveGame();
+  }
 
-  renderEquip();
+  updateBattleUI();
 
-}
+  if (enemyHP <= 0) {
 
+    winBattle();
 
-/* =========================================================
-   戦闘キャラ
-========================================================= */
-
-function renderBattleCharacters(){
-
-  const container =
-    document.getElementById("battleCharacterList");
-
-  container.innerHTML = "";
-
-
-  Object.entries(characters).forEach(([id,c])=>{
-
-    const selected =
-      game.selectedCharacter === id;
-
-
-    const div =
-      document.createElement("div");
-
-    div.className = "character";
-
-
-    div.innerHTML = `
-      <h3>${escapeHTML(c.name)}</h3>
-
-      <div class="stat">
-        HP：${c.hp}<br>
-        攻撃：${c.attack}<br>
-        防御：${c.defense}
-      </div>
-
-      <button
-        onclick="selectBattleCharacter('${id}')"
-        ${selected ? "disabled":""}
-      >
-        ${selected ? "選択中" : "このキャラを選択"}
-      </button>
-    `;
-
-
-    container.appendChild(div);
-
-  });
-
-}
-
-
-function selectBattleCharacter(id){
-
-  if(!characters[id]){
     return;
+
   }
 
-  game.selectedCharacter = id;
+  enemyTurn();
+
+}
+
+
+/* =========================
+   敵ターン
+========================= */
+
+function enemyTurn() {
+
+  if (battleFinished) return;
+
+  let damage =
+    Math.floor(
+      currentEnemy.attack *
+      (0.8 + Math.random() * 0.4)
+    );
+
+  if (guarding) {
+
+    damage =
+      Math.floor(damage * 0.5);
+
+    battleLog(
+      "🛡️ 防御によってダメージ半減！"
+    );
+
+  }
+
+  guarding = false;
+
+  playerHP =
+    Math.max(
+      0,
+      playerHP - damage
+    );
+
+  battleLog(
+    `👿 ${currentEnemy.name}の攻撃！ ${damage}ダメージ！`
+  );
+
+  updateBattleUI();
+
+  if (playerHP <= 0) {
+
+    loseBattle();
+
+  }
+
+}
+
+
+/* =========================
+   勝利
+========================= */
+
+function winBattle() {
+
+  if (battleFinished) return;
+
+  battleFinished = true;
+
+  const reward =
+    currentEnemy.reward;
+
+  gameData.gems += reward;
 
   saveGame();
 
-  renderBattleCharacters();
+  updateGemDisplays();
 
-  toast(
-    `${characters[id].name}を選択しました。`
+  battleLog("");
+  battleLog(
+    `🎉 ${currentEnemy.name}を倒した！`
   );
 
+  battleLog(
+    `💎 ${reward}石を獲得！`
+  );
+
+  battleLog(
+    `現在の所持石：${gameData.gems}石`
+  );
+
+  const container =
+    document.getElementById(
+      "battleSkillButtons"
+    );
+
+  container.innerHTML = `
+
+    <button onclick="showScreen('challengeScreen')">
+      挑戦画面へ戻る
+    </button>
+
+    <button onclick="startBattle('${currentEnemy.id}')">
+      もう一度挑戦する
+    </button>
+
+  `;
+
 }
 
 
-/* =========================================================
-   設定
-========================================================= */
+/* =========================
+   敗北
+========================= */
 
-function renderSettings(){
+function loseBattle() {
 
-  document.getElementById("bgmState").textContent =
-    game.bgm ? "ON" : "OFF";
+  if (battleFinished) return;
+
+  battleFinished = true;
+
+  battleLog("");
+  battleLog(
+    "💀 戦闘に敗北した……"
+  );
+
+  const container =
+    document.getElementById(
+      "battleSkillButtons"
+    );
+
+  container.innerHTML = `
+
+    <button onclick="showScreen('challengeScreen')">
+      挑戦画面へ戻る
+    </button>
+
+    <button onclick="startBattle('${currentEnemy.id}')">
+      もう一度挑戦する
+    </button>
+
+  `;
 
 }
 
 
-function toggleBGM(){
+/* =========================
+   ガチャ
+========================= */
 
-  game.bgm = !game.bgm;
+function gacha(count) {
+
+  const cost =
+    count * 300;
+
+  if (gameData.gems < cost) {
+
+    document.getElementById(
+      "gachaResult"
+    ).innerHTML =
+      "💎 石が足りません。";
+
+    return;
+
+  }
+
+  gameData.gems -= cost;
+
+  const skills = [
+    "斬撃",
+    "星の閃光",
+    "再生",
+    "月影",
+    "虚無の刃"
+  ];
+
+  let result = "";
+
+  for (let i = 0; i < count; i++) {
+
+    const skill =
+      skills[
+        Math.floor(
+          Math.random() *
+          skills.length
+        )
+      ];
+
+    result +=
+      `✨ ${skill}<br>`;
+
+  }
+
+  document.getElementById(
+    "gachaResult"
+  ).innerHTML =
+    `<h3>ガチャ結果</h3>${result}`;
 
   saveGame();
 
-  renderSettings();
-
-  toast(
-    `BGM：${game.bgm ? "ON" : "OFF"}`
-  );
+  updateGemDisplays();
 
 }
 
 
-function deleteSave(){
+/* =========================
+   キャラクター選択
+========================= */
+
+function selectCharacter(name) {
+
+  gameData.character = name;
+
+  document.getElementById(
+    "selectedCharacter"
+  ).textContent =
+    name;
+
+  saveGame();
+
+}
+
+
+/* =========================
+   BGM
+========================= */
+
+function toggleBGM() {
+
+  gameData.bgm =
+    !gameData.bgm;
+
+  document.getElementById(
+    "bgmState"
+  ).textContent =
+    gameData.bgm
+      ? "ON"
+      : "OFF";
+
+  saveGame();
+
+}
+
+
+/* =========================
+   セーブ削除
+========================= */
+
+function deleteSave() {
 
   const ok =
     confirm(
       "本当にセーブデータを削除しますか？"
     );
 
-  if(!ok){
-    return;
-  }
+  if (!ok) return;
 
-  try{
-    localStorage.removeItem(STORAGE_KEY);
-  }catch(error){
-    console.warn(error);
-  }
+  localStorage.removeItem(
+    "thavmaSave"
+  );
 
-  game = createDefaultSave();
+  gameData = {
 
-  updateTitleInfo();
+    gems: 300,
+    character: "旅人",
+    bgm: true
 
-  alert("セーブデータを削除しました。");
+  };
 
-}
+  updateGemDisplays();
 
-
-/* =========================================================
-   タイトル情報
-========================================================= */
-
-function updateTitleInfo(){
-
-  const elements = [
-    document.getElementById("titleStones"),
-    document.getElementById("gachaStones")
-  ];
-
-
-  elements.forEach(el=>{
-
-    if(el){
-      el.textContent = game.stones;
-    }
-
-  });
+  alert(
+    "セーブデータを削除しました。"
+  );
 
 }
 
 
-/* =========================================================
-   トースト
-========================================================= */
+/* =========================
+   起動時処理
+========================= */
 
-let toastTimer = null;
-
-
-function toast(message){
-
-  const element =
-    document.getElementById("toast");
-
-  element.textContent =
-    message;
-
-  element.style.display =
-    "block";
-
-
-  clearTimeout(toastTimer);
-
-
-  toastTimer =
-    setTimeout(()=>{
-
-      element.style.display =
-        "none";
-
-    },1800);
-
-}
-
-
-/* =========================================================
-   HTMLエスケープ
-========================================================= */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* =========================================================
-   起動
-========================================================= */
-
-loadGame();
-
-updateTitleInfo();
+loadGameData();
 
 </script>
 
