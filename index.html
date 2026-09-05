@@ -2,994 +2,1260 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Θαύμα ― 世界の外側にある物語 ―</title>
 
 <style>
-*{box-sizing:border-box}
-
-html,body{
-  margin:0;
-  min-height:100%;
-  background:#020003;
-  color:#fff;
-  font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-body{
-  overflow-x:hidden;
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #020204;
+  color: #eee;
+  font-family:
+    "Noto Sans JP",
+    "Yu Gothic",
+    "Hiragino Kaku Gothic ProN",
+    sans-serif;
 }
 
-/* ==================================================
-   BUTTON
-================================================== */
-
-button{
-  width:100%;
-  padding:14px;
-  margin:6px 0;
-  border:1px solid #791426;
-  border-radius:12px;
-  background:
-    linear-gradient(135deg,#160309,#420914,#130207);
-  color:#fff;
-  font-size:16px;
-  cursor:pointer;
-  transition:.25s;
+body {
+  overflow-x: hidden;
 }
 
-button:hover{
-  transform:translateY(-3px);
-  border-color:#ff304d;
-  box-shadow:0 0 25px #ff153855;
+button {
+  font: inherit;
+  cursor: pointer;
 }
 
-button:active{
-  transform:scale(.97);
+.hidden {
+  display: none !important;
 }
 
-/* ==================================================
-   SCREEN
-================================================== */
-
-.screen{
-  display:none !important;
+.muted {
+  color: #888;
 }
 
-.screen.active{
-  display:block !important;
+.gold {
+  color: #ffd95c;
 }
 
-/* ==================================================
-   TITLE
-================================================== */
+.cyan {
+  color: #65eaff;
+}
 
-.title-screen{
-  min-height:100vh;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
+
+/* =========================================================
+   共通画面
+========================================================= */
+
+.screen {
+  min-height: 100vh;
+  padding: 30px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.screen-inner {
+  position: relative;
+  z-index: 5;
+  max-width: 900px;
+  margin: auto;
+}
+
+.fade-in {
+  animation: screenFade .45s ease forwards;
+}
+
+@keyframes screenFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   タイトル画面
+========================================================= */
+
+#titleScreen {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
   background:
     radial-gradient(
-      circle at 50% 45%,
-      #620918 0%,
-      #22040b 25%,
-      #070007 60%,
-      #000 100%
-    );
+      circle at center,
+      rgba(100, 0, 20, .18),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(255, 0, 40, .06),
+      transparent 55%
+    ),
+    #020204;
 }
 
-.title-screen.active{
-  display:flex !important;
-}
 
-.title-bg{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-}
+/* 背景の巨大な虚無 */
 
-.red-glow{
-  position:absolute;
-  width:65vw;
-  height:65vw;
-  max-width:850px;
-  max-height:850px;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
+.title-void {
+  position: absolute;
+
+  width: 75vmin;
+  height: 75vmin;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
   background:
     radial-gradient(
       circle,
-      #ff102633 0%,
-      #a0001822 28%,
-      transparent 70%
-    );
-  animation:redPulse 3.5s ease-in-out infinite;
-}
-
-@keyframes redPulse{
-  0%,100%{
-    transform:translate(-50%,-50%) scale(.88);
-    opacity:.55;
-  }
-  50%{
-    transform:translate(-50%,-50%) scale(1.15);
-    opacity:1;
-  }
-}
-
-.ring{
-  position:absolute;
-  left:50%;
-  top:50%;
-  border:1px solid #ff173c55;
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  animation:ringMove 8s linear infinite;
-}
-
-.ring:nth-child(1){
-  width:320px;
-  height:320px;
-}
-
-.ring:nth-child(2){
-  width:500px;
-  height:500px;
-  animation-duration:11s;
-  animation-direction:reverse;
-}
-
-.ring:nth-child(3){
-  width:720px;
-  height:720px;
-  animation-duration:17s;
-}
-
-@keyframes ringMove{
-  from{
-    transform:translate(-50%,-50%) rotate(0deg) scale(.9);
-  }
-  to{
-    transform:translate(-50%,-50%) rotate(360deg) scale(1.1);
-  }
-}
-
-.particles{
-  position:absolute;
-  inset:0;
-}
-
-.particle{
-  position:absolute;
-  width:3px;
-  height:3px;
-  border-radius:50%;
-  background:#ff304b;
-  box-shadow:0 0 12px #ff1838;
-  animation:floatParticle linear infinite;
-}
-
-@keyframes floatParticle{
-  from{
-    transform:translateY(110vh) translateX(0);
-    opacity:0;
-  }
-  15%{opacity:1}
-  85%{opacity:.8}
-  to{
-    transform:translateY(-15vh) translateX(90px);
-    opacity:0;
-  }
-}
-
-.scan-line{
-  position:absolute;
-  width:120%;
-  height:2px;
-  left:-10%;
-  top:-10%;
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #ff243f,
-      #fff,
-      #ff243f,
-      transparent
-    );
-  box-shadow:0 0 25px #ff1938;
-  opacity:.5;
-  animation:scan 4.5s linear infinite;
-}
-
-@keyframes scan{
-  from{top:-10%}
-  to{top:110%}
-}
-
-.mist{
-  position:absolute;
-  width:130%;
-  height:35%;
-  left:-15%;
-  bottom:-10%;
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      #8f001633,
-      #ff002244,
-      #8f001633,
-      transparent
-    );
-  filter:blur(25px);
-  animation:mistMove 7s ease-in-out infinite alternate;
-}
-
-@keyframes mistMove{
-  from{
-    transform:translateX(-8%) scaleY(.8);
-  }
-  to{
-    transform:translateX(8%) scaleY(1.2);
-  }
-}
-
-.title-core{
-  position:relative;
-  z-index:5;
-  text-align:center;
-  width:min(850px,95vw);
-  animation:titleAppear 1.7s ease-out;
-}
-
-@keyframes titleAppear{
-  from{
-    opacity:0;
-    transform:scale(1.15);
-    filter:blur(15px);
-  }
-  to{
-    opacity:1;
-    transform:scale(1);
-    filter:blur(0);
-  }
-}
-
-.title-core h1{
-  margin:0;
-  font-size:clamp(65px,15vw,145px);
-  letter-spacing:18px;
-  color:#fff;
-  text-shadow:
-    0 0 5px #fff,
-    0 0 15px #ff334d,
-    0 0 40px #ff102f,
-    0 0 90px #b0001d;
-  animation:
-    titlePulse 3s ease-in-out infinite,
-    titleFlicker 7s infinite;
-}
-
-@keyframes titlePulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.035)}
-}
-
-@keyframes titleFlicker{
-  0%,92%,94%,96%,100%{opacity:1}
-  93%,95%{opacity:.6}
-}
-
-.subtitle{
-  color:#e0aab2;
-  letter-spacing:8px;
-  margin:10px 0 42px;
-  text-shadow:0 0 15px #ff1c3a;
-}
-
-.enter{
-  width:min(360px,90vw);
-  margin:auto;
-}
-
-/* ==================================================
-   START NOISE
-================================================== */
-
-#noiseTransition{
-  position:fixed;
-  inset:0;
-  z-index:99999;
-  pointer-events:none;
-  opacity:0;
-  background:#000;
-}
-
-#noiseTransition.active{
-  animation:noiseTransition .95s steps(12) forwards;
-}
-
-.noiseLayer{
-  position:absolute;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      #fff0 0px,
-      #fff0 3px,
-      #ff183833 4px,
-      #000 5px
-    );
-  mix-blend-mode:screen;
-  animation:noiseMove .08s infinite;
-}
-
-.noiseRed{
-  position:absolute;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      #ff183855 2px,
-      transparent 5px
-    );
-  animation:noiseGlitch .12s infinite;
-}
-
-@keyframes noiseTransition{
-  0%{
-    opacity:0;
-    transform:scale(1);
-  }
-  15%{opacity:1}
-  35%{opacity:.65}
-  55%{
-    opacity:1;
-    transform:scale(1.02);
-  }
-  75%{opacity:.9}
-  100%{
-    opacity:1;
-    transform:scale(1.1);
-  }
-}
-
-@keyframes noiseMove{
-  from{transform:translateY(-20px)}
-  to{transform:translateY(20px)}
-}
-
-@keyframes noiseGlitch{
-  0%{transform:translateX(-20px)}
-  50%{transform:translateX(20px)}
-  100%{transform:translateX(-10px)}
-}
-
-/* ==================================================
-   FORESHADOW
-================================================== */
-
-#foreshadowScreen{
-  position:fixed;
-  inset:0;
-  z-index:100000;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle,#4d0712,#090006 60%,#000);
-  overflow:hidden;
-}
-
-#foreshadowScreen.active{
-  display:flex !important;
-}
-
-.foreshadow-lines{
-  position:absolute;
-  inset:0;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 4px,
-      #ff183811 5px
-    );
-  animation:foreshadowScan .12s infinite;
-}
-
-@keyframesforeshadowScan{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(8px)}
-  100%{transform:translateY(-5px)}
-}
-
-.foreshadow-content{
-  position:relative;
-  z-index:3;
-  width:min(900px,90vw);
-  text-align:center;
-}
-
-.foreshadow-small{
-  color:#ff4a60;
-  letter-spacing:7px;
-  font-size:13px;
-  margin-bottom:30px;
-}
-
-#foreshadowQuote{
-  font-size:clamp(24px,6vw,55px);
-  line-height:1.7;
-  min-height:170px;
-  color:#fff;
-  text-shadow:
-    0 0 10px #fff,
-    0 0 25px #ff1838,
-    0 0 60px #8f001c;
-  animation:quoteGlitch .4s infinite alternate;
-}
-
-@keyframesquoteGlitch{
-  from{transform:translateX(-1px)}
-  to{transform:translateX(1px)}
-}
-
-.foreshadow-progress{
-  width:min(500px,80vw);
-  height:2px;
-  margin:30px auto 0;
-  background:#3b0a12;
-  overflow:hidden;
-}
-
-.foreshadow-progress::after{
-  content:"";
-  display:block;
-  width:0;
-  height:100%;
-  background:#ff2947;
-  box-shadow:0 0 20px #ff1838;
-  animation:quoteProgress 5.7s linear forwards;
-}
-
-@keyframesquoteProgress{
-  to{width:100%}
-}
-
-/* ==================================================
-   STORY
-================================================== */
-
-.story-screen{
-  min-height:100vh;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(
-      circle at 50% 40%,
-      #4a0712,
-      #150207 42%,
-      #020003 100%
-    );
-}
-
-.blood-rain{
-  position:absolute;
-  inset:0;
-  overflow:hidden;
-  pointer-events:none;
-}
-
-.rain-drop{
-  position:absolute;
-  top:-15vh;
-  width:2px;
-  height:clamp(18px,4vh,42px);
-  background:
-    linear-gradient(
-      to bottom,
-      transparent,
-      #ff1938,
-      #9e071b
-    );
-  box-shadow:
-    0 0 5px #ff1838,
-    0 0 12px #8d0019;
-  opacity:.65;
-  animation:rainFall linear infinite;
-}
-
-.rain-drop.small{
-  width:1px;
-  opacity:.38;
-  filter:blur(.3px);
-}
-
-.rain-drop.big{
-  width:3px;
-  opacity:.8;
-}
-
-@keyframesrainFall{
-  from{
-    transform:translate3d(0,-15vh,0) rotate(8deg);
-  }
-  to{
-    transform:translate3d(-90px,120vh,0) rotate(8deg);
-  }
-}
-
-.story-red-fog{
-  position:absolute;
-  width:150%;
-  height:35%;
-  left:-25%;
-  bottom:-15%;
-  background:
-    radial-gradient(
-      ellipse,
-      #b3002544,
+      rgba(255, 0, 40, .16),
+      rgba(100, 0, 20, .08) 22%,
       transparent 65%
     );
-  filter:blur(30px);
-  animation:fogMove 6s ease-in-out infinite alternate;
+
+  filter: blur(10px);
+
+  animation:
+    voidPulse 4s ease-in-out infinite,
+    voidRotate 30s linear infinite;
 }
 
-@keyframesfogMove{
-  from{transform:translateX(-5%)}
-  to{transform:translateX(5%)}
+@keyframes voidPulse {
+  0%, 100% {
+    opacity: .45;
+    transform:
+      translate(-50%, -50%)
+      scale(.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1.08);
+  }
 }
 
-.story-screen::before{
-  content:"";
-  position:absolute;
-  inset:0;
+@keyframes voidRotate {
+  from {
+    filter:
+      blur(10px)
+      hue-rotate(0deg);
+  }
+
+  to {
+    filter:
+      blur(10px)
+      hue-rotate(360deg);
+  }
+}
+
+
+/* 中央赤色グロー */
+
+.red-glow {
+  position: absolute;
+
+  width: 45vmin;
+  height: 45vmin;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 30, 55, .35),
+      rgba(255, 0, 40, .12) 35%,
+      transparent 70%
+    );
+
+  filter: blur(18px);
+
+  animation:
+    redGlowPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes redGlowPulse {
+  0%, 100% {
+    opacity: .45;
+    transform:
+      translate(-50%, -50%)
+      scale(.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1.18);
+  }
+}
+
+
+/* =========================================================
+   多重リング
+========================================================= */
+
+.ring {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(255, 45, 70, .28);
+
+  transform:
+    translate(-50%, -50%);
+
+  box-shadow:
+    0 0 20px rgba(255, 0, 40, .08),
+    inset 0 0 20px rgba(255, 0, 40, .04);
+
+  animation:
+    ringExpand 7s linear infinite;
+}
+
+.ring:nth-of-type(1) {
+  width: 20vmin;
+  height: 20vmin;
+  animation-delay: 0s;
+}
+
+.ring:nth-of-type(2) {
+  width: 45vmin;
+  height: 45vmin;
+  animation-delay: -2.3s;
+}
+
+.ring:nth-of-type(3) {
+  width: 75vmin;
+  height: 75vmin;
+  animation-delay: -4.6s;
+}
+
+@keyframes ringExpand {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(.35)
+      rotate(0deg);
+  }
+
+  15% {
+    opacity: .7;
+  }
+
+  70% {
+    opacity: .25;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1.35)
+      rotate(180deg);
+  }
+}
+
+
+/* =========================================================
+   軌道
+========================================================= */
+
+.title-orbit {
+  position: absolute;
+
+  width: 58vmin;
+  height: 58vmin;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border:
+    1px solid rgba(255,255,255,.06);
+
+  animation:
+    orbitRotate 16s linear infinite;
+}
+
+.title-orbit::before,
+.title-orbit::after {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: -4px;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #ff334f;
+
+  box-shadow:
+    0 0 8px #ff334f,
+    0 0 20px rgba(255,0,40,.8);
+}
+
+.title-orbit::after {
+  top: auto;
+  bottom: -4px;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 8px white,
+    0 0 18px rgba(255,255,255,.5);
+}
+
+@keyframes orbitRotate {
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   粒子
+========================================================= */
+
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+
+  width: 2px;
+  height: 2px;
+
+  border-radius: 50%;
+
+  background: #ff4b62;
+
+  box-shadow:
+    0 0 6px #ff304b,
+    0 0 12px rgba(255,0,40,.5);
+
+  animation:
+    particleFly var(--duration) linear infinite;
+}
+
+@keyframes particleFly {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(var(--startX), var(--startY))
+      scale(.2);
+  }
+
+  10% {
+    opacity: var(--opacity);
+  }
+
+  70% {
+    opacity: var(--opacity);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(var(--endX), var(--endY))
+      scale(1.4);
+  }
+}
+
+
+/* =========================================================
+   スキャンライン
+========================================================= */
+
+.scan-line {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
   background:
     repeating-linear-gradient(
-      0deg,
-      transparent,
+      to bottom,
+      transparent 0px,
       transparent 3px,
-      #ff18380a 4px
+      rgba(255,255,255,.018) 4px,
+      transparent 5px
     );
-  pointer-events:none;
+
+  opacity: .45;
+
+  animation:
+    scanMove 8s linear infinite;
 }
 
-.story-vignette{
-  position:absolute;
-  inset:0;
-  box-shadow:inset 0 0 180px #000;
-  pointer-events:none;
+@keyframes scanMove {
+  from {
+    transform: translateY(-10%);
+  }
+
+  to {
+    transform: translateY(10%);
+  }
 }
 
-.story-inner{
-  position:relative;
-  z-index:5;
-  max-width:900px;
-  min-height:100vh;
-  margin:auto;
-  padding:30px 18px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+
+/* =========================================================
+   ノイズ
+========================================================= */
+
+.noise {
+  position: absolute;
+
+  inset: -50%;
+
+  pointer-events: none;
+
+  opacity: .035;
+
+  background-image:
+    repeating-radial-gradient(
+      circle at 0 0,
+      #fff 0,
+      transparent 1px,
+      transparent 3px
+    );
+
+  background-size: 7px 7px;
+
+  animation:
+    noiseMove .18s steps(2) infinite;
 }
 
-.chapter-number{
-  color:#ff4058;
-  letter-spacing:7px;
-  text-align:center;
-  font-size:14px;
-  text-shadow:0 0 15px #ff1738;
+@keyframes noiseMove {
+
+  0% {
+    transform: translate(0,0);
+  }
+
+  25% {
+    transform: translate(3%,-2%);
+  }
+
+  50% {
+    transform: translate(-2%,3%);
+  }
+
+  75% {
+    transform: translate(2%,2%);
+  }
+
+  100% {
+    transform: translate(-3%,-1%);
+  }
 }
 
-.chapter-title{
-  text-align:center;
-  font-size:clamp(30px,7vw,58px);
-  margin:8px 0 35px;
-  color:#fff;
+
+/* =========================================================
+   霧
+========================================================= */
+
+.mist {
+  position: absolute;
+
+  width: 100%;
+  height: 50%;
+
+  left: 0;
+  bottom: 0;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255,255,255,.045),
+      transparent 70%
+    );
+
+  filter: blur(30px);
+
+  opacity: .35;
+
+  animation:
+    mistMove 10s ease-in-out infinite alternate;
+}
+
+@keyframes mistMove {
+  from {
+    transform:
+      translateX(-4%)
+      scale(1);
+  }
+
+  to {
+    transform:
+      translateX(4%)
+      scale(1.12);
+  }
+}
+
+
+/* =========================================================
+   タイトル
+========================================================= */
+
+.title-content {
+  position: relative;
+  z-index: 10;
+
+  text-align: center;
+
+  animation:
+    titleAppear 2.5s
+    cubic-bezier(.2,.8,.2,1)
+    forwards;
+}
+
+@keyframes titleAppear {
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(1.25);
+
+    filter: blur(20px);
+  }
+
+  55% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      scale(1);
+  }
+}
+
+.title-content h1 {
+  margin: 0;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:
+    clamp(70px,16vw,170px);
+
+  font-weight: 400;
+
+  letter-spacing: .08em;
+
+  color: #f4f4f4;
+
   text-shadow:
-    0 0 8px #fff,
-    0 0 20px #ff203d,
-    0 0 50px #8e0018;
+    0 0 5px rgba(255,255,255,.7),
+    0 0 18px rgba(255,40,60,.45),
+    0 0 50px rgba(255,0,40,.25);
+
+  animation:
+    titleFloat 4s ease-in-out infinite,
+    titleGlitch 7s steps(1) infinite;
 }
 
-.story-box{
-  min-height:260px;
-  padding:25px;
-  border:1px solid #6d1627;
-  border-radius:18px;
-  background:
-    linear-gradient(
-      145deg,
-      #090208ed,
-      #24050cf0
-    );
-  box-shadow:
-    0 0 50px #ff002015,
-    inset 0 0 35px #ff00200c;
-  animation:storyBoxAppear .7s ease-out;
-}
-
-@keyframesstoryBoxAppear{
-  from{
-    opacity:0;
-    transform:translateY(20px);
-    filter:blur(8px);
+@keyframes titleFloat {
+  0%,100% {
+    transform: translateY(0);
   }
-  to{
-    opacity:1;
-    transform:none;
-    filter:blur(0);
+
+  50% {
+    transform: translateY(-5px);
   }
 }
 
-.story-speaker{
-  color:#ff5068;
-  font-weight:bold;
-  margin-bottom:12px;
-  letter-spacing:2px;
+@keyframes titleGlitch {
+
+  0%,90%,100% {
+    filter: none;
+
+    text-shadow:
+      0 0 5px rgba(255,255,255,.7),
+      0 0 18px rgba(255,40,60,.45),
+      0 0 50px rgba(255,0,40,.25);
+  }
+
+  91% {
+    transform: translateX(-4px);
+
+    filter: contrast(1.5);
+
+    text-shadow:
+      5px 0 #ff1744,
+      -5px 0 #00e5ff;
+  }
+
+  92% {
+    transform: translateX(4px);
+
+    text-shadow:
+      -4px 0 #ff1744,
+      4px 0 #00e5ff;
+  }
+
+  93% {
+    transform: translateX(0);
+  }
 }
 
-.story-text{
-  font-size:clamp(17px,3vw,22px);
-  line-height:2;
-  white-space:pre-line;
-  min-height:130px;
+
+.subtitle {
+  margin-top: 10px;
+
+  color: #999;
+
+  font-size:
+    clamp(12px,2.5vw,18px);
+
+  letter-spacing: .3em;
+
+  opacity: .8;
+
+  animation:
+    subtitlePulse 4s ease-in-out infinite;
 }
 
-.story-controls{
-  margin-top:20px;
+@keyframes subtitlePulse {
+
+  0%,100% {
+    opacity: .45;
+    letter-spacing: .25em;
+  }
+
+  50% {
+    opacity: 1;
+    letter-spacing: .38em;
+  }
 }
 
-.story-next{
-  border-color:#a51b32;
-  font-weight:bold;
-  letter-spacing:2px;
+
+/* =========================================================
+   ボタン
+========================================================= */
+
+.enter {
+  margin-top: 55px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 15px;
 }
 
-.story-flash{
-  position:fixed;
-  inset:0;
-  z-index:9998;
-  pointer-events:none;
-  background:#ff1838;
-  opacity:0;
-}
+.enter button,
+.menu-button,
+.back-button {
 
-.story-flash.active{
-  animation:storyFlash .35s ease-out;
-}
+  min-width: 220px;
 
-@keyframesstoryFlash{
-  0%{opacity:.65}
-  100%{opacity:0}
-}
+  padding: 14px 28px;
 
-.story-shake{
-  animation:screenShake .25s linear;
-}
+  border:
+    1px solid rgba(255,255,255,.18);
 
-@keyframesscreenShake{
-  0%{transform:translate(0)}
-  20%{transform:translate(-8px,3px)}
-  40%{transform:translate(8px,-3px)}
-  60%{transform:translate(-5px,-2px)}
-  80%{transform:translate(5px,2px)}
-  100%{transform:translate(0)}
-}
-
-/* ==================================================
-   GAME UI
-================================================== */
-
-.container{
-  max-width:950px;
-  margin:auto;
-  padding:18px;
-}
-
-.panel{
-  background:
-    linear-gradient(
-      145deg,
-      #10050aee,
-      #1d070dee
-    );
-  border:1px solid #4b1622;
-  border-radius:16px;
-  padding:18px;
-  margin:12px 0;
-  box-shadow:
-    0 10px 30px #000b,
-    inset 0 0 25px #ff00100a;
-}
-
-.menu-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-}
-
-.gold{color:#ffd76a}
-.cyan{color:#79eaff}
-.blood{color:#ff536b}
-.flame{color:#ff8a8a}
-.muted{color:#bda8ad}
-
-.character-list{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-}
-
-.character-card{
-  background:#0d0509;
-  border:1px solid #4a1722;
-  border-radius:15px;
-  padding:14px;
-  cursor:pointer;
-  transition:.25s;
-}
-
-.character-card:hover{
-  transform:translateY(-5px);
-  border-color:#ff304b;
-  box-shadow:0 0 30px #ff173822;
-}
-
-.character-icon{
-  height:180px;
-  border-radius:12px;
-  margin-bottom:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:70px;
-  background:
-    radial-gradient(circle,#55101d,#080207 70%);
-  border:1px solid #8c2638;
-}
-
-.slime-icon{
-  background:
-    radial-gradient(circle,#124959,#080c13 70%);
-  border-color:#42cde8;
-}
-
-.flame-icon{
-  background:
-    radial-gradient(circle,#5b1118,#080207 70%);
-  border-color:#ff455c;
-}
-
-.profile{
-  white-space:pre-line;
-  line-height:1.7;
-}
-
-.skill-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.skill-item{
-  padding:14px;
-  background:#12070c;
-  border:1px solid #4b1824;
-  border-radius:12px;
-}
-
-.hp{
-  height:20px;
-  background:#29232a;
-  border-radius:10px;
-  overflow:hidden;
-  margin:6px 0 15px;
-}
-
-.hp-inner{
-  height:100%;
   background:
     linear-gradient(
       90deg,
-      #8e1528,
-      #ff536b,
-      #ffb0b8
+      rgba(255,255,255,.035),
+      rgba(255,0,40,.05),
+      rgba(255,255,255,.035)
     );
-  transition:.3s;
+
+  color: #eee;
+
+  letter-spacing: .12em;
+
+  transition:
+    transform .25s,
+    border-color .25s,
+    background .25s,
+    box-shadow .25s;
+
+  position: relative;
+
+  overflow: hidden;
 }
 
-.log{
-  min-height:90px;
-  max-height:250px;
-  overflow:auto;
-  background:#030003;
-  border:1px solid #33101a;
-  border-radius:12px;
-  padding:12px;
-  line-height:1.7;
+.enter button::before,
+.menu-button::before,
+.back-button::before {
+
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.15),
+      transparent
+    );
+
+  transition: left .5s;
 }
 
-.equip{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  background:#12070c;
-  border-radius:10px;
-  padding:10px;
-  margin:7px 0;
+.enter button:hover::before,
+.menu-button:hover::before,
+.back-button:hover::before {
+  left: 100%;
 }
 
-.equip button{
-  width:auto;
-  margin:0;
+.enter button:hover,
+.menu-button:hover,
+.back-button:hover {
+
+  transform:
+    translateY(-2px);
+
+  border-color:
+    rgba(255,60,80,.65);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,0,40,.06),
+      rgba(255,0,40,.15),
+      rgba(255,0,40,.06)
+    );
+
+  box-shadow:
+    0 0 20px rgba(255,0,40,.15);
 }
 
-.skill-equipped{
-  border-color:#ff304d !important;
-  box-shadow:0 0 15px #ff183822;
+.enter button:active {
+  transform: scale(.97);
 }
 
-.battle-skill{
-  position:relative;
+
+/* =========================================================
+   メニュー
+========================================================= */
+
+.menu-title {
+  text-align: center;
+
+  margin-bottom: 35px;
+
+  font-weight: 400;
+
+  letter-spacing: .15em;
 }
 
-.skill-number{
-  color:#ff687c;
-  font-size:12px;
-  margin-left:6px;
+.menu-gems {
+  text-align: center;
+
+  margin-bottom: 30px;
+
+  padding: 15px;
+
+  border-top:
+    1px solid rgba(255,255,255,.08);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
 }
 
-/* ==================================================
-   BATTLE EFFECT
-================================================== */
+.menu-buttons {
+  display: flex;
 
-#battleEffect{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:9997;
-  opacity:0;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 12px;
 }
 
-#battleEffect.active{
-  animation:battleFlash .28s ease-out;
+
+/* =========================================================
+   カード
+========================================================= */
+
+.character-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(200px,1fr)
+    );
+
+  gap: 15px;
 }
 
-@keyframesbattleFlash{
-  0%{
-    opacity:.5;
-    background:#ff1838;
+.character-card,
+.skill-item {
+
+  padding: 22px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.035),
+      rgba(255,0,40,.025)
+    );
+
+  transition:
+    transform .25s,
+    border-color .25s,
+    box-shadow .25s;
+}
+
+.character-card:hover,
+.skill-item:hover {
+
+  transform:
+    translateY(-4px);
+
+  border-color:
+    rgba(255,50,70,.45);
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.3),
+    0 0 20px rgba(255,0,40,.06);
+}
+
+.character-icon {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
+
+.flame-icon {
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(255,70,0,.5)
+    );
+}
+
+
+/* =========================================================
+   ストーリー
+========================================================= */
+
+.story-box {
+
+  max-width: 800px;
+
+  margin: 30px auto;
+
+  min-height: 340px;
+
+  padding: 30px;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  background:
+    rgba(0,0,0,.25);
+
+  box-shadow:
+    inset 0 0 50px
+    rgba(255,0,40,.025);
+}
+
+.chapter-number {
+
+  color: #ff596e;
+
+  font-size: 14px;
+
+  letter-spacing: .25em;
+
+  margin-top: 20px;
+}
+
+.chapter-title {
+
+  font-size: 30px;
+
+  margin-top: 8px;
+
+  margin-bottom: 25px;
+
+  letter-spacing: .08em;
+}
+
+.story-speaker {
+
+  color: #ff7181;
+
+  margin-bottom: 20px;
+
+  font-weight: bold;
+}
+
+.story-text {
+
+  line-height: 2.1;
+
+  white-space: pre-wrap;
+
+  min-height: 160px;
+}
+
+.story-controls {
+
+  margin-top: 30px;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   バトル
+========================================================= */
+
+.hp {
+
+  height: 18px;
+
+  margin:
+    8px 0 20px;
+
+  background: #111;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+}
+
+.hp-inner {
+
+  height: 100%;
+
+  width: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff3048,
+      #ff7585
+    );
+
+  transition:
+    width .35s;
+}
+
+.battle-actions {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-top: 25px;
+}
+
+
+/* =========================================================
+   ガチャ
+========================================================= */
+
+.gacha-box {
+
+  max-width: 600px;
+
+  margin: 30px auto;
+
+  padding: 35px;
+
+  text-align: center;
+
+  border:
+    1px solid rgba(255,255,255,.1);
+
+  background:
+    rgba(255,255,255,.025);
+}
+
+.gacha-result {
+
+  margin-top: 25px;
+
+  min-height: 80px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  font-size: 22px;
+
+  color: #ffd95c;
+}
+
+
+/* =========================================================
+   設定
+========================================================= */
+
+.setting-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  padding: 18px 0;
+
+  border-bottom:
+    1px solid rgba(255,255,255,.08);
+}
+
+
+/* =========================================================
+   起動演出
+========================================================= */
+
+.boot-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 9999;
+
+  background: #000;
+
+  pointer-events: none;
+
+  animation:
+    bootFade 2.2s ease forwards;
+}
+
+@keyframes bootFade {
+
+  0% {
+    opacity: 1;
   }
-  100%{
-    opacity:0;
-    background:#ff1838;
+
+  70% {
+    opacity: .8;
+  }
+
+  100% {
+    opacity: 0;
   }
 }
 
-/* ==================================================
-   SAFETY FALLBACK
-================================================== */
+.title-flash {
 
-#bootMessage{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  background:#020003;
-  z-index:200000;
-  text-align:center;
-  padding:30px;
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100;
+
+  background:
+    rgba(255,255,255,.08);
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  animation:
+    flash .15s ease;
 }
 
-#bootMessage.show{
-  display:flex;
+@keyframes flash {
+
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
-@media(max-width:650px){
+.title-shake {
+  animation:
+    screenShake .16s linear;
+}
 
-  .menu-grid,
-  .skill-grid,
-  .character-list{
-    grid-template-columns:1fr;
+@keyframes screenShake {
+
+  0% {
+    transform: translate(0);
   }
 
-  .character-icon{
-    height:150px;
+  20% {
+    transform: translate(-2px,1px);
   }
 
-  .story-box{
-    padding:18px;
+  40% {
+    transform: translate(2px,-1px);
   }
 
-  .title-core h1{
-    letter-spacing:10px;
+  60% {
+    transform: translate(-1px,-2px);
+  }
+
+  80% {
+    transform: translate(1px,2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+
+/* =========================================================
+   スマホ
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .screen {
+    padding: 22px 15px;
+  }
+
+  .title-content h1 {
+    font-size: 22vw;
+  }
+
+  .subtitle {
+    font-size: 10px;
+  }
+
+  .story-box {
+    padding: 20px;
+  }
+
+  .enter {
+    margin-top: 40px;
+  }
+
+  .enter button,
+  .menu-button,
+  .back-button {
+    width: min(90vw,320px);
+  }
+
+  .chapter-title {
+    font-size: 24px;
   }
 }
 </style>
 </head>
 
+
 <body>
 
-<!-- ==================================================
-     BOOT FALLBACK
-================================================== -->
+<div class="boot-overlay"></div>
 
-<div id="bootMessage">
-  <div>
-    <h2>Θαύμα</h2>
-    <p>画面を初期化しています……</p>
-    <button onclick="forceTitle()">タイトルへ</button>
-  </div>
-</div>
 
-<!-- ==================================================
-     NOISE
-================================================== -->
-
-<div id="noiseTransition">
-  <div class="noiseLayer"></div>
-  <div class="noiseRed"></div>
-</div>
-
-<!-- ==================================================
-     FORESHADOW
-================================================== -->
-
-<div id="foreshadowScreen">
-
-  <div class="foreshadow-lines"></div>
-
-  <div class="foreshadow-content">
-
-    <div class="foreshadow-small">
-      ―― 記録されていない言葉 ――
-    </div>
-
-    <div id="foreshadowQuote"></div>
-
-    <div class="foreshadow-progress"></div>
-
-  </div>
-
-</div>
-
-<div id="storyFlash" class="story-flash"></div>
-<div id="battleEffect"></div>
-
-<!-- ==================================================
+<!-- ======================================================
      TITLE
-================================================== -->
+====================================================== -->
 
-<div id="titleScreen" class="screen title-screen active">
+<section id="titleScreen" class="screen">
 
-  <div class="title-bg">
+  <div class="title-void"></div>
 
-    <div class="red-glow"></div>
+  <div class="red-glow"></div>
 
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
+  <div class="ring"></div>
 
-    <div class="particles" id="particles"></div>
+  <div class="title-orbit"></div>
 
-    <div class="scan-line"></div>
-
-    <div class="mist"></div>
-
+  <div
+    class="particles"
+    id="particles">
   </div>
 
-  <div class="title-core">
+  <div class="scan-line"></div>
+
+  <div class="mist"></div>
+
+  <div class="noise"></div>
+
+
+  <div class="title-content">
 
     <h1>Θαύμα</h1>
 
@@ -1011,3290 +1277,2115 @@ button:active{
 
   </div>
 
-</div>
+</section>
 
-<!-- ==================================================
-     STORY
-================================================== -->
 
-<div id="storyScreen" class="screen story-screen">
+<!-- ======================================================
+     MENU
+====================================================== -->
 
-  <div class="blood-rain" id="bloodRain"></div>
+<section
+  id="menuScreen"
+  class="screen hidden">
 
-  <div class="story-red-fog"></div>
+  <div class="screen-inner">
 
-  <div class="story-vignette"></div>
+    <button
+      class="back-button"
+      onclick="showScreen('titleScreen')">
 
-  <div class="story-inner">
+      ← タイトルへ
 
-    <div id="chapterNumber" class="chapter-number"></div>
+    </button>
 
-    <div id="chapterTitle" class="chapter-title"></div>
+    <h2 class="menu-title">
+      Θαύμα
+    </h2>
 
-    <div id="storyBox" class="story-box">
+    <div class="menu-gems">
 
-      <div id="storySpeaker" class="story-speaker"></div>
+      所持石：
 
-      <div id="storyText" class="story-text"></div>
+      <span
+        id="menuGems"
+        class="gold">
+        300
+      </span>
 
-      <div class="story-controls">
+      💎
 
-        <button
-          id="storyNextButton"
-          class="story-next"
-          onclick="nextStory()"
-        >
-          ▶ 次へ
-        </button>
+    </div>
 
-      </div>
+
+    <div class="menu-buttons">
+
+      <button
+        class="menu-button"
+        onclick="showScreen('storySelectScreen')">
+
+        📖 ストーリー
+
+      </button>
+
+      <button
+        class="menu-button"
+        onclick="showScreen('charactersScreen')">
+
+        キャラクター図鑑
+
+      </button>
+
+      <button
+        class="menu-button"
+        onclick="showScreen('skillsScreen')">
+
+        スキル図鑑
+
+      </button>
+
+      <button
+        class="menu-button"
+        onclick="showScreen('gachaScreen')">
+
+        スキルガチャ
+
+      </button>
+
+      <button
+        class="menu-button"
+        onclick="showScreen('challengeScreen')">
+
+        挑戦
+
+      </button>
+
+      <button
+        class="menu-button"
+        onclick="showScreen('equipScreen')">
+
+        スキルセット
+
+      </button>
+
+      <button
+        class="menu-button"
+        onclick="showScreen('battleCharacterScreen')">
+
+        戦闘キャラ選択
+
+      </button>
+
+      <button
+        class="menu-button"
+        onclick="showScreen('settingsScreen')">
+
+        設定
+
+      </button>
 
     </div>
 
   </div>
 
-</div>
+</section>
 
-<!-- ==================================================
-     GAME
-================================================== -->
 
-<div class="container">
-
-<!-- MENU -->
-
-<div id="menuScreen" class="screen">
-
-  <div class="panel">
-
-    <h2>Θαύμα</h2>
-
-    <p>
-      所持石：
-      <span id="menuGems" class="gold">300</span>
-      💎
-    </p>
-
-  </div>
-
-  <div class="menu-grid">
-
-    <button onclick="showScreen('storySelectScreen')">
-      📖 ストーリー
-    </button>
-
-    <button onclick="showScreen('charactersScreen')">
-      キャラクター図鑑
-    </button>
-
-    <button onclick="showScreen('skillsScreen')">
-      スキル図鑑
-    </button>
-
-    <button onclick="showScreen('gachaScreen')">
-      スキルガチャ
-    </button>
-
-    <button onclick="showScreen('challengeScreen')">
-      挑戦
-    </button>
-
-    <button onclick="showScreen('equipScreen')">
-      スキルセット
-    </button>
-
-    <button onclick="showScreen('battleCharacterScreen')">
-      戦闘キャラ選択
-    </button>
-
-    <button onclick="showScreen('settingsScreen')">
-      設定
-    </button>
-
-  </div>
-
-</div>
-
-<!-- ==================================================
+<!-- ======================================================
      STORY SELECT
-================================================== -->
+====================================================== -->
 
-<div id="storySelectScreen" class="screen">
+<section
+  id="storySelectScreen"
+  class="screen hidden">
 
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
+  <div class="screen-inner">
 
-  <h2>📖 ストーリー</h2>
+    <button
+      class="back-button"
+      onclick="showScreen('menuScreen')">
 
-  <div class="panel">
+      ← 戻る
+
+    </button>
+
+    <h2>📖 ストーリー</h2>
 
     <h3>
       Θαύμα ― 世界の外側にある物語
     </h3>
 
     <p class="muted">
+
       世界は、最初から完成していたわけではなかった。
-      <br>
-      そして――誰かが、その外側を見つけた。
+      <br><br>
+
+      そして――誰かが、
+      その外側を見つけた。
+
     </p>
 
-  </div>
+    <button
+      class="menu-button"
+      onclick="startStory()">
 
-  <div id="chapterList"></div>
+      第一章から読む
 
-</div>
-
-<!-- ==================================================
-     CHARACTERS
-================================================== -->
-
-<div id="charactersScreen" class="screen">
-
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
-
-  <h2>キャラクター図鑑</h2>
-
-  <div class="character-list">
-
-    <div
-      class="character-card"
-      onclick="showProfile('servant')"
-    >
-      <div class="character-icon slime-icon">
-        🩵
-      </div>
-
-      <b>下僕（げぼく）</b>
-
-      <br>
-
-      <span class="muted">
-        究極眷属
-      </span>
-    </div>
-
-    <div
-      class="character-card"
-      onclick="showProfile('guren')"
-    >
-      <div class="character-icon">
-        🩸⚰️
-      </div>
-
-      <b>皇 紅蓮</b>
-
-      <br>
-
-      <span class="muted">
-        霊界追放者
-      </span>
-    </div>
-
-    <div
-      class="character-card"
-      onclick="showProfile('kagari')"
-    >
-      <div class="character-icon flame-icon">
-        🔥
-      </div>
-
-      <b>焔緋 灯影</b>
-
-      <br>
-
-      <span class="muted">
-        終焉の管理者
-      </span>
-    </div>
-
-    <div
-      class="character-card"
-      onclick="showProfile('homurabi')"
-    >
-      <div class="character-icon flame-icon">
-        🔥
-      </div>
-
-      <b>焔緋（ほむらび）くん</b>
-
-      <br>
-
-      <span class="muted">
-        何でも屋・交渉人
-      </span>
-    </div>
-
-  </div>
-
-  <div id="profileBox"></div>
-
-</div>
-
-<!-- ==================================================
-     SKILLS
-================================================== -->
-
-<div id="skillsScreen" class="screen">
-
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
-
-  <h2>スキル図鑑</h2>
-
-  <div class="skill-grid">
-
-    <div class="skill-item">
-      ⚔️ <b>斬撃</b>
-      <br>
-      <span class="muted">
-        基本攻撃。100前後のダメージ。
-      </span>
-    </div>
-
-    <div class="skill-item">
-      ✨ <b>星の閃光</b>
-      <br>
-      <span class="muted">
-        190ダメージ。
-      </span>
-    </div>
-
-    <div class="skill-item">
-      💚 <b>再生</b>
-      <br>
-      <span class="muted">
-        HPを220回復。
-      </span>
-    </div>
-
-    <div class="skill-item">
-      🌌 <b>完全適応</b>
-      <br>
-      <span class="muted">
-        使用するほど戦闘への適応率が上昇。
-      </span>
-    </div>
-
-  </div>
-
-</div>
-
-<!-- ==================================================
-     GACHA
-================================================== -->
-
-<div id="gachaScreen" class="screen">
-
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
-
-  <h2>スキルガチャ</h2>
-
-  <div class="panel">
-
-    所持石：
-    <span id="gachaGems" class="gold">
-      300
-    </span>
-    💎
-
-  </div>
-
-  <button onclick="gacha(1)">
-    1回引く　300石
-  </button>
-
-  <button onclick="gacha(10)">
-    10回引く　3000石
-  </button>
-
-  <div id="gachaResult" class="panel"></div>
-
-</div>
-
-<!-- ==================================================
-     CHALLENGE
-================================================== -->
-
-<div id="challengeScreen" class="screen">
-
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
-
-  <h2>挑戦</h2>
-
-  <p class="muted">
-    敵を倒すと石を獲得できます。
-  </p>
-
-  <div id="enemyList"></div>
-
-</div>
-
-<!-- ==================================================
-     BATTLE
-================================================== -->
-
-<div id="battleScreen" class="screen">
-
-  <div class="panel">
-
-    <h2 id="battleEnemyName"></h2>
-
-    敵HP：
-    <span id="enemyHpText"></span>
-
-    <div class="hp">
-      <div id="enemyHpBar" class="hp-inner"></div>
-    </div>
-
-    味方HP：
-    <span id="playerHpText"></span>
-
-    <div class="hp">
-      <div id="playerHpBar" class="hp-inner"></div>
-    </div>
-
-  </div>
-
-  <div id="battleLog" class="log"></div>
-
-  <div class="panel">
-
-    <button onclick="battleAttack()">
-      ⚔️ 攻撃
     </button>
 
-    <button onclick="battleGuard()">
-      🛡️ 防御
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     STORY
+====================================================== -->
+
+<section
+  id="storyScreen"
+  class="screen hidden">
+
+  <div class="screen-inner">
+
+    <button
+      class="back-button"
+      onclick="showScreen('storySelectScreen')">
+
+      ← 戻る
+
     </button>
 
-    <div id="battleSkillButtons"></div>
 
-  </div>
+    <div
+      id="chapterNumber"
+      class="chapter-number">
+    </div>
 
-</div>
 
-<!-- ==================================================
-     EQUIP
-================================================== -->
+    <div
+      id="chapterTitle"
+      class="chapter-title">
+    </div>
 
-<div id="equipScreen" class="screen">
 
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
+    <div
+      id="storyBox"
+      class="story-box">
 
-  <h2>スキルセット</h2>
+      <div
+        id="storySpeaker"
+        class="story-speaker">
+      </div>
 
-  <p>
-    装備したスキルだけが戦闘で使用できます。
-    <br>
-    <b class="blood">
-      最大3個
-    </b>
-  </p>
 
-  <div class="panel">
+      <div
+        id="storyText"
+        class="story-text">
+      </div>
 
-    <div id="equipList"></div>
 
-    <p id="equipStatus" class="cyan"></p>
-
-  </div>
-
-</div>
-
-<!-- ==================================================
-     CHARACTER SELECT
-================================================== -->
-
-<div id="battleCharacterScreen" class="screen">
-
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
-
-  <h2>戦闘キャラ選択</h2>
-
-  <button onclick="selectCharacter('旅人')">
-    旅人
-  </button>
-
-  <button onclick="selectCharacter('下僕')">
-    🩵 下僕
-  </button>
-
-  <button onclick="selectCharacter('皇 紅蓮')">
-    🩸 皇 紅蓮
-  </button>
-
-  <button onclick="selectCharacter('焔緋 灯影')">
-    🔥 焔緋 灯影
-  </button>
-
-  <div class="panel">
-
-    現在：
-    <span id="selectedCharacter">
-      旅人
-    </span>
-
-  </div>
-
-</div>
-
-<!-- ==================================================
-     SETTINGS
-================================================== -->
-
-<div id="settingsScreen" class="screen">
-
-  <button onclick="showScreen('menuScreen')">
-    ← 戻る
-  </button>
-
-  <h2>設定</h2>
-
-  <button onclick="toggleBGM()">
-    BGM：
-    <span id="bgmState">ON</span>
-  </button>
-
-  <button onclick="toggleSE()">
-    効果音：
-    <span id="seState">ON</span>
-  </button>
-
-  <button onclick="deleteSave()">
-    セーブデータ削除
-  </button>
-
-</div>
-
-</div>
-
-<script>
-
-/* ==================================================
-   PARTICLES
-================================================== */
-
-function createParticles(){
-
-  const container=
-    document.getElementById("particles");
-
-  if(!container)return;
-
-  container.innerHTML="";
-
-  for(let i=0;i<60;i++){
-
-    const p=
-      document.createElement("div");
-
-    p.className="particle";
-
-    p.style.left=
-      Math.random()*100+"%";
-
-    p.style.animationDuration=
-      (5+Math.random()*9)+"s";
-
-    p.style.animationDelay=
-      (-Math.random()*10)+"s";
-
-    container.appendChild(p);
-  }
-}
-
-/* ==================================================
-   BLOOD RAIN
-================================================== */
-
-function createBloodRain(){
-
-  const container=
-    document.getElementById("bloodRain");
-
-  if(!container)return;
-
-  container.innerHTML="";
-
-  for(let i=0;i<110;i++){
-
-    const drop=
-      document.createElement("div");
-
-    drop.className="rain-drop";
-
-    const r=Math.random();
-
-    if(r<.35){
-      drop.classList.add("small");
-    }
-
-    if(r>.88){
-      drop.classList.add("big");
-    }
-
-    drop.style.left=
-      Math.random()*105+"%";
-
-    drop.style.animationDuration=
-      (1.3+Math.random()*2.8)+"s";
-
-    drop.style.animationDelay=
-      (-Math.random()*5)+"s";
-
-    drop.style.opacity=
-      (.25+Math.random()*.6);
-
-    container.appendChild(drop);
-  }
-}
-
-createParticles();
-createBloodRain();
-
-/* ==================================================
-   GAME DATA
-================================================== */
-
-const defaultGameData={
-  gems:300,
-  character:"旅人",
-  bgm:true,
-  se:true,
-
-  equipped:[
-    "斬撃",
-    "星の閃光",
-    "再生"
-  ],
-
-  storyProgress:0
-};
-
-let gameData={
-  ...defaultGameData
-};
-
-let currentEnemy=null;
-
-let playerHP=1000;
-let playerMaxHP=1000;
-
-let enemyHP=0;
-let enemyMaxHP=0;
-
-let guarding=false;
-let battleFinished=false;
-
-let adaptationLevel=0;
-
-let currentChapter=0;
-let currentLine=0;
-
-let storyTypingTimer=null;
-
-/* ==================================================
-   AUDIO
-================================================== */
-
-let audioCtx=null;
-let seGain=null;
-let bgmGain=null;
-let bgmTimer=null;
-
-function initAudio(){
-
-  if(audioCtx){
-
-    if(audioCtx.state==="suspended"){
-      audioCtx.resume();
-    }
-
-    return;
-  }
-
-  const AudioContextClass=
-    window.AudioContext ||
-    window.webkitAudioContext;
-
-  if(!AudioContextClass)return;
-
-  audioCtx=
-    new AudioContextClass();
-
-  seGain=
-    audioCtx.createGain();
-
-  bgmGain=
-    audioCtx.createGain();
-
-  seGain.gain.value=.07;
-  bgmGain.gain.value=.025;
-
-  seGain.connect(
-    audioCtx.destination
-  );
-
-  bgmGain.connect(
-    audioCtx.destination
-  );
-}
-
-function seTone(
-  frequency,
-  duration,
-  type="sine",
-  volume=.2
-){
-
-  if(!gameData.se)return;
-
-  initAudio();
-
-  if(!audioCtx)return;
-
-  if(audioCtx.state==="suspended"){
-    audioCtx.resume();
-  }
-
-  const osc=
-    audioCtx.createOscillator();
-
-  const gain=
-    audioCtx.createGain();
-
-  osc.type=type;
-  osc.frequency.value=frequency;
-
-  gain.gain.setValueAtTime(
-    volume,
-    audioCtx.currentTime
-  );
-
-  gain.gain.exponentialRampToValueAtTime(
-    .001,
-    audioCtx.currentTime+duration
-  );
-
-  osc.connect(gain);
-  gain.connect(seGain);
-
-  osc.start();
-
-  osc.stop(
-    audioCtx.currentTime+duration
-  );
-}
-
-/* ==================================================
-   DARK BGM
-================================================== */
-
-function startBGM(){
-
-  if(!gameData.bgm)return;
-
-  initAudio();
-
-  if(!audioCtx)return;
-
-  if(audioCtx.state==="suspended"){
-    audioCtx.resume();
-  }
-
-  if(bgmTimer)return;
-
-  const notes=[
-    55,
-    58.27,
-    65.41,
-    49,
-    51.91,
-    55,
-    41.20,
-    46.25
-  ];
-
-  let i=0;
-
-  bgmTimer=
-    setInterval(()=>{
-
-      if(!gameData.bgm)return;
-
-      const osc=
-        audioCtx.createOscillator();
-
-      const gain=
-        audioCtx.createGain();
-
-      osc.type="sawtooth";
-
-      osc.frequency.value=
-        notes[i%notes.length];
-
-      osc.detune.value=
-        Math.sin(i*.7)*10;
-
-      gain.gain.setValueAtTime(
-        .001,
-        audioCtx.currentTime
-      );
-
-      gain.gain.linearRampToValueAtTime(
-        .035,
-        audioCtx.currentTime+.2
-      );
-
-      gain.gain.exponentialRampToValueAtTime(
-        .001,
-        audioCtx.currentTime+2.5
-      );
-
-      osc.connect(gain);
-      gain.connect(bgmGain);
-
-      osc.start();
-
-      osc.stop(
-        audioCtx.currentTime+2.6
-      );
-
-      i++;
-
-    },1100);
-}
-
-function stopBGM(){
-
-  if(bgmTimer){
-    clearInterval(bgmTimer);
-    bgmTimer=null;
-  }
-}
-
-/* ==================================================
-   SAVE
-================================================== */
-
-function saveGame(){
-
-  try{
-
-    localStorage.setItem(
-      "thavmaSave",
-      JSON.stringify(gameData)
-    );
-
-  }catch(e){
-
-    console.warn(
-      "セーブに失敗しました",
-      e
-    );
-  }
-}
-
-function loadGameData(){
-
-  gameData={
-    ...defaultGameData
-  };
-
-  const saved=
-    localStorage.getItem(
-      "thavmaSave"
-    );
-
-  if(saved){
-
-    try{
-
-      const parsed=
-        JSON.parse(saved);
-
-      if(parsed &&
-         typeof parsed==="object"){
-
-        gameData={
-          ...gameData,
-          ...parsed
-        };
-      }
-
-    }catch(e){
-
-      console.warn(
-        "セーブデータを読み込めませんでした",
-        e
-      );
-    }
-  }
-
-  if(!Array.isArray(gameData.equipped)){
-    gameData.equipped=[];
-  }
-
-  if(typeof gameData.storyProgress!=="number"){
-    gameData.storyProgress=0;
-  }
-
-  if(typeof gameData.gems!=="number"){
-    gameData.gems=300;
-  }
-
-  if(typeof gameData.character!=="string"){
-    gameData.character="旅人";
-  }
-
-  if(typeof gameData.bgm!=="boolean"){
-    gameData.bgm=true;
-  }
-
-  if(typeof gameData.se!=="boolean"){
-    gameData.se=true;
-  }
-
-  updateGemDisplays();
-
-  const selected=
-    document.getElementById(
-      "selectedCharacter"
-    );
-
-  if(selected){
-    selected.textContent=
-      gameData.character;
-  }
-
-  renderEquip();
-  renderChapters();
-
-  const bgmState=
-    document.getElementById(
-      "bgmState"
-    );
-
-  const seState=
-    document.getElementById(
-      "seState"
-    );
-
-  if(bgmState){
-    bgmState.textContent=
-      gameData.bgm?"ON":"OFF";
-  }
-
-  if(seState){
-    seState.textContent=
-      gameData.se?"ON":"OFF";
-  }
-}
-
-function updateGemDisplays(){
-
-  const menu=
-    document.getElementById(
-      "menuGems"
-    );
-
-  const gacha=
-    document.getElementById(
-      "gachaGems"
-    );
-
-  if(menu){
-    menu.textContent=
-      gameData.gems;
-  }
-
-  if(gacha){
-    gacha.textContent=
-      gameData.gems;
-  }
-}
-
-/* ==================================================
-   SCREEN
-================================================== */
-
-function showScreen(id){
-
-  const target=
-    document.getElementById(id);
-
-  if(!target){
-
-    console.warn(
-      "存在しない画面:",
-      id
-    );
-
-    forceTitle();
-
-    return;
-  }
-
-  document
-    .querySelectorAll(".screen")
-    .forEach(screen=>{
-      screen.classList.remove("active");
-    });
-
-  target.classList.add("active");
-
-  updateGemDisplays();
-
-  if(id==="challengeScreen"){
-    renderEnemies();
-  }
-
-  if(id==="equipScreen"){
-    renderEquip();
-  }
-
-  if(id==="storySelectScreen"){
-    renderChapters();
-  }
-
-  if(id!=="titleScreen"){
-    startBGM();
-  }
-}
-
-/* ==================================================
-   FORCE TITLE
-================================================== */
-
-function forceTitle(){
-
-  document
-    .querySelectorAll(".screen")
-    .forEach(screen=>{
-      screen.classList.remove("active");
-    });
-
-  const title=
-    document.getElementById(
-      "titleScreen"
-    );
-
-  if(title){
-    title.classList.add("active");
-  }
-
-  const boot=
-    document.getElementById(
-      "bootMessage"
-    );
-
-  if(boot){
-    boot.classList.remove("show");
-  }
-}
-
-/* ==================================================
-   NEW GAME
-================================================== */
-
-function newGame(){
-
-  initAudio();
-
-  gameData={
-    ...defaultGameData,
-
-    equipped:[
-      "斬撃",
-      "星の閃光",
-      "再生"
-    ],
-
-    storyProgress:0
-  };
-
-  saveGame();
-
-  loadGameData();
-
-  stopBGM();
-
-  const noise=
-    document.getElementById(
-      "noiseTransition"
-    );
-
-  const foreshadow=
-    document.getElementById(
-      "foreshadowScreen"
-    );
-
-  if(!noise || !foreshadow){
-
-    showScreen("menuScreen");
-
-    return;
-  }
-
-  noise.classList.remove("active");
-
-  void noise.offsetWidth;
-
-  noise.classList.add("active");
-
-  seTone(
-    55,
-    .2,
-    "sawtooth",
-    .25
-  );
-
-  setTimeout(()=>{
-
-    seTone(
-      82,
-      .15,
-      "square",
-      .18
-    );
-
-  },180);
-
-  setTimeout(
-    playForeshadowing,
-    260
-  );
-}
-
-/* ==================================================
-   FORESHADOW QUOTES
-================================================== */
-
-const foreshadowQuotes=[
-
-  "――世界が終わるときに、それを見届ける者。",
-
-  "――私は勝つためではなく、守るために戦います。",
-
-  "――こいつは俺と渡り合える。",
-
-  "――大丈夫、どうにかなるよ。",
-
-  "――世界の外側には、まだ何かがいる。",
-
-  "――物語は、まだ終わっていない。"
-
-];
-
-function playForeshadowing(){
-
-  const screen=
-    document.getElementById(
-      "foreshadowScreen"
-    );
-
-  const quote=
-    document.getElementById(
-      "foreshadowQuote"
-    );
-
-  if(!screen || !quote){
-
-    finishNewGameTransition();
-
-    return;
-  }
-
-  screen.classList.add("active");
-
-  let index=0;
-
-  quote.textContent=
-    foreshadowQuotes[index];
-
-  seTone(
-    110,
-    .25,
-    "sawtooth",
-    .18
-  );
-
-  const timer=
-    setInterval(()=>{
-
-      index++;
-
-      if(
-        index>=foreshadowQuotes.length
-      ){
-
-        clearInterval(timer);
-
-        setTimeout(()=>{
-          finishNewGameTransition();
-        },500);
-
-        return;
-      }
-
-      quote.textContent=
-        foreshadowQuotes[index];
-
-      seTone(
-        90+index*15,
-        .14,
-        "sawtooth",
-        .14
-      );
-
-      if(index===4){
-        triggerNoiseShake();
-      }
-
-    },820);
-}
-
-/* ==================================================
-   NOISE SHAKE
-================================================== */
-
-function triggerNoiseShake(){
-
-  const screen=
-    document.getElementById(
-      "foreshadowScreen"
-    );
-
-  if(!screen)return;
-
-  screen.animate(
-    [
-      {transform:"translateX(0)"},
-      {transform:"translateX(-10px)"},
-      {transform:"translateX(10px)"},
-      {transform:"translateX(-6px)"},
-      {transform:"translateX(0)"}
-    ],
-    {
-      duration:300,
-      iterations:1
-    }
-  );
-}
-
-/* ==================================================
-   FINISH NEW GAME
-================================================== */
-
-function finishNewGameTransition(){
-
-  const quote=
-    document.getElementById(
-      "foreshadowQuote"
-    );
-
-  const screen=
-    document.getElementById(
-      "foreshadowScreen"
-    );
-
-  const noise=
-    document.getElementById(
-      "noiseTransition"
-    );
-
-  if(quote){
-    quote.textContent=
-      "―― Θαύμα ――";
-  }
-
-  seTone(
-    42,
-    .7,
-    "sawtooth",
-    .25
-  );
-
-  setTimeout(()=>{
-
-    if(screen){
-      screen.classList.remove("active");
-    }
-
-    if(noise){
-      noise.classList.remove("active");
-    }
-
-    showScreen("menuScreen");
-
-  },700);
-}
-
-/* ==================================================
-   LOAD GAME
-================================================== */
-
-function loadGame(){
-
-  loadGameData();
-
-  initAudio();
-
-  seTone(
-    100,
-    .3,
-    "sawtooth",
-    .18
-  );
-
-  showScreen("menuScreen");
-}
-
-/* ==================================================
-   STORY DATA
-   ※ ここは提供された内容をそのまま維持
-================================================== */
-
-const storyChapters=[
-
-{
-  title:"赤い世界",
-  lines:[
-
-    {
-      speaker:"？？？",
-      text:"――目を覚ませ。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"？？？",
-      text:"ここは、お前が知っている世界ではない。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"旅人",
-      text:"……ここは……どこだ？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"？？？",
-      text:"世界だ。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"？？？",
-      text:"ただし――世界の内側だ。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"空は赤かった。\n大地には、何もない。\nそれなのに――誰かの視線だけがあった。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"下僕",
-      text:"ご安心ください。\n私がお守りします。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"旅人",
-      text:"君は……誰なんだ？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"下僕",
-      text:"私は、あなたの物語に必要な者です。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"その瞬間。\n遠くで、世界そのものが軋んだ。",
-      effect:"shake"
-    }
-
-  ]
-},
-
-{
-  title:"霊界追放者",
-  lines:[
-
-    {
-      speaker:"ナレーション",
-      text:"赤い霧の向こうから、一人の男が歩いてくる。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"……ああ？\n誰だ、お前。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"旅人",
-      text:"あなたこそ……誰？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"皇 紅蓮。\nまあ、覚えなくてもいい。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"どうせ、この世界じゃ名前なんて意味を持たねぇ。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"下僕",
-      text:"皇 紅蓮……。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"……スライムだからって侮れねぇ。\nこいつは俺と渡り合える。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"下僕",
-      text:"私は勝つためではなく、守るために戦います。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"……へぇ。\n面白いこと言うじゃねぇか。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"その瞬間、紅蓮の背後に巨大な影が浮かんだ。",
-      effect:"flash"
-    }
-
-  ]
-},
-
-{
-  title:"終焉の管理者",
-  lines:[
-
-    {
-      speaker:"ナレーション",
-      text:"赤い空が、割れた。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"旅人",
-      text:"空が……割れる……？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"？？？",
-      text:"違う。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"？？？",
-      text:"割れたのは――世界のほうだ。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"焔緋 灯影",
-      text:"……騒がしいね。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"灯影……！",
-      effect:"flash"
-    },
-
-    {
-      speaker:"焔緋 灯影",
-      text:"大丈夫。\nどうにかなるよ。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"旅人",
-      text:"あなたは……何者なんだ？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋 灯影",
-      text:"僕？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋 灯影",
-      text:"世界が終わるときに、それを見届ける者。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"蒼い炎が、赤い世界を一瞬だけ照らした。",
-      effect:"flash"
-    }
-
-  ]
-},
-
-{
-  title:"笑顔の裏側",
-  lines:[
-
-    {
-      speaker:"ナレーション",
-      text:"一行は、崩壊しかけた都市へ辿り着いた。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋くん",
-      text:"やあ。\n困ってるなら手伝うよ。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"旅人",
-      text:"……あなたも焔緋？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋くん",
-      text:"そう。\nまあ、同じ名前ってだけだけどね。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋くん",
-      text:"大丈夫、どうにかなるよ。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"突然、仲間の一人へ危険が迫る。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"焔緋くん",
-      text:"……。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋くん",
-      text:"俺は怒るのが苦手なんだ。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋くん",
-      text:"でも――",
-      effect:"flash"
-    },
-
-    {
-      speaker:"焔緋くん",
-      text:"仲間を傷つけたのは、お前の失敗だったな。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"笑顔が消えた。\n赤い霧の中で、その目だけが静かに光っていた。",
-      effect:"flash"
-    }
-
-  ]
-},
-
-{
-  title:"世界の外側",
-  lines:[
-
-    {
-      speaker:"ナレーション",
-      text:"五つ目の扉が現れた。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"旅人",
-      text:"……この先に、何がある？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"下僕",
-      text:"おそらく――世界の外側です。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"……やめとけ。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"旅人",
-      text:"紅蓮……？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"皇 紅蓮",
-      text:"あそこには、俺たちが知らない何かがいる。",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋 灯影",
-      text:"いるよ。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"旅人",
-      text:"……え？",
-      effect:"normal"
-    },
-
-    {
-      speaker:"焔緋 灯影",
-      text:"ずっと、こっちを見てる。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"？？？",
-      text:"――やっと、ここまで来たか。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"世界から、音が消えた。",
-      effect:"shake"
-    },
-
-    {
-      speaker:"？？？",
-      text:"物語の続きを望むなら――",
-      effect:"normal"
-    },
-
-    {
-      speaker:"？？？",
-      text:"こちら側へ来い。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"ナレーション",
-      text:"その瞬間、画面が赤く染まる。",
-      effect:"flash"
-    },
-
-    {
-      speaker:"Θαύμα",
-      text:"第5章 ―― 終",
-      effect:"shake"
-    },
-
-    {
-      speaker:"？？？",
-      text:"――物語は、まだ終わっていない。",
-      effect:"flash"
-    }
-
-  ]
-}
-];
-
-/* ==================================================
-   STORY
-================================================== */
-
-function renderChapters(){
-
-  const list=
-    document.getElementById(
-      "chapterList"
-    );
-
-  if(!list)return;
-
-  list.innerHTML="";
-
-  storyChapters.forEach(
-    (chapter,index)=>{
-
-      const button=
-        document.createElement(
-          "button"
-        );
-
-      button.textContent=
-        `第${index+1}章　${chapter.title}`;
-
-      button.onclick=
-        ()=>{
-          startStory(index);
-        };
-
-      list.appendChild(button);
-    }
-  );
-}
-
-function startStory(chapter){
-
-  currentChapter=chapter;
-  currentLine=0;
-
-  showScreen("storyScreen");
-
-  renderStoryLine();
-
-  seTone(
-    55,
-    .4,
-    "sawtooth",
-    .18
-  );
-}
-
-function renderStoryLine(){
-
-  if(storyTypingTimer){
-    clearInterval(storyTypingTimer);
-    storyTypingTimer=null;
-  }
-
-  const chapter=
-    storyChapters[currentChapter];
-
-  if(!chapter)return;
-
-  const line=
-    chapter.lines[currentLine];
-
-  if(!line)return;
-
-  document.getElementById(
-    "chapterNumber"
-  ).textContent=
-    `CHAPTER ${currentChapter+1}`;
-
-  document.getElementById(
-    "chapterTitle"
-  ).textContent=
-    chapter.title;
-
-  document.getElementById(
-    "storySpeaker"
-  ).textContent=
-    line.speaker;
-
-  const text=
-    document.getElementById(
-      "storyText"
-    );
-
-  text.textContent="";
-
-  let i=0;
-
-  storyTypingTimer=
-    setInterval(()=>{
-
-      text.textContent=
-        line.text.slice(0,i);
-
-      if(
-        i<line.text.length &&
-        line.text[i]!==" " &&
-        line.text[i]!=="\n" &&
-        i%3===0
-      ){
-
-        seTone(
-          150+Math.random()*60,
-          .025,
-          "sine",
-          .035
-        );
-      }
-
-      i++;
-
-      if(i>line.text.length){
-
-        clearInterval(
-          storyTypingTimer
-        );
-
-        storyTypingTimer=null;
-      }
-
-    },18);
-
-  if(line.effect==="flash"){
-
-    triggerFlash();
-
-    seTone(
-      110,
-      .18,
-      "sawtooth",
-      .22
-    );
-
-  }
-
-  if(line.effect==="shake"){
-
-    const box=
-      document.getElementById(
-        "storyBox"
-      );
-
-    box.classList.remove(
-      "story-shake"
-    );
-
-    void box.offsetWidth;
-
-    box.classList.add(
-      "story-shake"
-    );
-
-    seTone(
-      70,
-      .3,
-      "sawtooth",
-      .25
-    );
-
-  }else{
-
-    seTone(
-      180,
-      .08,
-      "sine",
-      .08
-    );
-  }
-}
-
-function nextStory(){
-
-  const chapter=
-    storyChapters[currentChapter];
-
-  currentLine++;
-
-  if(
-    currentLine>=
-    chapter.lines.length
-  ){
-
-    gameData.storyProgress=
-      Math.max(
-        gameData.storyProgress,
-        currentChapter+1
-      );
-
-    saveGame();
-
-    if(
-      currentChapter<
-      storyChapters.length-1
-    ){
-
-      currentChapter++;
-      currentLine=0;
-
-      triggerFlash();
-
-      setTimeout(
-        renderStoryLine,
-        350
-      );
-
-    }else{
-
-      showStoryEnd();
-    }
-
-    return;
-  }
-
-  renderStoryLine();
-}
-
-function showStoryEnd(){
-
-  if(storyTypingTimer){
-    clearInterval(storyTypingTimer);
-    storyTypingTimer=null;
-  }
-
-  document.getElementById(
-    "storySpeaker"
-  ).textContent=
-    "SYSTEM";
-
-  document.getElementById(
-    "storyText"
-  ).textContent=
-    "第5章をクリアしました。\n\n世界の外側には、まだ何かが存在する。\n\n――物語は続く。";
-
-  const button=
-    document.getElementById(
-      "storyNextButton"
-    );
-
-  button.textContent=
-    "メニューへ戻る";
-
-  button.onclick=()=>{
-
-    button.onclick=
-      nextStory;
-
-    button.textContent=
-      "▶ 次へ";
-
-    showScreen(
-      "menuScreen"
-    );
-  };
-
-  triggerFlash();
-
-  setTimeout(()=>{
-
-    seTone(
-      55,
-      .8,
-      "sawtooth",
-      .2
-    );
-
-  },200);
-}
-
-function triggerFlash(){
-
-  const flash=
-    document.getElementById(
-      "storyFlash"
-    );
-
-  if(!flash)return;
-
-  flash.classList.remove(
-    "active"
-  );
-
-  void flash.offsetWidth;
-
-  flash.classList.add(
-    "active"
-  );
-}
-
-/* ==================================================
-   ENEMIES
-================================================== */
-
-const enemies=[
-
-  {
-    id:"slime",
-    name:"深淵スライム",
-    hp:500,
-    attack:45,
-    reward:50
-  },
-
-  {
-    id:"knight",
-    name:"黒鉄の騎士",
-    hp:1000,
-    attack:75,
-    reward:100
-  },
-
-  {
-    id:"dragon",
-    name:"終焉竜",
-    hp:1800,
-    attack:110,
-    reward:200
-  },
-
-  {
-    id:"boss",
-    name:"世界の外側に立つ者",
-    hp:3500,
-    attack:145,
-    reward:500
-  }
-
-];
-
-function renderEnemies(){
-
-  const list=
-    document.getElementById(
-      "enemyList"
-    );
-
-  if(!list)return;
-
-  list.innerHTML="";
-
-  enemies.forEach(enemy=>{
-
-    list.innerHTML+=`
-
-      <div class="panel">
-
-        <h3>
-          ${enemy.name}
-        </h3>
-
-        <p>
-          HP：${enemy.hp}
-        </p>
-
-        <p>
-          攻撃力：${enemy.attack}
-        </p>
-
-        <p class="gold">
-          撃破報酬：
-          💎 ${enemy.reward}石
-        </p>
+      <div class="story-controls">
 
         <button
-          onclick="startBattle('${enemy.id}')"
-        >
-          挑戦する
+          id="storyNextButton"
+          class="menu-button"
+          onclick="nextStory()">
+
+          ▶ 次へ
+
         </button>
 
       </div>
 
-    `;
-  });
-}
+    </div>
 
-/* ==================================================
-   BATTLE
-================================================== */
+  </div>
 
-function startBattle(id){
+</section>
 
-  currentEnemy=
-    enemies.find(
-      enemy=>enemy.id===id
-    );
 
-  if(!currentEnemy)return;
+<!-- ======================================================
+     CHARACTER
+====================================================== -->
 
-  enemyMaxHP=
-    currentEnemy.hp;
+<section
+  id="charactersScreen"
+  class="screen hidden">
 
-  enemyHP=
-    currentEnemy.hp;
-
-  playerMaxHP=1000;
-  playerHP=1000;
-
-  guarding=false;
-  battleFinished=false;
-
-  adaptationLevel=0;
-
-  document.getElementById(
-    "battleEnemyName"
-  ).textContent=
-    currentEnemy.name;
-
-  document.getElementById(
-    "battleLog"
-  ).innerHTML=
-
-    `⚔️ ${currentEnemy.name}が現れた！<br>
-     <span class="muted">
-       戦闘キャラ：
-       ${gameData.character}
-     </span><br>
-     <span class="muted">
-       装備スキル：
-       ${
-         gameData.equipped.length
-         ?gameData.equipped.join(" / ")
-         :"なし"
-       }
-     </span><br>`;
-
-  createBattleSkills();
-
-  updateBattleUI();
-
-  seTone(
-    75,
-    .5,
-    "sawtooth",
-    .25
-  );
-
-  showScreen(
-    "battleScreen"
-  );
-}
-
-/* ==================================================
-   BATTLE UI
-================================================== */
-
-function updateBattleUI(){
-
-  const enemyBar=
-    document.getElementById(
-      "enemyHpBar"
-    );
-
-  const playerBar=
-    document.getElementById(
-      "playerHpBar"
-    );
-
-  if(enemyBar){
-
-    enemyBar.style.width=
-      Math.max(
-        0,
-        enemyHP/enemyMaxHP*100
-      )+"%";
-  }
-
-  if(playerBar){
-
-    playerBar.style.width=
-      Math.max(
-        0,
-        playerHP/playerMaxHP*100
-      )+"%";
-  }
-
-  document.getElementById(
-    "enemyHpText"
-  ).textContent=
-    ` ${enemyHP} / ${enemyMaxHP}`;
-
-  document.getElementById(
-    "playerHpText"
-  ).textContent=
-    ` ${playerHP} / ${playerMaxHP}`;
-}
-
-function battleLog(text){
-
-  const log=
-    document.getElementById(
-      "battleLog"
-    );
-
-  if(!log)return;
-
-  log.innerHTML+=
-    text+"<br>";
-
-  log.scrollTop=
-    log.scrollHeight;
-}
-
-/* ==================================================
-   NORMAL ATTACK
-================================================== */
-
-function battleAttack(){
-
-  if(battleFinished)return;
-
-  const bonus=
-    Math.floor(
-      adaptationLevel*5
-    );
-
-  const damage=
-    Math.floor(
-      90+
-      Math.random()*31+
-      bonus
-    );
-
-  enemyHP=
-    Math.max(
-      0,
-      enemyHP-damage
-    );
-
-  battleLog(
-    `⚔️ ${damage}ダメージを与えた！`
-  );
-
-  seTone(
-    180,
-    .12,
-    "square",
-    .18
-  );
-
-  updateBattleUI();
-
-  if(enemyHP<=0){
-
-    winBattle();
-
-    return;
-  }
-
-  enemyTurn();
-}
-
-/* ==================================================
-   GUARD
-================================================== */
-
-function battleGuard(){
-
-  if(battleFinished)return;
-
-  guarding=true;
-
-  battleLog(
-    "🛡️ 防御態勢に入った！"
-  );
-
-  seTone(
-    140,
-    .18,
-    "sine",
-    .16
-  );
-
-  enemyTurn();
-}
-
-/* ==================================================
-   EQUIPPED SKILLS
-================================================== */
-
-function createBattleSkills(){
-
-  const container=
-    document.getElementById(
-      "battleSkillButtons"
-    );
-
-  if(!container)return;
-
-  container.innerHTML="";
-
-  const equipped=
-    gameData.equipped || [];
-
-  if(equipped.length===0){
-
-    container.innerHTML=`
-
-      <div class="panel muted">
-        スキルが装備されていません。
-        <br>
-        「スキルセット」から装備してください。
-      </div>
-
-    `;
-
-    return;
-  }
-
-  equipped.forEach(
-    (skillName,index)=>{
-
-      const button=
-        document.createElement(
-          "button"
-        );
-
-      button.className=
-        "battle-skill";
-
-      button.innerHTML=
-        `${skillName}
-        <span class="skill-number">
-          SLOT ${index+1}
-        </span>`;
-
-      button.onclick=
-        ()=>{
-          useEquippedSkill(
-            skillName
-          );
-        };
-
-      container.appendChild(
-        button
-      );
-    }
-  );
-}
-
-/* ==================================================
-   USE EQUIPPED SKILL
-================================================== */
-
-function useEquippedSkill(skill){
-
-  if(battleFinished)return;
-
-  if(!gameData.equipped.includes(skill)){
-    return;
-  }
-
-  /* 斬撃 */
-
-  if(skill==="斬撃"){
-
-    const damage=
-      Math.floor(
-        100+
-        Math.random()*41+
-        adaptationLevel*4
-      );
-
-    enemyHP=
-      Math.max(
-        0,
-        enemyHP-damage
-      );
-
-    battleLog(
-      `⚔️ 斬撃！ ${damage}ダメージ！`
-    );
-
-    seTone(
-      220,
-      .12,
-      "square",
-      .18
-    );
-  }
-
-  /* 星の閃光 */
-
-  else if(skill==="星の閃光"){
-
-    const damage=
-      190+
-      Math.floor(
-        adaptationLevel*8
-      );
-
-    enemyHP=
-      Math.max(
-        0,
-        enemyHP-damage
-      );
-
-    battleLog(
-      `✨ 星の閃光！ ${damage}ダメージ！`
-    );
-
-    seTone(
-      600,
-      .3,
-      "triangle",
-      .2
-    );
-
-    triggerBattleFlash();
-  }
-
-  /* 再生 */
-
-  else if(skill==="再生"){
-
-    const before=
-      playerHP;
-
-    playerHP=
-      Math.min(
-        playerMaxHP,
-        playerHP+220
-      );
-
-    const healed=
-      playerHP-before;
-
-    battleLog(
-      `💚 再生！
-      HPが${healed}回復した！`
-    );
-
-    seTone(
-      330,
-      .35,
-      "sine",
-      .18
-    );
-  }
-
-  /* 完全適応 */
-
-  else if(skill==="完全適応"){
-
-    adaptationLevel=
-      Math.min(
-        10,
-        adaptationLevel+1
-      );
-
-    const oldMax=
-      playerMaxHP;
-
-    playerMaxHP=
-      1000+
-      adaptationLevel*35;
-
-    playerHP=
-      Math.min(
-        playerMaxHP,
-        playerHP+
-        (playerMaxHP-oldMax)
-      );
-
-    battleLog(
-      `🌌 完全適応！
-      適応率が上昇した！
-      <span class="cyan">
-      現在：${adaptationLevel}/10
-      </span>`
-    );
-
-    seTone(
-      260+
-      adaptationLevel*30,
-      .35,
-      "sine",
-      .2
-    );
-
-    triggerBattleFlash();
-  }
-
-  updateBattleUI();
-
-  if(enemyHP<=0){
-
-    winBattle();
-
-    return;
-  }
-
-  enemyTurn();
-}
-
-/* ==================================================
-   BATTLE FLASH
-================================================== */
-
-function triggerBattleFlash(){
-
-  const flash=
-    document.getElementById(
-      "battleEffect"
-    );
-
-  if(!flash)return;
-
-  flash.classList.remove(
-    "active"
-  );
-
-  void flash.offsetWidth;
-
-  flash.classList.add(
-    "active"
-  );
-}
-
-/* ==================================================
-   ENEMY TURN
-================================================== */
-
-function enemyTurn(){
-
-  if(battleFinished)return;
-
-  const adaptationReduction=
-    Math.min(
-      .35,
-      adaptationLevel*.035
-    );
-
-  let damage=
-    Math.floor(
-      currentEnemy.attack*
-      (.8+Math.random()*.4)*
-      (1-adaptationReduction)
-    );
-
-  if(guarding){
-
-    damage=
-      Math.floor(
-        damage*.5
-      );
-
-    battleLog(
-      "🛡️ 防御でダメージ半減！"
-    );
-  }
-
-  guarding=false;
-
-  playerHP=
-    Math.max(
-      0,
-      playerHP-damage
-    );
-
-  battleLog(
-    `👿 ${currentEnemy.name}の攻撃！
-    ${damage}ダメージ！`
-  );
-
-  seTone(
-    65,
-    .18,
-    "sawtooth",
-    .18
-  );
-
-  updateBattleUI();
-
-  if(playerHP<=0){
-    loseBattle();
-  }
-}
-
-/* ==================================================
-   WIN
-================================================== */
-
-function winBattle(){
-
-  if(battleFinished)return;
-
-  battleFinished=true;
-
-  const reward=
-    currentEnemy.reward;
-
-  gameData.gems+=
-    reward;
-
-  saveGame();
-
-  updateGemDisplays();
-
-  battleLog("");
-
-  battleLog(
-    `🎉 ${currentEnemy.name}を倒した！`
-  );
-
-  battleLog(
-    `💎 ${reward}石を獲得！`
-  );
-
-  battleLog(
-    `現在の所持石：${gameData.gems}石`
-  );
-
-  if(adaptationLevel>0){
-
-    battleLog(
-      `🌌 最終適応率：
-      ${adaptationLevel}/10`
-    );
-  }
-
-  seTone(
-    440,
-    .2,
-    "triangle",
-    .2
-  );
-
-  setTimeout(()=>{
-
-    seTone(
-      660,
-      .3,
-      "triangle",
-      .18
-    );
-
-  },130);
-
-  document.getElementById(
-    "battleSkillButtons"
-  ).innerHTML=`
+  <div class="screen-inner">
 
     <button
-      onclick="showScreen('challengeScreen')"
-    >
-      挑戦画面へ戻る
+      class="back-button"
+      onclick="showScreen('menuScreen')">
+
+      ← 戻る
+
     </button>
 
-    <button
-      onclick="startBattle('${currentEnemy.id}')"
-    >
-      もう一度挑戦する
-    </button>
+    <h2>キャラクター図鑑</h2>
 
-  `;
-}
 
-/* ==================================================
-   LOSE
-================================================== */
+    <div class="character-grid">
 
-function loseBattle(){
 
-  if(battleFinished)return;
+      <div
+        class="character-card"
+        onclick="showProfile('servant')">
 
-  battleFinished=true;
-
-  battleLog(
-    "💀 戦闘に敗北した……"
-  );
-
-  document.getElementById(
-    "battleSkillButtons"
-  ).innerHTML=`
-
-    <button
-      onclick="showScreen('challengeScreen')"
-    >
-      挑戦画面へ戻る
-    </button>
-
-    <button
-      onclick="startBattle('${currentEnemy.id}')"
-    >
-      もう一度挑戦する
-    </button>
-
-  `;
-
-  seTone(
-    45,
-    .7,
-    "sawtooth",
-    .2
-  );
-}
-
-/* ==================================================
-   GACHA
-================================================== */
-
-function gacha(count){
-
-  const cost=
-    count*300;
-
-  if(gameData.gems<cost){
-
-    document.getElementById(
-      "gachaResult"
-    ).textContent=
-      "💎 石が足りません。";
-
-    seTone(
-      70,
-      .2
-    );
-
-    return;
-  }
-
-  gameData.gems-=cost;
-
-  const skills=[
-    "斬撃",
-    "星の閃光",
-    "再生",
-    "完全適応"
-  ];
-
-  let result="";
-
-  for(let i=0;i<count;i++){
-
-    const skill=
-      skills[
-        Math.floor(
-          Math.random()*
-          skills.length
-        )
-      ];
-
-    result+=
-      `✨ ${skill}<br>`;
-  }
-
-  document.getElementById(
-    "gachaResult"
-  ).innerHTML=
-    `<h3>ガチャ結果</h3>${result}`;
-
-  saveGame();
-
-  updateGemDisplays();
-
-  seTone(
-    330,
-    .2,
-    "triangle",
-    .15
-  );
-
-  setTimeout(()=>{
-
-    seTone(
-      550,
-      .25,
-      "triangle",
-      .12
-    );
-
-  },180);
-}
-
-/* ==================================================
-   EQUIPMENT
-================================================== */
-
-function renderEquip(){
-
-  const box=
-    document.getElementById(
-      "equipList"
-    );
-
-  if(!box)return;
-
-  const skills=[
-    "斬撃",
-    "星の閃光",
-    "再生",
-    "完全適応"
-  ];
-
-  box.innerHTML=
-    skills.map(
-      (skill)=>`
-
-        <div class="equip
-          ${
-            gameData.equipped.includes(skill)
-            ?"skill-equipped"
-            :""
-          }">
-
-          <span>
-
-            ${
-              gameData.equipped.includes(skill)
-              ?"✅ "
-              :""
-            }
-
-            ${skill}
-
-          </span>
-
-          <button
-            onclick="equipSkill('${skill}')"
-          >
-
-            ${
-              gameData.equipped.includes(skill)
-              ?"外す"
-              :"装備"
-            }
-
-          </button>
-
+        <div class="character-icon">
+          🩵
         </div>
 
-      `
-    ).join("");
+        <b>下僕（げぼく）</b>
 
-  const status=
-    document.getElementById(
-      "equipStatus"
-    );
+        <br>
 
-  if(status){
+        <span class="muted">
+          究極眷属
+        </span>
 
-    status.textContent=
-      "装備中："+
-      (
-        gameData.equipped.length
-        ?gameData.equipped.join(" / ")
-        :"なし"
-      )+
-      `　（${gameData.equipped.length}/3）`;
-  }
-}
+      </div>
 
-function equipSkill(skill){
 
-  const list=
-    gameData.equipped;
+      <div
+        class="character-card"
+        onclick="showProfile('guren')">
 
-  const index=
-    list.indexOf(skill);
+        <div class="character-icon">
+          🩸⚰️
+        </div>
 
-  if(index>=0){
+        <b>皇 紅蓮</b>
 
-    list.splice(
-      index,
-      1
-    );
+        <br>
 
-    seTone(
-      180,
-      .12
-    );
+        <span class="muted">
+          霊界追放者
+        </span>
 
-  }else{
+      </div>
 
-    if(list.length>=3){
 
-      alert(
-        "スキルは最大3個までです。"
-      );
+      <div
+        class="character-card"
+        onclick="showProfile('kagari')">
 
-      seTone(
-        70,
-        .2,
-        "sawtooth"
-      );
+        <div class="character-icon flame-icon">
+          🔥
+        </div>
 
-      return;
-    }
+        <b>焔緋 灯影</b>
 
-    list.push(skill);
+        <br>
 
-    seTone(
-      280,
-      .12
-    );
-  }
+        <span class="muted">
+          終焉の管理者
+        </span>
 
-  saveGame();
+      </div>
 
-  renderEquip();
-}
 
-/* ==================================================
-   CHARACTER
-================================================== */
+      <div
+        class="character-card"
+        onclick="showProfile('homurabi')">
 
-function selectCharacter(name){
+        <div class="character-icon flame-icon">
+          🔥
+        </div>
 
-  gameData.character=
-    name;
+        <b>焔緋（ほむらび）くん</b>
 
-  const selected=
-    document.getElementById(
-      "selectedCharacter"
-    );
+        <br>
 
-  if(selected){
-    selected.textContent=
-      name;
-  }
+        <span class="muted">
+          何でも屋・交渉人
+        </span>
 
-  saveGame();
-
-  seTone(
-    260,
-    .12
-  );
-}
-
-/* ==================================================
-   SETTINGS
-================================================== */
-
-function toggleBGM(){
-
-  gameData.bgm=
-    !gameData.bgm;
-
-  const state=
-    document.getElementById(
-      "bgmState"
-    );
-
-  if(state){
-
-    state.textContent=
-      gameData.bgm
-      ?"ON"
-      :"OFF";
-  }
-
-  if(gameData.bgm){
-
-    startBGM();
-
-  }else{
-
-    stopBGM();
-  }
-
-  saveGame();
-}
-
-function toggleSE(){
-
-  gameData.se=
-    !gameData.se;
-
-  const state=
-    document.getElementById(
-      "seState"
-    );
-
-  if(state){
-
-    state.textContent=
-      gameData.se
-      ?"ON"
-      :"OFF";
-  }
-
-  saveGame();
-
-  if(gameData.se){
-
-    seTone(
-      300,
-      .12
-    );
-  }
-}
-
-function deleteSave(){
-
-  if(
-    confirm(
-      "セーブデータを削除しますか？"
-    )
-  ){
-
-    localStorage.removeItem(
-      "thavmaSave"
-    );
-
-    gameData={
-      ...defaultGameData
-    };
-
-    updateGemDisplays();
-
-    renderEquip();
-
-    renderChapters();
-
-    const selected=
-      document.getElementById(
-        "selectedCharacter"
-      );
-
-    if(selected){
-      selected.textContent=
-        "旅人";
-    }
-
-    alert(
-      "セーブデータを削除しました。"
-    );
-  }
-}
-
-/* ==================================================
-   CHARACTER PROFILES
-================================================== */
-
-const profiles={
-
-servant:{
-
-  name:"🩵 下僕（げぼく）",
-
-  text:`種族：スライム（眷属・人間型）
-称号：究極眷属
-実力：皇 紅蓮と同格
-━━━━━━━━━━━━━━
-Lv：測定不能
-HP：∞
-MP：∞
-SP：∞
-STR（筋力）　SSS+
-VIT（耐久）　SSS++
-AGI（敏捷）　SSS++
-DEX（技巧）　EX
-INT（知力）　EX
-MND（精神）　EX
-LUK（幸運）　A
-CHA（威圧）　SSS
-━━━━━━━━━━━━━━
-《固有能力》
-◆ 完全適応
-あらゆる攻撃・属性・環境への対処能力を身につけていく。
-戦闘が長引くほど対応力が増す。
-
-◆ 未来予知
-短い未来を読み取り、回避や迎撃に活用する。
-
-◆ 圧倒的戦闘技術
-武器・格闘・体術を高いレベルで使いこなし、
-相手に応じて戦法を切り替える。
-━━━━━━━━━━━━━━
-《性格》
-穏やかで礼儀正しい。
-基本的には優しく、争いを好まない。
-主や仲間を守るためなら迷わず戦う。
-戦闘中も冷静さを失わない。
-
-皇
-「スライムだからって侮れねぇ。
-こいつは俺と渡り合える。」
-
-下僕
-「私は勝つためではなく、
-守るために戦います。」`
-
-},
-
-guren:{
-
-  name:"🩸 皇 紅蓮｜すめらぎ ぐれん 👻",
-
-  text:`種族：最上位吸血鬼 × 幽霊
-称号：霊界追放者
-所属：Θαύμα 1期生｜社長SP役員
-━━━━━━━━━━━━━━
-Lv：???（測定不能）
-HP：∞
-MP：∞
-SP：∞
-STR：SSS+
-VIT：SSS+
-AGI：SSS+
-DEX：SSS++
-INT：SSS
-MND：EX
-LUK：B
-CHA：EX
-━━━━━━━━━━━━━━
-《固有能力》
-◆ 真祖の血統
-ほぼ全ての状態異常を無効化。
-
-◆ 幽体化
-物理攻撃をすり抜けられる。
-
-◆ 血界支配
-周囲一帯を自身の領域へ変える。
-
-◆ 血液再生
-致命傷でも瞬時に再生。
-
-◆ 武神
-あらゆる武術を習得済み。
-━━━━━━━━━━━━━━
-《呪い》
-🔮 本音を隠せない
-嘘・建前・社交辞令が通用しない。
-
-🦶 タンスの呪い
-一定確率で小指をぶつける。
-━━━━━━━━━━━━━━
-《弱点》
-・推し（焔緋 灯影）の命令には逆らえない。
-・タンスだけはどうにもならない。`
-
-},
-
-kagari:{
-
-  name:"🔥 焔緋 灯影（ほむらび かがり）",
-
-  text:`種族：？？？（正体不明）
-称号：終焉の管理者
-所属：？？？
-二つ名：最強
-━━━━━━━━━━━━━━
-Lv：測定不能
-HP：∞
-MP：∞
-SP：∞
-STR：EX+++
-VIT：EX+++
-AGI：EX+++
-DEX：EX+++
-INT：EX+++
-MND：EX+++
-LUK：EX+
-CHA：EX+++
-━━━━━━━━━━━━━━
-《固有能力》
-◆ 終焉支配
-自身を中心に世界の法則を書き換える。
-
-◆ 永劫の焔
-消えることのない蒼い炎を操る。
-
-◆ 完全解析
-相手の能力や戦闘パターンを瞬時に把握する。
-
-◆ 無限再構築
-ダメージや状態異常を即座に回復する。
-
-◆ 神域武装
-あらゆる武器を自在に扱う。
-━━━━━━━━━━━━━━
-《性格》
-基本は穏やかで落ち着いている。
-仲間思いで、困っている人は放っておけない。
-戦闘では冷静沈着。
-本気になることは滅多にない。`
-
-},
-
-homurabi:{
-
-  name:"🔥 焔緋（ほむらび）くん",
-
-  text:`基本プロフィール
-名前：焔緋（ほむらび）
-愛称：焔緋くん
-性別：男性
-年齢：26歳
-所属：裏社会
-肩書き：何でも屋・交渉人・潜入工作員
-━━━━━━━━━━━━━━
-《性格》
-イケメンで誰にでも気さく。
-飄々としていて、何を考えているのか掴めない。
-基本的に怒らず、いつも余裕のある笑みを浮かべている。
-
-どんな無茶振りでも
-「いいよ、やっとく」と軽く引き受け、
-完璧にこなす。
-
-大切な人や仲間が傷つけられると、
-普段の笑顔が消え、
-冷静なまま怒りを見せる。
-━━━━━━━━━━━━━━
-《能力》
-戦闘能力：★★★★★
-判断力：★★★★★
-潜入能力：★★★★★
-交渉能力：★★★★★
-運動能力：★★★★★
-━━━━━━━━━━━━━━
-《戦闘スタイル》
-ナイフ、拳銃、格闘術を使い分ける。
-相手を観察し、最小限の動きで制圧する。
-本気になると、一切の無駄がない戦い方をする。
-━━━━━━━━━━━━━━
-《セリフ》
-「大丈夫、どうにかなるよ。」
-「無茶？ まあ、面白そうだし。」
-「俺は怒るのが苦手なんだ。」
-「……仲間を傷つけたのは、お前の失敗だったな。」
-「ここから先は、容赦しない。」
-━━━━━━━━━━━━━━
-《裏社会での評判》
-「依頼成功率が非常に高い男」
-「笑顔のまま任務を終わらせる」
-「怒らせたら最後、と噂される人物」`
-
-}
-
-};
-
-/* ==================================================
-   PROFILE
-================================================== */
-
-function showProfile(type){
-
-  const profile=
-    profiles[type];
-
-  if(!profile)return;
-
-  document.getElementById(
-    "profileBox"
-  ).innerHTML=`
-
-    <div class="panel profile">
-
-      <h3>
-        ${profile.name}
-      </h3>
-
-      ${profile.text}
+      </div>
 
     </div>
 
-  `;
+  </div>
 
-  seTone(
-    220,
-    .12
-  );
-}
+</section>
 
-/* ==================================================
-   INIT
-================================================== */
 
-function initGame(){
+<!-- ======================================================
+     SKILLS
+====================================================== -->
 
-  try{
+<section
+  id="skillsScreen"
+  class="screen hidden">
 
-    forceTitle();
+  <div class="screen-inner">
 
-    loadGameData();
+    <button
+      class="back-button"
+      onclick="showScreen('menuScreen')">
 
-    createParticles();
+      ← 戻る
 
-    createBloodRain();
+    </button>
 
-  }catch(error){
+    <h2>スキル図鑑</h2>
 
-    console.error(
-      "初期化エラー:",
-      error
-    );
 
-    const boot=
-      document.getElementById(
-        "bootMessage"
+    <div class="skill-item">
+
+      ⚔️ <b>斬撃</b>
+
+      <br>
+
+      <span class="muted">
+        基本攻撃。100前後のダメージ。
+      </span>
+
+    </div>
+
+    <br>
+
+
+    <div class="skill-item">
+
+      ✨ <b>星の閃光</b>
+
+      <br>
+
+      <span class="muted">
+        190ダメージ。
+      </span>
+
+    </div>
+
+    <br>
+
+
+    <div class="skill-item">
+
+      💚 <b>再生</b>
+
+      <br>
+
+      <span class="muted">
+        HPを220回復。
+      </span>
+
+    </div>
+
+    <br>
+
+
+    <div class="skill-item">
+
+      🌌 <b>完全適応</b>
+
+      <br>
+
+      <span class="muted">
+        使用するほど戦闘への適応率が上昇。
+      </span>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     GACHA
+====================================================== -->
+
+<section
+  id="gachaScreen"
+  class="screen hidden">
+
+  <div class="screen-inner">
+
+    <button
+      class="back-button"
+      onclick="showScreen('menuScreen')">
+
+      ← 戻る
+
+    </button>
+
+    <h2>スキルガチャ</h2>
+
+
+    <div class="gacha-box">
+
+      <p>
+
+        所持石：
+
+        <span
+          id="gachaGems"
+          class="gold">
+
+          300
+
+        </span>
+
+        💎
+
+      </p>
+
+
+      <button
+        class="menu-button"
+        onclick="drawGacha(1)">
+
+        1回引く　300石
+
+      </button>
+
+      <br><br>
+
+
+      <button
+        class="menu-button"
+        onclick="drawGacha(10)">
+
+        10回引く　3000石
+
+      </button>
+
+
+      <div
+        id="gachaResult"
+        class="gacha-result">
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     CHALLENGE
+====================================================== -->
+
+<section
+  id="challengeScreen"
+  class="screen hidden">
+
+  <div class="screen-inner">
+
+    <button
+      class="back-button"
+      onclick="showScreen('menuScreen')">
+
+      ← 戻る
+
+    </button>
+
+    <h2>挑戦</h2>
+
+    <p class="muted">
+      敵を倒すと石を獲得できます。
+    </p>
+
+
+    <hr>
+
+
+    <h2 id="battleEnemyName">
+      虚無の観測者
+    </h2>
+
+
+    <p>
+
+      敵HP：
+
+      <span id="enemyHpText">
+        1000 / 1000
+      </span>
+
+    </p>
+
+
+    <div class="hp">
+
+      <div
+        id="enemyHpBar"
+        class="hp-inner">
+      </div>
+
+    </div>
+
+
+    <p>
+
+      味方HP：
+
+      <span id="playerHpText">
+        1000 / 1000
+      </span>
+
+    </p>
+
+
+    <div class="hp">
+
+      <div
+        id="playerHpBar"
+        class="hp-inner">
+      </div>
+
+    </div>
+
+
+    <div class="battle-actions">
+
+      <button
+        class="menu-button"
+        onclick="battleAttack()">
+
+        ⚔️ 攻撃
+
+      </button>
+
+
+      <button
+        class="menu-button"
+        onclick="battleGuard()">
+
+        🛡️ 防御
+
+      </button>
+
+    </div>
+
+
+    <p
+      id="battleLog"
+      class="muted">
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     EQUIP
+====================================================== -->
+
+<section
+  id="equipScreen"
+  class="screen hidden">
+
+  <div class="screen-inner">
+
+    <button
+      class="back-button"
+      onclick="showScreen('menuScreen')">
+
+      ← 戻る
+
+    </button>
+
+    <h2>スキルセット</h2>
+
+    <p class="muted">
+
+      装備したスキルだけが戦闘で使用できます。
+      <br>
+      最大3個
+
+    </p>
+
+
+    <div id="equipList">
+
+      <div class="skill-item">
+        ⚔️ 斬撃
+      </div>
+
+      <br>
+
+      <div class="skill-item">
+        ✨ 星の閃光
+      </div>
+
+      <br>
+
+      <div class="skill-item">
+        💚 再生
+      </div>
+
+    </div>
+
+
+    <p
+      id="equipStatus"
+      class="cyan">
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     BATTLE CHARACTER
+====================================================== -->
+
+<section
+  id="battleCharacterScreen"
+  class="screen hidden">
+
+  <div class="screen-inner">
+
+    <button
+      class="back-button"
+      onclick="showScreen('menuScreen')">
+
+      ← 戻る
+
+    </button>
+
+    <h2>戦闘キャラ選択</h2>
+
+
+    <div class="menu-buttons">
+
+      <button
+        class="menu-button"
+        onclick="selectCharacter('旅人')">
+
+        旅人
+
+      </button>
+
+
+      <button
+        class="menu-button"
+        onclick="selectCharacter('下僕')">
+
+        🩵 下僕
+
+      </button>
+
+
+      <button
+        class="menu-button"
+        onclick="selectCharacter('皇 紅蓮')">
+
+        🩸 皇 紅蓮
+
+      </button>
+
+
+      <button
+        class="menu-button"
+        onclick="selectCharacter('焔緋 灯影')">
+
+        🔥 焔緋 灯影
+
+      </button>
+
+    </div>
+
+
+    <p>
+
+      現在：
+
+      <span
+        id="selectedCharacter"
+        class="cyan">
+
+        旅人
+
+      </span>
+
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     SETTINGS
+====================================================== -->
+
+<section
+  id="settingsScreen"
+  class="screen hidden">
+
+  <div class="screen-inner">
+
+    <button
+      class="back-button"
+      onclick="showScreen('menuScreen')">
+
+      ← 戻る
+
+    </button>
+
+    <h2>設定</h2>
+
+
+    <div class="setting-row">
+
+      <span>BGM：</span>
+
+      <button
+        class="menu-button"
+        onclick="toggleSetting('bgm')"
+        id="bgmButton">
+
+        ON
+
+      </button>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <span>効果音：</span>
+
+      <button
+        class="menu-button"
+        onclick="toggleSetting('se')"
+        id="seButton">
+
+        ON
+
+      </button>
+
+    </div>
+
+
+    <div class="setting-row">
+
+      <span>
+        セーブデータ
+      </span>
+
+      <button
+        class="menu-button"
+        onclick="deleteSave()">
+
+        セーブデータ削除
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   ゲームデータ
+========================================================= */
+
+let gems = 300;
+
+let playerHp = 1000;
+let enemyHp = 1000;
+
+let selectedCharacter = "旅人";
+
+let bgmOn = true;
+let seOn = true;
+
+let storyIndex = 0;
+
+
+/* =========================================================
+   第1章〜第3章
+========================================================= */
+
+const storyData = [
+
+  /* -------------------------------------------------------
+     第1章
+  ------------------------------------------------------- */
+
+  {
+    chapter: "第一章",
+    title: "記録されていない世界",
+    speaker: "",
+    text:
+`世界は、最初から完成していたわけではなかった。
+
+空があり、
+大地があり、
+時間が流れている。
+
+人々はそれを当たり前だと思っていた。
+
+朝が来れば夜が来る。
+
+生まれれば、いつか終わる。
+
+世界とは、そういうものなのだと。
+
+――誰も疑わなかった。
+
+けれど。
+
+世界には、一つだけ記録されていない場所があった。
+
+それは地図にも存在しない。
+
+歴史にも残っていない。
+
+誰かがそこについて語ろうとすると、
+その言葉だけが不自然に消えてしまう。
+
+「世界の外側」。
+
+そんな場所が存在するはずなどない。
+
+……そのはずだった。`
+  },
+
+
+  {
+    chapter: "第一章",
+    title: "観測者",
+    speaker: "？？？",
+    text:
+`「見えている？」
+
+暗闇の中で、声がした。
+
+誰の声なのかは分からない。
+
+ただ、その声は世界の中から聞こえているのではなかった。
+
+もっと遠い。
+
+もっと高い。
+
+まるで、この世界そのものを外側から見下ろしているような声だった。
+
+「世界は、自分自身を見ることができない」
+
+「だから――誰かが見る必要がある」
+
+その瞬間。
+
+空に、存在しないはずの星が一つ現れた。
+
+そして。
+
+星を見上げた者の記憶から、
+一日だけが消えた。`
+  },
+
+
+  {
+    chapter: "第一章",
+    title: "下僕",
+    speaker: "？？？",
+    text:
+`最初に異変に気づいたのは、一人の旅人だった。
+
+旅人は、誰も知らない道を歩いていた。
+
+そこには街があった。
+
+昨日までは存在しなかった街。
+
+人々は普通に暮らしている。
+
+店があり、
+家があり、
+笑い声が聞こえる。
+
+しかし。
+
+誰一人として、
+「昨日」のことを覚えていなかった。
+
+その街の中央に、
+一人の存在が立っていた。
+
+淡い青色の光をまとった、小さな影。
+
+「……ようやく来たんだね」
+
+それが、
+下僕との最初の出会いだった。`
+  },
+
+
+  /* -------------------------------------------------------
+     第2章
+  ------------------------------------------------------- */
+
+  {
+    chapter: "第二章",
+    title: "霊界追放者",
+    speaker: "",
+    text:
+`下僕は、自分のことを多く語らなかった。
+
+何者なのか。
+
+どこから来たのか。
+
+なぜ旅人を待っていたのか。
+
+問いかけても、
+いつも同じ答えしか返ってこない。
+
+「知らないほうがいいよ」
+
+その言葉の意味を知ることになるまで、
+そう時間はかからなかった。
+
+街を出た二人の前に、
+赤い霧が現れた。
+
+霧の向こうから、
+一人の男が歩いてくる。
+
+その姿を見た瞬間。
+
+下僕の表情が変わった。
+
+「……皇 紅蓮」
+
+男は、静かにこちらを見た。`
+  },
+
+
+  {
+    chapter: "第二章",
+    title: "皇 紅蓮",
+    speaker: "皇 紅蓮",
+    text:
+`「その名を知っているか」
+
+旅人は答えなかった。
+
+紅蓮は小さく笑う。
+
+「知らなくていい」
+
+「ただし、一つだけ覚えておけ」
+
+彼は空を見上げた。
+
+「この世界には、世界を守るために世界を捨てた者がいる」
+
+かつて紅蓮は、
+霊界と呼ばれる場所にいた。
+
+そこでは、
+世界の境界を監視する者たちが存在していた。
+
+だが。
+
+紅蓮は、その境界を越えた。
+
+そして霊界から追放された。
+
+理由は一つ。
+
+――世界の外側を見てしまったから。
+
+「俺は、あれを見た」
+
+紅蓮が言った。
+
+「世界の向こう側を」`
+  },
+
+
+  {
+    chapter: "第二章",
+    title: "境界",
+    speaker: "皇 紅蓮",
+    text:
+`「外側には何があるの？」
+
+下僕が尋ねた。
+
+紅蓮は答えなかった。
+
+代わりに、
+地面に一本の線を引いた。
+
+「ここから先は、
+世界ではない」
+
+線の向こう側には、
+何もなかった。
+
+空もない。
+
+地面もない。
+
+光もない。
+
+それなのに。
+
+何かが「こちら」を見ていた。
+
+旅人は思った。
+
+――見られている。
+
+その瞬間。
+
+遠くから、
+鐘の音が聞こえた。
+
+一度。
+
+二度。
+
+三度。
+
+そして紅蓮が呟く。
+
+「……終焉の管理者が来る」`
+  },
+
+
+  /* -------------------------------------------------------
+     第3章
+  ------------------------------------------------------- */
+
+  {
+    chapter: "第三章",
+    title: "終焉の管理者",
+    speaker: "",
+    text:
+`炎が灯った。
+
+暗闇の中で、
+一つだけ赤い光が生まれる。
+
+その光は、
+ゆっくりと人の姿へ変わっていった。
+
+焔緋 灯影。
+
+終焉の管理者。
+
+その名を聞いた瞬間、
+紅蓮でさえ表情を変えた。
+
+「久しぶりだな」
+
+灯影は答えない。
+
+ただ旅人を見つめていた。
+
+「……君は、
+ここにいるべき存在ではない」
+
+その言葉に、
+旅人は初めて気づいた。
+
+自分自身について、
+何も覚えていないことに。`
+  },
+
+
+  {
+    chapter: "第三章",
+    title: "消えた記憶",
+    speaker: "焔緋 灯影",
+    text:
+`「名前は？」
+
+旅人は答えようとした。
+
+しかし。
+
+言葉が出てこない。
+
+名前だけではない。
+
+どこから来たのか。
+
+誰といたのか。
+
+なぜここにいるのか。
+
+何一つ思い出せなかった。
+
+灯影は静かに目を閉じる。
+
+「やはり」
+
+「記憶を消されたんじゃない」
+
+「最初から、
+記録されていないんだ」
+
+その瞬間。
+
+世界全体が、
+ほんの少しだけ揺れた。
+
+空に亀裂のような光が走る。
+
+紅蓮が叫ぶ。
+
+「境界が開く！」
+
+下僕が旅人の前に立つ。
+
+そして。
+
+世界の外側から、
+何かがこちらを覗いた。`
+  },
+
+
+  {
+    chapter: "第三章",
+    title: "世界の外側",
+    speaker: "？？？",
+    text:
+`――聞こえる。
+
+誰かの声がする。
+
+世界の中からではない。
+
+もっと遠く。
+
+もっと近く。
+
+矛盾した場所から。
+
+「やっと見つけた」
+
+その一言だけが、
+世界に響いた。
+
+灯影は炎を強く握る。
+
+紅蓮は剣を構える。
+
+下僕は旅人を見る。
+
+そして旅人は、
+初めて気づいた。
+
+この世界で起きているすべては、
+自分を中心に動いている。
+
+なぜ自分なのか。
+
+なぜ記録されていないのか。
+
+なぜ世界の外側が、
+自分を知っているのか。
+
+答えはまだ分からない。
+
+けれど。
+
+ここから先は、
+もう戻れない。
+
+世界は今。
+
+「外側」を知ってしまった。
+
+――第三章・終。
+
+そして物語は、
+第四章へ続く。`
+  }
+
+];
+
+
+/* =========================================================
+   画面切り替え
+========================================================= */
+
+function showScreen(id) {
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen => {
+
+      screen.classList.add("hidden");
+
+      screen.classList.remove(
+        "fade-in"
       );
 
-    if(boot){
-      boot.classList.add("show");
-    }
-  }
-}
+    });
 
-/*
-  DOM読み込み完了後に必ずタイトルを出す。
-  これが今回の「真っ暗」対策の本命。
-*/
 
-if(
-  document.readyState==="loading"
-){
+  const target =
+    document.getElementById(id);
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    initGame
+  if (!target) return;
+
+
+  target.classList.remove(
+    "hidden"
   );
 
-}else{
 
-  initGame();
+  void target.offsetWidth;
+
+
+  target.classList.add(
+    "fade-in"
+  );
+
+
+  window.scrollTo({
+    top: 0,
+    behavior: "instant"
+  });
 }
 
-/*
-  万が一、何かの理由で全画面が消えた場合も
-  タイトルへ戻す。
-*/
 
-setTimeout(()=>{
+/* =========================================================
+   NEW GAME
+========================================================= */
 
-  const active=
-    document.querySelector(
-      ".screen.active"
+function newGame() {
+
+  gems = 300;
+
+  playerHp = 1000;
+  enemyHp = 1000;
+
+  selectedCharacter = "旅人";
+
+  storyIndex = 0;
+
+  localStorage.removeItem(
+    "thavmaSave"
+  );
+
+
+  playTitleFlash();
+
+
+  setTimeout(() => {
+
+    saveGame();
+
+    showScreen(
+      "menuScreen"
     );
 
-  if(!active){
-    forceTitle();
+  }, 250);
+}
+
+
+/* =========================================================
+   LOAD
+========================================================= */
+
+function loadGame() {
+
+  const saved =
+    localStorage.getItem(
+      "thavmaSave"
+    );
+
+
+  if (saved) {
+
+    try {
+
+      const data =
+        JSON.parse(saved);
+
+
+      gems =
+        Number(data.gems) || 300;
+
+
+      selectedCharacter =
+        data.selectedCharacter ||
+        "旅人";
+
+
+    } catch (error) {
+
+      gems = 300;
+
+    }
+
   }
 
-},300);
+
+  playTitleFlash();
+
+
+  setTimeout(() => {
+
+    updateGems();
+
+    document.getElementById(
+      "selectedCharacter"
+    ).textContent =
+      selectedCharacter;
+
+
+    showScreen(
+      "menuScreen"
+    );
+
+  }, 250);
+}
+
+
+/* =========================================================
+   SAVE
+========================================================= */
+
+function saveGame() {
+
+  localStorage.setItem(
+    "thavmaSave",
+
+    JSON.stringify({
+      gems,
+      selectedCharacter
+    })
+  );
+
+
+  updateGems();
+}
+
+
+/* =========================================================
+   GEMS
+========================================================= */
+
+function updateGems() {
+
+  document.getElementById(
+    "menuGems"
+  ).textContent =
+    gems;
+
+
+  document.getElementById(
+    "gachaGems"
+  ).textContent =
+    gems;
+}
+
+
+/* =========================================================
+   FLASH
+========================================================= */
+
+function playTitleFlash() {
+
+  const flash =
+    document.createElement(
+      "div"
+    );
+
+  flash.className =
+    "title-flash";
+
+
+  document.body.appendChild(
+    flash
+  );
+
+
+  setTimeout(() => {
+    flash.remove();
+  }, 180);
+}
+
+
+/* =========================================================
+   TITLE GLITCH
+========================================================= */
+
+function randomTitleGlitch() {
+
+  const title =
+    document.querySelector(
+      ".title-content h1"
+    );
+
+
+  if (!title) return;
+
+
+  title.classList.add(
+    "title-shake"
+  );
+
+
+  playTitleFlash();
+
+
+  setTimeout(() => {
+
+    title.classList.remove(
+      "title-shake"
+    );
+
+  }, 170);
+}
+
+
+setInterval(() => {
+
+  const titleScreen =
+    document.getElementById(
+      "titleScreen"
+    );
+
+
+  if (!titleScreen) return;
+
+
+  if (
+    !titleScreen.classList.contains(
+      "hidden"
+    )
+  ) {
+
+    if (
+      Math.random() < .45
+    ) {
+
+      randomTitleGlitch();
+
+    }
+
+  }
+
+}, 5000);
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+function createParticles() {
+
+  const container =
+    document.getElementById(
+      "particles"
+    );
+
+
+  const count =
+    window.innerWidth < 600
+      ? 45
+      : 90;
+
+
+  for (
+    let i = 0;
+    i < count;
+    i++
+  ) {
+
+    const particle =
+      document.createElement(
+        "div"
+      );
+
+
+    particle.className =
+      "particle";
+
+
+    const angle =
+      Math.random() *
+      Math.PI *
+      2;
+
+
+    const distance =
+      20 +
+      Math.random() *
+      50;
+
+
+    particle.style.setProperty(
+      "--startX",
+      (
+        Math.cos(angle) *
+        distance *
+        1.8
+      ) + "vw"
+    );
+
+
+    particle.style.setProperty(
+      "--startY",
+      (
+        Math.sin(angle) *
+        distance *
+        1.8
+      ) + "vh"
+    );
+
+
+    particle.style.setProperty(
+      "--endX",
+      (
+        Math.cos(angle) *
+        Math.random() *
+        10
+      ) + "vw"
+    );
+
+
+    particle.style.setProperty(
+      "--endY",
+      (
+        Math.sin(angle) *
+        Math.random() *
+        10
+      ) + "vh"
+    );
+
+
+    particle.style.setProperty(
+      "--duration",
+      (
+        3 +
+        Math.random() * 7
+      ) + "s"
+    );
+
+
+    particle.style.setProperty(
+      "--opacity",
+      .2 +
+      Math.random() * .8
+    );
+
+
+    particle.style.left =
+      "50%";
+
+
+    particle.style.top =
+      "50%";
+
+
+    particle.style.animationDelay =
+      (
+        -Math.random() * 8
+      ) + "s";
+
+
+    container.appendChild(
+      particle
+    );
+  }
+}
+
+
+/* =========================================================
+   STORY START
+========================================================= */
+
+function startStory() {
+
+  storyIndex = 0;
+
+  showScreen(
+    "storyScreen"
+  );
+
+
+  setTimeout(() => {
+
+    displayStory();
+
+  }, 100);
+}
+
+
+/* =========================================================
+   STORY DISPLAY
+========================================================= */
+
+function displayStory() {
+
+  const story =
+    storyData[storyIndex];
+
+
+  if (!story) return;
+
+
+  document.getElementById(
+    "chapterNumber"
+  ).textContent =
+    story.chapter;
+
+
+  document.getElementById(
+    "chapterTitle"
+  ).textContent =
+    story.title;
+
+
+  document.getElementById(
+    "storySpeaker"
+  ).textContent =
+    story.speaker;
+
+
+  document.getElementById(
+    "storyText"
+  ).textContent =
+    story.text;
+
+
+  const button =
+    document.getElementById(
+      "storyNextButton"
+    );
+
+
+  if (
+    storyIndex ===
+    storyData.length - 1
+  ) {
+
+    button.textContent =
+      "■ 第三章を終える";
+
+  } else {
+
+    button.textContent =
+      "▶ 次へ";
+
+  }
+}
+
+
+/* =========================================================
+   NEXT STORY
+========================================================= */
+
+function nextStory() {
+
+  storyIndex++;
+
+
+  if (
+    storyIndex >=
+    storyData.length
+  ) {
+
+    showScreen(
+      "storySelectScreen"
+    );
+
+    return;
+  }
+
+
+  displayStory();
+
+  saveGame();
+}
+
+
+/* =========================================================
+   CHARACTER PROFILE
+========================================================= */
+
+function showProfile(id) {
+
+  const profiles = {
+
+    servant:
+      "下僕（げぼく）\n\n究極眷属。\n\nその正体には多くの謎が残されている。",
+
+    guren:
+      "皇 紅蓮\n\n霊界追放者。\n\n世界の境界を越えた存在。",
+
+    kagari:
+      "焔緋 灯影\n\n終焉の管理者。\n\n世界の終わりを見届ける者。",
+
+    homurabi:
+      "焔緋（ほむらび）くん\n\n何でも屋・交渉人。\n\n情報と交渉を武器にする謎多き人物。"
+
+  };
+
+
+  alert(
+    profiles[id] ||
+    "プロフィールは未解放です。"
+  );
+}
+
+
+/* =========================================================
+   GACHA
+========================================================= */
+
+function drawGacha(count) {
+
+  const cost =
+    count === 1
+      ? 300
+      : 3000;
+
+
+  if (gems < cost) {
+
+    document.getElementById(
+      "gachaResult"
+    ).textContent =
+      "石が足りません。";
+
+    return;
+  }
+
+
+  gems -= cost;
+
+
+  const skills = [
+
+    "⚔️ 斬撃",
+
+    "✨ 星の閃光",
+
+    "💚 再生",
+
+    "🌌 完全適応"
+
+  ];
+
+
+  const results = [];
+
+
+  for (
+    let i = 0;
+    i < count;
+    i++
+  ) {
+
+    results.push(
+      skills[
+        Math.floor(
+          Math.random() *
+          skills.length
+        )
+      ]
+    );
+
+  }
+
+
+  document.getElementById(
+    "gachaResult"
+  ).textContent =
+    results.join("　");
+
+
+  saveGame();
+}
+
+
+/* =========================================================
+   BATTLE
+========================================================= */
+
+function updateBattleUI() {
+
+  document.getElementById(
+    "enemyHpText"
+  ).textContent =
+    `${Math.max(enemyHp,0)} / 1000`;
+
+
+  document.getElementById(
+    "playerHpText"
+  ).textContent =
+    `${Math.max(playerHp,0)} / 1000`;
+
+
+  document.getElementById(
+    "enemyHpBar"
+  ).style.width =
+    Math.max(
+      0,
+      enemyHp / 1000 * 100
+    ) + "%";
+
+
+  document.getElementById(
+    "playerHpBar"
+  ).style.width =
+    Math.max(
+      0,
+      playerHp / 1000 * 100
+    ) + "%";
+}
+
+
+function battleAttack() {
+
+  const damage =
+    80 +
+    Math.floor(
+      Math.random() * 61
+    );
+
+
+  enemyHp -= damage;
+
+
+  let message =
+    `⚔️ ${damage}ダメージを与えた。`;
+
+
+  if (enemyHp <= 0) {
+
+    enemyHp = 0;
+
+
+    const reward =
+      100 +
+      Math.floor(
+        Math.random() * 101
+      );
+
+
+    gems += reward;
+
+
+    message +=
+      `\n\n敵を倒した！ ${reward}💎 獲得。`;
+
+
+    enemyHp = 1000;
+    playerHp = 1000;
+
+  } else {
+
+    enemyTurn();
+
+  }
+
+
+  document.getElementById(
+    "battleLog"
+  ).textContent =
+    message;
+
+
+  updateBattleUI();
+
+  saveGame();
+}
+
+
+function battleGuard() {
+
+  const damage =
+    20 +
+    Math.floor(
+      Math.random() * 21
+    );
+
+
+  enemyHp -= damage;
+
+
+  document.getElementById(
+    "battleLog"
+  ).textContent =
+    `🛡️ 防御しながら ${damage}ダメージ。`;
+
+
+  if (enemyHp <= 0) {
+
+    enemyHp = 0;
+
+    gems += 100;
+
+    document.getElementById(
+      "battleLog"
+    ).textContent +=
+      "\n敵を倒した！ 100💎 獲得。";
+
+    enemyHp = 1000;
+    playerHp = 1000;
+
+  } else {
+
+    enemyTurn();
+
+  }
+
+
+  updateBattleUI();
+
+  saveGame();
+}
+
+
+function enemyTurn() {
+
+  const damage =
+    30 +
+    Math.floor(
+      Math.random() * 31
+    );
+
+
+  playerHp -= damage;
+
+
+  if (playerHp < 0) {
+    playerHp = 0;
+  }
+
+
+  if (playerHp === 0) {
+
+    document.getElementById(
+      "battleLog"
+    ).textContent +=
+      "\n\n戦闘不能になった……";
+
+    playerHp = 1000;
+  }
+}
+
+
+/* =========================================================
+   CHARACTER SELECT
+========================================================= */
+
+function selectCharacter(name) {
+
+  selectedCharacter =
+    name;
+
+
+  document.getElementById(
+    "selectedCharacter"
+  ).textContent =
+    name;
+
+
+  saveGame();
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function toggleSetting(type) {
+
+  if (type === "bgm") {
+
+    bgmOn = !bgmOn;
+
+
+    document.getElementById(
+      "bgmButton"
+    ).textContent =
+      bgmOn
+        ? "ON"
+        : "OFF";
+  }
+
+
+  if (type === "se") {
+
+    seOn = !seOn;
+
+
+    document.getElementById(
+      "seButton"
+    ).textContent =
+      seOn
+        ? "ON"
+        : "OFF";
+  }
+}
+
+
+/* =========================================================
+   DELETE SAVE
+========================================================= */
+
+function deleteSave() {
+
+  const ok =
+    confirm(
+      "セーブデータを削除しますか？"
+    );
+
+
+  if (!ok) return;
+
+
+  localStorage.removeItem(
+    "thavmaSave"
+  );
+
+
+  gems = 300;
+
+  selectedCharacter =
+    "旅人";
+
+
+  updateGems();
+
+
+  document.getElementById(
+    "selectedCharacter"
+  ).textContent =
+    "旅人";
+
+
+  alert(
+    "セーブデータを削除しました。"
+  );
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+createParticles();
+
+updateGems();
+
+updateBattleUI();
 
 </script>
 
