@@ -6,9 +6,7 @@
 <title>Θαύμα ― 世界の外側にある物語 ―</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
   margin:0;
@@ -22,13 +20,18 @@ body{
   overflow-x:hidden;
 }
 
+/* ==================================================
+   BUTTON
+================================================== */
+
 button{
   width:100%;
   padding:14px;
   margin:6px 0;
   border:1px solid #791426;
   border-radius:12px;
-  background:linear-gradient(135deg,#160309,#420914,#130207);
+  background:
+    linear-gradient(135deg,#160309,#420914,#130207);
   color:#fff;
   font-size:16px;
   cursor:pointer;
@@ -45,18 +48,16 @@ button:active{
   transform:scale(.97);
 }
 
-.container{
-  max-width:950px;
-  margin:auto;
-  padding:18px;
-}
+/* ==================================================
+   SCREEN
+================================================== */
 
 .screen{
-  display:none;
+  display:none !important;
 }
 
 .screen.active{
-  display:block;
+  display:block !important;
 }
 
 /* ==================================================
@@ -71,15 +72,17 @@ button:active{
   position:relative;
   overflow:hidden;
   background:
-    radial-gradient(circle at 50% 45%,
+    radial-gradient(
+      circle at 50% 45%,
       #620918 0%,
       #22040b 25%,
       #070007 60%,
-      #000 100%);
+      #000 100%
+    );
 }
 
 .title-screen.active{
-  display:flex;
+  display:flex !important;
 }
 
 .title-bg{
@@ -98,12 +101,13 @@ button:active{
   top:50%;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  background:radial-gradient(
-    circle,
-    #ff102633 0%,
-    #a0001822 28%,
-    transparent 70%
-  );
+  background:
+    radial-gradient(
+      circle,
+      #ff102633 0%,
+      #a0001822 28%,
+      transparent 70%
+    );
   animation:redPulse 3.5s ease-in-out infinite;
 }
 
@@ -175,12 +179,8 @@ button:active{
     transform:translateY(110vh) translateX(0);
     opacity:0;
   }
-  15%{
-    opacity:1;
-  }
-  85%{
-    opacity:.8;
-  }
+  15%{opacity:1}
+  85%{opacity:.8}
   to{
     transform:translateY(-15vh) translateX(90px);
     opacity:0;
@@ -193,14 +193,15 @@ button:active{
   height:2px;
   left:-10%;
   top:-10%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #ff243f,
-    #fff,
-    #ff243f,
-    transparent
-  );
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #ff243f,
+      #fff,
+      #ff243f,
+      transparent
+    );
   box-shadow:0 0 25px #ff1938;
   opacity:.5;
   animation:scan 4.5s linear infinite;
@@ -217,14 +218,15 @@ button:active{
   height:35%;
   left:-15%;
   bottom:-10%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #8f001633,
-    #ff002244,
-    #8f001633,
-    transparent
-  );
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #8f001633,
+      #ff002244,
+      #8f001633,
+      transparent
+    );
   filter:blur(25px);
   animation:mistMove 7s ease-in-out infinite alternate;
 }
@@ -275,12 +277,8 @@ button:active{
 }
 
 @keyframes titlePulse{
-  0%,100%{
-    transform:scale(1);
-  }
-  50%{
-    transform:scale(1.035);
-  }
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.035)}
 }
 
 @keyframes titleFlicker{
@@ -301,7 +299,7 @@ button:active{
 }
 
 /* ==================================================
-   START NOISE TRANSITION
+   START NOISE
 ================================================== */
 
 #noiseTransition{
@@ -350,19 +348,13 @@ button:active{
     opacity:0;
     transform:scale(1);
   }
-  15%{
-    opacity:1;
-  }
-  35%{
-    opacity:.65;
-  }
+  15%{opacity:1}
+  35%{opacity:.65}
   55%{
     opacity:1;
     transform:scale(1.02);
   }
-  75%{
-    opacity:.9;
-  }
+  75%{opacity:.9}
   100%{
     opacity:1;
     transform:scale(1.1);
@@ -381,20 +373,179 @@ button:active{
 }
 
 /* ==================================================
+   FORESHADOW
+================================================== */
+
+#foreshadowScreen{
+  position:fixed;
+  inset:0;
+  z-index:100000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle,#4d0712,#090006 60%,#000);
+  overflow:hidden;
+}
+
+#foreshadowScreen.active{
+  display:flex !important;
+}
+
+.foreshadow-lines{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 4px,
+      #ff183811 5px
+    );
+  animation:foreshadowScan .12s infinite;
+}
+
+@keyframesforeshadowScan{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(8px)}
+  100%{transform:translateY(-5px)}
+}
+
+.foreshadow-content{
+  position:relative;
+  z-index:3;
+  width:min(900px,90vw);
+  text-align:center;
+}
+
+.foreshadow-small{
+  color:#ff4a60;
+  letter-spacing:7px;
+  font-size:13px;
+  margin-bottom:30px;
+}
+
+#foreshadowQuote{
+  font-size:clamp(24px,6vw,55px);
+  line-height:1.7;
+  min-height:170px;
+  color:#fff;
+  text-shadow:
+    0 0 10px #fff,
+    0 0 25px #ff1838,
+    0 0 60px #8f001c;
+  animation:quoteGlitch .4s infinite alternate;
+}
+
+@keyframesquoteGlitch{
+  from{transform:translateX(-1px)}
+  to{transform:translateX(1px)}
+}
+
+.foreshadow-progress{
+  width:min(500px,80vw);
+  height:2px;
+  margin:30px auto 0;
+  background:#3b0a12;
+  overflow:hidden;
+}
+
+.foreshadow-progress::after{
+  content:"";
+  display:block;
+  width:0;
+  height:100%;
+  background:#ff2947;
+  box-shadow:0 0 20px #ff1838;
+  animation:quoteProgress 5.7s linear forwards;
+}
+
+@keyframesquoteProgress{
+  to{width:100%}
+}
+
+/* ==================================================
    STORY
 ================================================== */
 
 .story-screen{
   min-height:100vh;
-  background:
-    radial-gradient(
-      circle at 50% 50%,
-      #410712,
-      #110208 45%,
-      #020003 100%
-    );
   position:relative;
   overflow:hidden;
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      #4a0712,
+      #150207 42%,
+      #020003 100%
+    );
+}
+
+.blood-rain{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  pointer-events:none;
+}
+
+.rain-drop{
+  position:absolute;
+  top:-15vh;
+  width:2px;
+  height:clamp(18px,4vh,42px);
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      #ff1938,
+      #9e071b
+    );
+  box-shadow:
+    0 0 5px #ff1838,
+    0 0 12px #8d0019;
+  opacity:.65;
+  animation:rainFall linear infinite;
+}
+
+.rain-drop.small{
+  width:1px;
+  opacity:.38;
+  filter:blur(.3px);
+}
+
+.rain-drop.big{
+  width:3px;
+  opacity:.8;
+}
+
+@keyframesrainFall{
+  from{
+    transform:translate3d(0,-15vh,0) rotate(8deg);
+  }
+  to{
+    transform:translate3d(-90px,120vh,0) rotate(8deg);
+  }
+}
+
+.story-red-fog{
+  position:absolute;
+  width:150%;
+  height:35%;
+  left:-25%;
+  bottom:-15%;
+  background:
+    radial-gradient(
+      ellipse,
+      #b3002544,
+      transparent 65%
+    );
+  filter:blur(30px);
+  animation:fogMove 6s ease-in-out infinite alternate;
+}
+
+@keyframesfogMove{
+  from{transform:translateX(-5%)}
+  to{transform:translateX(5%)}
 }
 
 .story-screen::before{
@@ -414,32 +565,8 @@ button:active{
 .story-vignette{
   position:absolute;
   inset:0;
-  box-shadow:
-    inset 0 0 180px #000;
+  box-shadow:inset 0 0 180px #000;
   pointer-events:none;
-}
-
-.story-particles{
-  position:absolute;
-  inset:0;
-}
-
-.story-particle{
-  position:absolute;
-  width:2px;
-  height:20px;
-  background:#ff203d;
-  opacity:.35;
-  animation:storyFall linear infinite;
-}
-
-@keyframes storyFall{
-  from{
-    transform:translateY(-30vh) rotate(15deg);
-  }
-  to{
-    transform:translateY(120vh) rotate(15deg);
-  }
 }
 
 .story-inner{
@@ -490,7 +617,7 @@ button:active{
   animation:storyBoxAppear .7s ease-out;
 }
 
-@keyframes storyBoxAppear{
+@keyframesstoryBoxAppear{
   from{
     opacity:0;
     transform:translateY(20px);
@@ -540,7 +667,7 @@ button:active{
   animation:storyFlash .35s ease-out;
 }
 
-@keyframes storyFlash{
+@keyframesstoryFlash{
   0%{opacity:.65}
   100%{opacity:0}
 }
@@ -549,7 +676,7 @@ button:active{
   animation:screenShake .25s linear;
 }
 
-@keyframes screenShake{
+@keyframesscreenShake{
   0%{transform:translate(0)}
   20%{transform:translate(-8px,3px)}
   40%{transform:translate(8px,-3px)}
@@ -562,9 +689,19 @@ button:active{
    GAME UI
 ================================================== */
 
+.container{
+  max-width:950px;
+  margin:auto;
+  padding:18px;
+}
+
 .panel{
   background:
-    linear-gradient(145deg,#10050aee,#1d070dee);
+    linear-gradient(
+      145deg,
+      #10050aee,
+      #1d070dee
+    );
   border:1px solid #4b1622;
   border-radius:16px;
   padding:18px;
@@ -660,7 +797,13 @@ button:active{
 
 .hp-inner{
   height:100%;
-  background:linear-gradient(90deg,#8e1528,#ff536b,#ffb0b8);
+  background:
+    linear-gradient(
+      90deg,
+      #8e1528,
+      #ff536b,
+      #ffb0b8
+    );
   transition:.3s;
 }
 
@@ -691,9 +834,67 @@ button:active{
   margin:0;
 }
 
+.skill-equipped{
+  border-color:#ff304d !important;
+  box-shadow:0 0 15px #ff183822;
+}
+
+.battle-skill{
+  position:relative;
+}
+
+.skill-number{
+  color:#ff687c;
+  font-size:12px;
+  margin-left:6px;
+}
+
 /* ==================================================
-   RESPONSIVE
+   BATTLE EFFECT
 ================================================== */
+
+#battleEffect{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:9997;
+  opacity:0;
+}
+
+#battleEffect.active{
+  animation:battleFlash .28s ease-out;
+}
+
+@keyframesbattleFlash{
+  0%{
+    opacity:.5;
+    background:#ff1838;
+  }
+  100%{
+    opacity:0;
+    background:#ff1838;
+  }
+}
+
+/* ==================================================
+   SAFETY FALLBACK
+================================================== */
+
+#bootMessage{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:#020003;
+  z-index:200000;
+  text-align:center;
+  padding:30px;
+}
+
+#bootMessage.show{
+  display:flex;
+}
 
 @media(max-width:650px){
 
@@ -711,6 +912,9 @@ button:active{
     padding:18px;
   }
 
+  .title-core h1{
+    letter-spacing:10px;
+  }
 }
 </style>
 </head>
@@ -718,7 +922,19 @@ button:active{
 <body>
 
 <!-- ==================================================
-     NOISE TRANSITION
+     BOOT FALLBACK
+================================================== -->
+
+<div id="bootMessage">
+  <div>
+    <h2>Θαύμα</h2>
+    <p>画面を初期化しています……</p>
+    <button onclick="forceTitle()">タイトルへ</button>
+  </div>
+</div>
+
+<!-- ==================================================
+     NOISE
 ================================================== -->
 
 <div id="noiseTransition">
@@ -726,8 +942,30 @@ button:active{
   <div class="noiseRed"></div>
 </div>
 
-<div id="storyFlash" class="story-flash"></div>
+<!-- ==================================================
+     FORESHADOW
+================================================== -->
 
+<div id="foreshadowScreen">
+
+  <div class="foreshadow-lines"></div>
+
+  <div class="foreshadow-content">
+
+    <div class="foreshadow-small">
+      ―― 記録されていない言葉 ――
+    </div>
+
+    <div id="foreshadowQuote"></div>
+
+    <div class="foreshadow-progress"></div>
+
+  </div>
+
+</div>
+
+<div id="storyFlash" class="story-flash"></div>
+<div id="battleEffect"></div>
 
 <!-- ==================================================
      TITLE
@@ -775,43 +1013,37 @@ button:active{
 
 </div>
 
-
 <!-- ==================================================
-     STORY SCREEN
+     STORY
 ================================================== -->
 
 <div id="storyScreen" class="screen story-screen">
 
-  <div class="story-particles" id="storyParticles"></div>
+  <div class="blood-rain" id="bloodRain"></div>
+
+  <div class="story-red-fog"></div>
 
   <div class="story-vignette"></div>
 
   <div class="story-inner">
 
-    <div id="chapterNumber"
-         class="chapter-number">
-    </div>
+    <div id="chapterNumber" class="chapter-number"></div>
 
-    <div id="chapterTitle"
-         class="chapter-title">
-    </div>
+    <div id="chapterTitle" class="chapter-title"></div>
 
-    <div id="storyBox"
-         class="story-box">
+    <div id="storyBox" class="story-box">
 
-      <div id="storySpeaker"
-           class="story-speaker">
-      </div>
+      <div id="storySpeaker" class="story-speaker"></div>
 
-      <div id="storyText"
-           class="story-text">
-      </div>
+      <div id="storyText" class="story-text"></div>
 
       <div class="story-controls">
 
         <button
+          id="storyNextButton"
           class="story-next"
-          onclick="nextStory()">
+          onclick="nextStory()"
+        >
           ▶ 次へ
         </button>
 
@@ -823,13 +1055,11 @@ button:active{
 
 </div>
 
-
 <!-- ==================================================
      GAME
 ================================================== -->
 
 <div class="container">
-
 
 <!-- MENU -->
 
@@ -841,10 +1071,7 @@ button:active{
 
     <p>
       所持石：
-      <span id="menuGems"
-            class="gold">
-        300
-      </span>
+      <span id="menuGems" class="gold">300</span>
       💎
     </p>
 
@@ -888,8 +1115,9 @@ button:active{
 
 </div>
 
-
-<!-- STORY SELECT -->
+<!-- ==================================================
+     STORY SELECT
+================================================== -->
 
 <div id="storySelectScreen" class="screen">
 
@@ -901,7 +1129,9 @@ button:active{
 
   <div class="panel">
 
-    <h3>Θαύμα ― 世界の外側にある物語</h3>
+    <h3>
+      Θαύμα ― 世界の外側にある物語
+    </h3>
 
     <p class="muted">
       世界は、最初から完成していたわけではなかった。
@@ -915,8 +1145,9 @@ button:active{
 
 </div>
 
-
-<!-- CHARACTERS -->
+<!-- ==================================================
+     CHARACTERS
+================================================== -->
 
 <div id="charactersScreen" class="screen">
 
@@ -928,9 +1159,10 @@ button:active{
 
   <div class="character-list">
 
-    <div class="character-card"
-         onclick="showProfile('servant')">
-
+    <div
+      class="character-card"
+      onclick="showProfile('servant')"
+    >
       <div class="character-icon slime-icon">
         🩵
       </div>
@@ -942,12 +1174,12 @@ button:active{
       <span class="muted">
         究極眷属
       </span>
-
     </div>
 
-    <div class="character-card"
-         onclick="showProfile('guren')">
-
+    <div
+      class="character-card"
+      onclick="showProfile('guren')"
+    >
       <div class="character-icon">
         🩸⚰️
       </div>
@@ -959,12 +1191,12 @@ button:active{
       <span class="muted">
         霊界追放者
       </span>
-
     </div>
 
-    <div class="character-card"
-         onclick="showProfile('kagari')">
-
+    <div
+      class="character-card"
+      onclick="showProfile('kagari')"
+    >
       <div class="character-icon flame-icon">
         🔥
       </div>
@@ -976,12 +1208,12 @@ button:active{
       <span class="muted">
         終焉の管理者
       </span>
-
     </div>
 
-    <div class="character-card"
-         onclick="showProfile('homurabi')">
-
+    <div
+      class="character-card"
+      onclick="showProfile('homurabi')"
+    >
       <div class="character-icon flame-icon">
         🔥
       </div>
@@ -993,7 +1225,6 @@ button:active{
       <span class="muted">
         何でも屋・交渉人
       </span>
-
     </div>
 
   </div>
@@ -1002,8 +1233,9 @@ button:active{
 
 </div>
 
-
-<!-- SKILLS -->
+<!-- ==================================================
+     SKILLS
+================================================== -->
 
 <div id="skillsScreen" class="screen">
 
@@ -1019,7 +1251,7 @@ button:active{
       ⚔️ <b>斬撃</b>
       <br>
       <span class="muted">
-        基本攻撃。
+        基本攻撃。100前後のダメージ。
       </span>
     </div>
 
@@ -1043,7 +1275,7 @@ button:active{
       🌌 <b>完全適応</b>
       <br>
       <span class="muted">
-        戦闘が長いほど対応力上昇。
+        使用するほど戦闘への適応率が上昇。
       </span>
     </div>
 
@@ -1051,8 +1283,9 @@ button:active{
 
 </div>
 
-
-<!-- GACHA -->
+<!-- ==================================================
+     GACHA
+================================================== -->
 
 <div id="gachaScreen" class="screen">
 
@@ -1065,8 +1298,7 @@ button:active{
   <div class="panel">
 
     所持石：
-    <span id="gachaGems"
-          class="gold">
+    <span id="gachaGems" class="gold">
       300
     </span>
     💎
@@ -1081,14 +1313,13 @@ button:active{
     10回引く　3000石
   </button>
 
-  <div id="gachaResult"
-       class="panel">
-  </div>
+  <div id="gachaResult" class="panel"></div>
 
 </div>
 
-
-<!-- CHALLENGE -->
+<!-- ==================================================
+     CHALLENGE
+================================================== -->
 
 <div id="challengeScreen" class="screen">
 
@@ -1106,8 +1337,9 @@ button:active{
 
 </div>
 
-
-<!-- BATTLE -->
+<!-- ==================================================
+     BATTLE
+================================================== -->
 
 <div id="battleScreen" class="screen">
 
@@ -1119,32 +1351,28 @@ button:active{
     <span id="enemyHpText"></span>
 
     <div class="hp">
-      <div id="enemyHpBar"
-           class="hp-inner"></div>
+      <div id="enemyHpBar" class="hp-inner"></div>
     </div>
 
     味方HP：
     <span id="playerHpText"></span>
 
     <div class="hp">
-      <div id="playerHpBar"
-           class="hp-inner"></div>
+      <div id="playerHpBar" class="hp-inner"></div>
     </div>
 
   </div>
 
-  <div id="battleLog"
-       class="log">
-  </div>
+  <div id="battleLog" class="log"></div>
 
   <div class="panel">
 
     <button onclick="battleAttack()">
-      攻撃
+      ⚔️ 攻撃
     </button>
 
     <button onclick="battleGuard()">
-      防御
+      🛡️ 防御
     </button>
 
     <div id="battleSkillButtons"></div>
@@ -1153,8 +1381,9 @@ button:active{
 
 </div>
 
-
-<!-- EQUIP -->
+<!-- ==================================================
+     EQUIP
+================================================== -->
 
 <div id="equipScreen" class="screen">
 
@@ -1165,26 +1394,28 @@ button:active{
   <h2>スキルセット</h2>
 
   <p>
-    各キャラクター最大3個まで装備できます。
+    装備したスキルだけが戦闘で使用できます。
+    <br>
+    <b class="blood">
+      最大3個
+    </b>
   </p>
 
   <div class="panel">
 
     <div id="equipList"></div>
 
-    <p id="equipStatus"
-       class="cyan">
-    </p>
+    <p id="equipStatus" class="cyan"></p>
 
   </div>
 
 </div>
 
+<!-- ==================================================
+     CHARACTER SELECT
+================================================== -->
 
-<!-- CHARACTER SELECT -->
-
-<div id="battleCharacterScreen"
-     class="screen">
+<div id="battleCharacterScreen" class="screen">
 
   <button onclick="showScreen('menuScreen')">
     ← 戻る
@@ -1219,11 +1450,11 @@ button:active{
 
 </div>
 
+<!-- ==================================================
+     SETTINGS
+================================================== -->
 
-<!-- SETTINGS -->
-
-<div id="settingsScreen"
-     class="screen">
+<div id="settingsScreen" class="screen">
 
   <button onclick="showScreen('menuScreen')">
     ← 戻る
@@ -1249,7 +1480,6 @@ button:active{
 
 </div>
 
-
 <script>
 
 /* ==================================================
@@ -1260,6 +1490,10 @@ function createParticles(){
 
   const container=
     document.getElementById("particles");
+
+  if(!container)return;
+
+  container.innerHTML="";
 
   for(let i=0;i<60;i++){
 
@@ -1278,54 +1512,79 @@ function createParticles(){
       (-Math.random()*10)+"s";
 
     container.appendChild(p);
-
   }
-
 }
 
+/* ==================================================
+   BLOOD RAIN
+================================================== */
 
-function createStoryParticles(){
+function createBloodRain(){
 
   const container=
-    document.getElementById("storyParticles");
+    document.getElementById("bloodRain");
 
-  for(let i=0;i<45;i++){
+  if(!container)return;
 
-    const p=
+  container.innerHTML="";
+
+  for(let i=0;i<110;i++){
+
+    const drop=
       document.createElement("div");
 
-    p.className="story-particle";
+    drop.className="rain-drop";
 
-    p.style.left=
-      Math.random()*100+"%";
+    const r=Math.random();
 
-    p.style.animationDuration=
-      (3+Math.random()*7)+"s";
+    if(r<.35){
+      drop.classList.add("small");
+    }
 
-    p.style.animationDelay=
-      (-Math.random()*8)+"s";
+    if(r>.88){
+      drop.classList.add("big");
+    }
 
-    container.appendChild(p);
+    drop.style.left=
+      Math.random()*105+"%";
 
+    drop.style.animationDuration=
+      (1.3+Math.random()*2.8)+"s";
+
+    drop.style.animationDelay=
+      (-Math.random()*5)+"s";
+
+    drop.style.opacity=
+      (.25+Math.random()*.6);
+
+    container.appendChild(drop);
   }
-
 }
 
 createParticles();
-createStoryParticles();
-
+createBloodRain();
 
 /* ==================================================
    GAME DATA
 ================================================== */
 
-let gameData={
+const defaultGameData={
   gems:300,
   character:"旅人",
   bgm:true,
   se:true,
-  equipped:[],
+
+  equipped:[
+    "斬撃",
+    "星の閃光",
+    "再生"
+  ],
+
   storyProgress:0
+};
+
+let gameData={
+  ...defaultGameData
 };
 
 let currentEnemy=null;
@@ -1339,6 +1598,12 @@ let enemyMaxHP=0;
 let guarding=false;
 let battleFinished=false;
 
+let adaptationLevel=0;
+
+let currentChapter=0;
+let currentLine=0;
+
+let storyTypingTimer=null;
 
 /* ==================================================
    AUDIO
@@ -1351,22 +1616,41 @@ let bgmTimer=null;
 
 function initAudio(){
 
-  if(audioCtx)return;
+  if(audioCtx){
+
+    if(audioCtx.state==="suspended"){
+      audioCtx.resume();
+    }
+
+    return;
+  }
+
+  const AudioContextClass=
+    window.AudioContext ||
+    window.webkitAudioContext;
+
+  if(!AudioContextClass)return;
 
   audioCtx=
-    new(window.AudioContext||window.webkitAudioContext)();
+    new AudioContextClass();
 
-  seGain=audioCtx.createGain();
-  bgmGain=audioCtx.createGain();
+  seGain=
+    audioCtx.createGain();
+
+  bgmGain=
+    audioCtx.createGain();
 
   seGain.gain.value=.07;
   bgmGain.gain.value=.025;
 
-  seGain.connect(audioCtx.destination);
-  bgmGain.connect(audioCtx.destination);
+  seGain.connect(
+    audioCtx.destination
+  );
 
+  bgmGain.connect(
+    audioCtx.destination
+  );
 }
-
 
 function seTone(
   frequency,
@@ -1379,6 +1663,8 @@ function seTone(
 
   initAudio();
 
+  if(!audioCtx)return;
+
   if(audioCtx.state==="suspended"){
     audioCtx.resume();
   }
@@ -1390,7 +1676,6 @@ function seTone(
     audioCtx.createGain();
 
   osc.type=type;
-
   osc.frequency.value=frequency;
 
   gain.gain.setValueAtTime(
@@ -1411,9 +1696,7 @@ function seTone(
   osc.stop(
     audioCtx.currentTime+duration
   );
-
 }
-
 
 /* ==================================================
    DARK BGM
@@ -1424,6 +1707,8 @@ function startBGM(){
   if(!gameData.bgm)return;
 
   initAudio();
+
+  if(!audioCtx)return;
 
   if(audioCtx.state==="suspended"){
     audioCtx.resume();
@@ -1444,63 +1729,61 @@ function startBGM(){
 
   let i=0;
 
-  bgmTimer=setInterval(()=>{
+  bgmTimer=
+    setInterval(()=>{
 
-    if(!gameData.bgm)return;
+      if(!gameData.bgm)return;
 
-    const osc=
-      audioCtx.createOscillator();
+      const osc=
+        audioCtx.createOscillator();
 
-    const gain=
-      audioCtx.createGain();
+      const gain=
+        audioCtx.createGain();
 
-    osc.type="sawtooth";
+      osc.type="sawtooth";
 
-    osc.frequency.value=
-      notes[i%notes.length];
+      osc.frequency.value=
+        notes[i%notes.length];
 
-    osc.detune.value=
-      Math.sin(i*.7)*10;
+      osc.detune.value=
+        Math.sin(i*.7)*10;
 
-    gain.gain.setValueAtTime(
-      .001,
-      audioCtx.currentTime
-    );
+      gain.gain.setValueAtTime(
+        .001,
+        audioCtx.currentTime
+      );
 
-    gain.gain.linearRampToValueAtTime(
-      .035,
-      audioCtx.currentTime+.2
-    );
+      gain.gain.linearRampToValueAtTime(
+        .035,
+        audioCtx.currentTime+.2
+      );
 
-    gain.gain.exponentialRampToValueAtTime(
-      .001,
-      audioCtx.currentTime+2.5
-    );
+      gain.gain.exponentialRampToValueAtTime(
+        .001,
+        audioCtx.currentTime+2.5
+      );
 
-    osc.connect(gain);
-    gain.connect(bgmGain);
+      osc.connect(gain);
+      gain.connect(bgmGain);
 
-    osc.start();
+      osc.start();
 
-    osc.stop(
-      audioCtx.currentTime+2.6
-    );
+      osc.stop(
+        audioCtx.currentTime+2.6
+      );
 
-    i++;
+      i++;
 
-  },1100);
-
+    },1100);
 }
-
 
 function stopBGM(){
 
-  clearInterval(bgmTimer);
-
-  bgmTimer=null;
-
+  if(bgmTimer){
+    clearInterval(bgmTimer);
+    bgmTimer=null;
+  }
 }
-
 
 /* ==================================================
    SAVE
@@ -1508,71 +1791,140 @@ function stopBGM(){
 
 function saveGame(){
 
-  localStorage.setItem(
-    "thavmaSave",
-    JSON.stringify(gameData)
-  );
+  try{
 
+    localStorage.setItem(
+      "thavmaSave",
+      JSON.stringify(gameData)
+    );
+
+  }catch(e){
+
+    console.warn(
+      "セーブに失敗しました",
+      e
+    );
+  }
 }
-
 
 function loadGameData(){
 
+  gameData={
+    ...defaultGameData
+  };
+
   const saved=
-    localStorage.getItem("thavmaSave");
+    localStorage.getItem(
+      "thavmaSave"
+    );
 
   if(saved){
 
     try{
 
-      gameData=
-        Object.assign(
-          gameData,
-          JSON.parse(saved)
-        );
+      const parsed=
+        JSON.parse(saved);
 
-    }catch(e){}
+      if(parsed &&
+         typeof parsed==="object"){
 
+        gameData={
+          ...gameData,
+          ...parsed
+        };
+      }
+
+    }catch(e){
+
+      console.warn(
+        "セーブデータを読み込めませんでした",
+        e
+      );
+    }
+  }
+
+  if(!Array.isArray(gameData.equipped)){
+    gameData.equipped=[];
+  }
+
+  if(typeof gameData.storyProgress!=="number"){
+    gameData.storyProgress=0;
+  }
+
+  if(typeof gameData.gems!=="number"){
+    gameData.gems=300;
+  }
+
+  if(typeof gameData.character!=="string"){
+    gameData.character="旅人";
+  }
+
+  if(typeof gameData.bgm!=="boolean"){
+    gameData.bgm=true;
+  }
+
+  if(typeof gameData.se!=="boolean"){
+    gameData.se=true;
   }
 
   updateGemDisplays();
 
-  document.getElementById(
-    "selectedCharacter"
-  ).textContent=
-    gameData.character;
+  const selected=
+    document.getElementById(
+      "selectedCharacter"
+    );
+
+  if(selected){
+    selected.textContent=
+      gameData.character;
+  }
 
   renderEquip();
-
   renderChapters();
 
-  document.getElementById(
-    "bgmState"
-  ).textContent=
-    gameData.bgm?"ON":"OFF";
+  const bgmState=
+    document.getElementById(
+      "bgmState"
+    );
 
-  document.getElementById(
-    "seState"
-  ).textContent=
-    gameData.se?"ON":"OFF";
+  const seState=
+    document.getElementById(
+      "seState"
+    );
 
+  if(bgmState){
+    bgmState.textContent=
+      gameData.bgm?"ON":"OFF";
+  }
+
+  if(seState){
+    seState.textContent=
+      gameData.se?"ON":"OFF";
+  }
 }
-
 
 function updateGemDisplays(){
 
-  document.getElementById(
-    "menuGems"
-  ).textContent=
-    gameData.gems;
+  const menu=
+    document.getElementById(
+      "menuGems"
+    );
 
-  document.getElementById(
-    "gachaGems"
-  ).textContent=
-    gameData.gems;
+  const gacha=
+    document.getElementById(
+      "gachaGems"
+    );
 
+  if(menu){
+    menu.textContent=
+      gameData.gems;
+  }
+
+  if(gacha){
+    gacha.textContent=
+      gameData.gems;
+  }
 }
-
 
 /* ==================================================
    SCREEN
@@ -1580,15 +1932,28 @@ function updateGemDisplays(){
 
 function showScreen(id){
 
+  const target=
+    document.getElementById(id);
+
+  if(!target){
+
+    console.warn(
+      "存在しない画面:",
+      id
+    );
+
+    forceTitle();
+
+    return;
+  }
+
   document
     .querySelectorAll(".screen")
     .forEach(screen=>{
       screen.classList.remove("active");
     });
 
-  document
-    .getElementById(id)
-    .classList.add("active");
+  target.classList.add("active");
 
   updateGemDisplays();
 
@@ -1604,10 +1969,41 @@ function showScreen(id){
     renderChapters();
   }
 
-  startBGM();
-
+  if(id!=="titleScreen"){
+    startBGM();
+  }
 }
 
+/* ==================================================
+   FORCE TITLE
+================================================== */
+
+function forceTitle(){
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
+      screen.classList.remove("active");
+    });
+
+  const title=
+    document.getElementById(
+      "titleScreen"
+    );
+
+  if(title){
+    title.classList.add("active");
+  }
+
+  const boot=
+    document.getElementById(
+      "bootMessage"
+    );
+
+  if(boot){
+    boot.classList.remove("show");
+  }
+}
 
 /* ==================================================
    NEW GAME
@@ -1618,44 +2014,39 @@ function newGame(){
   initAudio();
 
   gameData={
-    gems:300,
-    character:"旅人",
-    bgm:true,
-    se:true,
-    equipped:[],
+    ...defaultGameData,
+
+    equipped:[
+      "斬撃",
+      "星の閃光",
+      "再生"
+    ],
+
     storyProgress:0
   };
 
   saveGame();
 
-  /*
-    最初の効果音
-  */
+  loadGameData();
 
-  seTone(
-    90,
-    .15,
-    "sawtooth",
-    .25
-  );
-
-  setTimeout(()=>{
-    seTone(
-      45,
-      .5,
-      "sawtooth",
-      .2
-    );
-  },120);
-
-  /*
-    ノイズ遷移
-  */
+  stopBGM();
 
   const noise=
     document.getElementById(
       "noiseTransition"
     );
+
+  const foreshadow=
+    document.getElementById(
+      "foreshadowScreen"
+    );
+
+  if(!noise || !foreshadow){
+
+    showScreen("menuScreen");
+
+    return;
+  }
 
   noise.classList.remove("active");
 
@@ -1663,19 +2054,196 @@ function newGame(){
 
   noise.classList.add("active");
 
+  seTone(
+    55,
+    .2,
+    "sawtooth",
+    .25
+  );
+
   setTimeout(()=>{
+
+    seTone(
+      82,
+      .15,
+      "square",
+      .18
+    );
+
+  },180);
+
+  setTimeout(
+    playForeshadowing,
+    260
+  );
+}
+
+/* ==================================================
+   FORESHADOW QUOTES
+================================================== */
+
+const foreshadowQuotes=[
+
+  "――世界が終わるときに、それを見届ける者。",
+
+  "――私は勝つためではなく、守るために戦います。",
+
+  "――こいつは俺と渡り合える。",
+
+  "――大丈夫、どうにかなるよ。",
+
+  "――世界の外側には、まだ何かがいる。",
+
+  "――物語は、まだ終わっていない。"
+
+];
+
+function playForeshadowing(){
+
+  const screen=
+    document.getElementById(
+      "foreshadowScreen"
+    );
+
+  const quote=
+    document.getElementById(
+      "foreshadowQuote"
+    );
+
+  if(!screen || !quote){
+
+    finishNewGameTransition();
+
+    return;
+  }
+
+  screen.classList.add("active");
+
+  let index=0;
+
+  quote.textContent=
+    foreshadowQuotes[index];
+
+  seTone(
+    110,
+    .25,
+    "sawtooth",
+    .18
+  );
+
+  const timer=
+    setInterval(()=>{
+
+      index++;
+
+      if(
+        index>=foreshadowQuotes.length
+      ){
+
+        clearInterval(timer);
+
+        setTimeout(()=>{
+          finishNewGameTransition();
+        },500);
+
+        return;
+      }
+
+      quote.textContent=
+        foreshadowQuotes[index];
+
+      seTone(
+        90+index*15,
+        .14,
+        "sawtooth",
+        .14
+      );
+
+      if(index===4){
+        triggerNoiseShake();
+      }
+
+    },820);
+}
+
+/* ==================================================
+   NOISE SHAKE
+================================================== */
+
+function triggerNoiseShake(){
+
+  const screen=
+    document.getElementById(
+      "foreshadowScreen"
+    );
+
+  if(!screen)return;
+
+  screen.animate(
+    [
+      {transform:"translateX(0)"},
+      {transform:"translateX(-10px)"},
+      {transform:"translateX(10px)"},
+      {transform:"translateX(-6px)"},
+      {transform:"translateX(0)"}
+    ],
+    {
+      duration:300,
+      iterations:1
+    }
+  );
+}
+
+/* ==================================================
+   FINISH NEW GAME
+================================================== */
+
+function finishNewGameTransition(){
+
+  const quote=
+    document.getElementById(
+      "foreshadowQuote"
+    );
+
+  const screen=
+    document.getElementById(
+      "foreshadowScreen"
+    );
+
+  const noise=
+    document.getElementById(
+      "noiseTransition"
+    );
+
+  if(quote){
+    quote.textContent=
+      "―― Θαύμα ――";
+  }
+
+  seTone(
+    42,
+    .7,
+    "sawtooth",
+    .25
+  );
+
+  setTimeout(()=>{
+
+    if(screen){
+      screen.classList.remove("active");
+    }
+
+    if(noise){
+      noise.classList.remove("active");
+    }
 
     showScreen("menuScreen");
 
-    noise.classList.remove("active");
-
-  },900);
-
+  },700);
 }
 
-
 /* ==================================================
-   LOAD
+   LOAD GAME
 ================================================== */
 
 function loadGame(){
@@ -1692,434 +2260,434 @@ function loadGame(){
   );
 
   showScreen("menuScreen");
-
 }
-
 
 /* ==================================================
    STORY DATA
+   ※ ここは提供された内容をそのまま維持
 ================================================== */
 
 const storyChapters=[
 
 {
-title:"赤い世界",
-lines:[
+  title:"赤い世界",
+  lines:[
 
-{
-speaker:"？？？",
-text:"――目を覚ませ。",
-effect:"normal"
+    {
+      speaker:"？？？",
+      text:"――目を覚ませ。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"？？？",
+      text:"ここは、お前が知っている世界ではない。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"旅人",
+      text:"……ここは……どこだ？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"？？？",
+      text:"世界だ。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"？？？",
+      text:"ただし――世界の内側だ。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"空は赤かった。\n大地には、何もない。\nそれなのに――誰かの視線だけがあった。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"下僕",
+      text:"ご安心ください。\n私がお守りします。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"旅人",
+      text:"君は……誰なんだ？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"下僕",
+      text:"私は、あなたの物語に必要な者です。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"その瞬間。\n遠くで、世界そのものが軋んだ。",
+      effect:"shake"
+    }
+
+  ]
 },
 
 {
-speaker:"？？？",
-text:"ここは、お前が知っている世界ではない。",
-effect:"normal"
+  title:"霊界追放者",
+  lines:[
+
+    {
+      speaker:"ナレーション",
+      text:"赤い霧の向こうから、一人の男が歩いてくる。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"皇 紅蓮",
+      text:"……ああ？\n誰だ、お前。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"旅人",
+      text:"あなたこそ……誰？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"皇 紅蓮",
+      text:"皇 紅蓮。\nまあ、覚えなくてもいい。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"皇 紅蓮",
+      text:"どうせ、この世界じゃ名前なんて意味を持たねぇ。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"下僕",
+      text:"皇 紅蓮……。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"皇 紅蓮",
+      text:"……スライムだからって侮れねぇ。\nこいつは俺と渡り合える。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"下僕",
+      text:"私は勝つためではなく、守るために戦います。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"皇 紅蓮",
+      text:"……へぇ。\n面白いこと言うじゃねぇか。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"その瞬間、紅蓮の背後に巨大な影が浮かんだ。",
+      effect:"flash"
+    }
+
+  ]
 },
 
 {
-speaker:"旅人",
-text:"……ここは……どこだ？",
-effect:"normal"
+  title:"終焉の管理者",
+  lines:[
+
+    {
+      speaker:"ナレーション",
+      text:"赤い空が、割れた。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"旅人",
+      text:"空が……割れる……？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"？？？",
+      text:"違う。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"？？？",
+      text:"割れたのは――世界のほうだ。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"焔緋 灯影",
+      text:"……騒がしいね。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"皇 紅蓮",
+      text:"灯影……！",
+      effect:"flash"
+    },
+
+    {
+      speaker:"焔緋 灯影",
+      text:"大丈夫。\nどうにかなるよ。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"旅人",
+      text:"あなたは……何者なんだ？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋 灯影",
+      text:"僕？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋 灯影",
+      text:"世界が終わるときに、それを見届ける者。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"蒼い炎が、赤い世界を一瞬だけ照らした。",
+      effect:"flash"
+    }
+
+  ]
 },
 
 {
-speaker:"？？？",
-text:"世界だ。",
-effect:"flash"
+  title:"笑顔の裏側",
+  lines:[
+
+    {
+      speaker:"ナレーション",
+      text:"一行は、崩壊しかけた都市へ辿り着いた。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋くん",
+      text:"やあ。\n困ってるなら手伝うよ。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"旅人",
+      text:"……あなたも焔緋？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋くん",
+      text:"そう。\nまあ、同じ名前ってだけだけどね。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋くん",
+      text:"大丈夫、どうにかなるよ。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"突然、仲間の一人へ危険が迫る。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"焔緋くん",
+      text:"……。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋くん",
+      text:"俺は怒るのが苦手なんだ。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋くん",
+      text:"でも――",
+      effect:"flash"
+    },
+
+    {
+      speaker:"焔緋くん",
+      text:"仲間を傷つけたのは、お前の失敗だったな。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"笑顔が消えた。\n赤い霧の中で、その目だけが静かに光っていた。",
+      effect:"flash"
+    }
+
+  ]
 },
 
 {
-speaker:"？？？",
-text:"ただし――世界の内側だ。",
-effect:"shake"
-},
+  title:"世界の外側",
+  lines:[
 
-{
-speaker:"ナレーション",
-text:"空は赤かった。\n大地には、何もない。\nそれなのに――誰かの視線だけがあった。",
-effect:"normal"
-},
+    {
+      speaker:"ナレーション",
+      text:"五つ目の扉が現れた。",
+      effect:"normal"
+    },
 
-{
-speaker:"下僕",
-text:"ご安心ください。\n私がお守りします。",
-effect:"normal"
-},
+    {
+      speaker:"旅人",
+      text:"……この先に、何がある？",
+      effect:"normal"
+    },
 
-{
-speaker:"旅人",
-text:"君は……誰なんだ？",
-effect:"normal"
-},
+    {
+      speaker:"下僕",
+      text:"おそらく――世界の外側です。",
+      effect:"normal"
+    },
 
-{
-speaker:"下僕",
-text:"私は、あなたの物語に必要な者です。",
-effect:"flash"
-},
+    {
+      speaker:"皇 紅蓮",
+      text:"……やめとけ。",
+      effect:"normal"
+    },
 
-{
-speaker:"ナレーション",
-text:"その瞬間。\n遠くで、世界そのものが軋んだ。",
-effect:"shake"
+    {
+      speaker:"旅人",
+      text:"紅蓮……？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"皇 紅蓮",
+      text:"あそこには、俺たちが知らない何かがいる。",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋 灯影",
+      text:"いるよ。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"旅人",
+      text:"……え？",
+      effect:"normal"
+    },
+
+    {
+      speaker:"焔緋 灯影",
+      text:"ずっと、こっちを見てる。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"？？？",
+      text:"――やっと、ここまで来たか。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"世界から、音が消えた。",
+      effect:"shake"
+    },
+
+    {
+      speaker:"？？？",
+      text:"物語の続きを望むなら――",
+      effect:"normal"
+    },
+
+    {
+      speaker:"？？？",
+      text:"こちら側へ来い。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"ナレーション",
+      text:"その瞬間、画面が赤く染まる。",
+      effect:"flash"
+    },
+
+    {
+      speaker:"Θαύμα",
+      text:"第5章 ―― 終",
+      effect:"shake"
+    },
+
+    {
+      speaker:"？？？",
+      text:"――物語は、まだ終わっていない。",
+      effect:"flash"
+    }
+
+  ]
 }
-
-]},
-
-{
-title:"霊界追放者",
-lines:[
-
-{
-speaker:"ナレーション",
-text:"赤い霧の向こうから、一人の男が歩いてくる。",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"……ああ？\n誰だ、お前。",
-effect:"normal"
-},
-
-{
-speaker:"旅人",
-text:"あなたこそ……誰？",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"皇 紅蓮。\nまあ、覚えなくてもいい。",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"どうせ、この世界じゃ名前なんて意味を持たねぇ。",
-effect:"flash"
-},
-
-{
-speaker:"下僕",
-text:"皇 紅蓮……。",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"……スライムだからって侮れねぇ。\nこいつは俺と渡り合える。",
-effect:"shake"
-},
-
-{
-speaker:"下僕",
-text:"私は勝つためではなく、守るために戦います。",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"……へぇ。\n面白いこと言うじゃねぇか。",
-effect:"normal"
-},
-
-{
-speaker:"ナレーション",
-text:"その瞬間、紅蓮の背後に巨大な影が浮かんだ。",
-effect:"flash"
-}
-
-]},
-
-{
-title:"終焉の管理者",
-lines:[
-
-{
-speaker:"ナレーション",
-text:"赤い空が、割れた。",
-effect:"shake"
-},
-
-{
-speaker:"旅人",
-text:"空が……割れる……？",
-effect:"normal"
-},
-
-{
-speaker:"？？？",
-text:"違う。",
-effect:"flash"
-},
-
-{
-speaker:"？？？",
-text:"割れたのは――世界のほうだ。",
-effect:"shake"
-},
-
-{
-speaker:"焔緋 灯影",
-text:"……騒がしいね。",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"灯影……！",
-effect:"flash"
-},
-
-{
-speaker:"焔緋 灯影",
-text:"大丈夫。\nどうにかなるよ。",
-effect:"normal"
-},
-
-{
-speaker:"旅人",
-text:"あなたは……何者なんだ？",
-effect:"normal"
-},
-
-{
-speaker:"焔緋 灯影",
-text:"僕？",
-effect:"normal"
-},
-
-{
-speaker:"焔緋 灯影",
-text:"世界が終わるときに、それを見届ける者。",
-effect:"flash"
-},
-
-{
-speaker:"ナレーション",
-text:"蒼い炎が、赤い世界を一瞬だけ照らした。",
-effect:"flash"
-}
-
-]},
-
-{
-title:"笑顔の裏側",
-lines:[
-
-{
-speaker:"ナレーション",
-text:"一行は、崩壊しかけた都市へ辿り着いた。",
-effect:"normal"
-},
-
-{
-speaker:"焔緋くん",
-text:"やあ。\n困ってるなら手伝うよ。",
-effect:"normal"
-},
-
-{
-speaker:"旅人",
-text:"……あなたも焔緋？",
-effect:"normal"
-},
-
-{
-speaker:"焔緋くん",
-text:"そう。\nまあ、同じ名前ってだけだけどね。",
-effect:"normal"
-},
-
-{
-speaker:"焔緋くん",
-text:"大丈夫、どうにかなるよ。",
-effect:"normal"
-},
-
-{
-speaker:"ナレーション",
-text:"突然、仲間の一人へ危険が迫る。",
-effect:"shake"
-},
-
-{
-speaker:"焔緋くん",
-text:"……。",
-effect:"normal"
-},
-
-{
-speaker:"焔緋くん",
-text:"俺は怒るのが苦手なんだ。",
-effect:"normal"
-},
-
-{
-speaker:"焔緋くん",
-text:"でも――",
-effect:"flash"
-},
-
-{
-speaker:"焔緋くん",
-text:"仲間を傷つけたのは、お前の失敗だったな。",
-effect:"shake"
-},
-
-{
-speaker:"ナレーション",
-text:"笑顔が消えた。\n赤い霧の中で、その目だけが静かに光っていた。",
-effect:"flash"
-}
-
-]},
-
-{
-title:"世界の外側",
-lines:[
-
-{
-speaker:"ナレーション",
-text:"五つ目の扉が現れた。",
-effect:"normal"
-},
-
-{
-speaker:"旅人",
-text:"……この先に、何がある？",
-effect:"normal"
-},
-
-{
-speaker:"下僕",
-text:"おそらく――世界の外側です。",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"……やめとけ。",
-effect:"normal"
-},
-
-{
-speaker:"旅人",
-text:"紅蓮……？",
-effect:"normal"
-},
-
-{
-speaker:"皇 紅蓮",
-text:"あそこには、俺たちが知らない何かがいる。",
-effect:"normal"
-},
-
-{
-speaker:"焔緋 灯影",
-text:"いるよ。",
-effect:"flash"
-},
-
-{
-speaker:"旅人",
-text:"……え？",
-effect:"normal"
-},
-
-{
-speaker:"焔緋 灯影",
-text:"ずっと、こっちを見てる。",
-effect:"shake"
-},
-
-{
-speaker:"？？？",
-text:"――やっと、ここまで来たか。",
-effect:"flash"
-},
-
-{
-speaker:"ナレーション",
-text:"世界から、音が消えた。",
-effect:"shake"
-},
-
-{
-speaker:"？？？",
-text:"物語の続きを望むなら――",
-effect:"normal"
-},
-
-{
-speaker:"？？？",
-text:"こちら側へ来い。",
-effect:"flash"
-},
-
-{
-speaker:"ナレーション",
-text:"その瞬間、画面が赤く染まる。",
-effect:"flash"
-},
-
-{
-speaker:"Θαύμα",
-text:"第5章 ―― 終",
-effect:"shake"
-},
-
-{
-speaker:"？？？",
-text:"――物語は、まだ終わっていない。",
-effect:"flash"
-}
-
-]}
-
 ];
 
-
 /* ==================================================
-   STORY STATE
+   STORY
 ================================================== */
-
-let currentChapter=0;
-let currentLine=0;
-
 
 function renderChapters(){
 
   const list=
-    document.getElementById("chapterList");
+    document.getElementById(
+      "chapterList"
+    );
 
   if(!list)return;
 
   list.innerHTML="";
 
-  storyChapters.forEach((chapter,index)=>{
+  storyChapters.forEach(
+    (chapter,index)=>{
 
-    const button=
-      document.createElement("button");
+      const button=
+        document.createElement(
+          "button"
+        );
 
-    button.textContent=
-      `第${index+1}章　${chapter.title}`;
+      button.textContent=
+        `第${index+1}章　${chapter.title}`;
 
-    button.onclick=()=>startStory(index);
+      button.onclick=
+        ()=>{
+          startStory(index);
+        };
 
-    list.appendChild(button);
-
-  });
-
+      list.appendChild(button);
+    }
+  );
 }
-
-
-/* ==================================================
-   START STORY
-================================================== */
 
 function startStory(chapter){
 
@@ -2136,21 +2704,24 @@ function startStory(chapter){
     "sawtooth",
     .18
   );
-
 }
 
-
-/* ==================================================
-   STORY LINE
-================================================== */
-
 function renderStoryLine(){
+
+  if(storyTypingTimer){
+    clearInterval(storyTypingTimer);
+    storyTypingTimer=null;
+  }
 
   const chapter=
     storyChapters[currentChapter];
 
+  if(!chapter)return;
+
   const line=
     chapter.lines[currentLine];
+
+  if(!line)return;
 
   document.getElementById(
     "chapterNumber"
@@ -2174,29 +2745,41 @@ function renderStoryLine(){
 
   text.textContent="";
 
-  /*
-    文字を少しずつ表示
-  */
-
   let i=0;
 
-  const timer=
+  storyTypingTimer=
     setInterval(()=>{
 
       text.textContent=
         line.text.slice(0,i);
 
+      if(
+        i<line.text.length &&
+        line.text[i]!==" " &&
+        line.text[i]!=="\n" &&
+        i%3===0
+      ){
+
+        seTone(
+          150+Math.random()*60,
+          .025,
+          "sine",
+          .035
+        );
+      }
+
       i++;
 
       if(i>line.text.length){
-        clearInterval(timer);
+
+        clearInterval(
+          storyTypingTimer
+        );
+
+        storyTypingTimer=null;
       }
 
     },18);
-
-  /*
-    演出
-  */
 
   if(line.effect==="flash"){
 
@@ -2213,17 +2796,20 @@ function renderStoryLine(){
 
   if(line.effect==="shake"){
 
-    document
-      .getElementById("storyBox")
-      .classList.remove("story-shake");
+    const box=
+      document.getElementById(
+        "storyBox"
+      );
 
-    void document
-      .getElementById("storyBox")
-      .offsetWidth;
+    box.classList.remove(
+      "story-shake"
+    );
 
-    document
-      .getElementById("storyBox")
-      .classList.add("story-shake");
+    void box.offsetWidth;
+
+    box.classList.add(
+      "story-shake"
+    );
 
     seTone(
       70,
@@ -2240,11 +2826,8 @@ function renderStoryLine(){
       "sine",
       .08
     );
-
   }
-
 }
-
 
 function nextStory(){
 
@@ -2254,7 +2837,8 @@ function nextStory(){
   currentLine++;
 
   if(
-    currentLine>=chapter.lines.length
+    currentLine>=
+    chapter.lines.length
   ){
 
     gameData.storyProgress=
@@ -2271,7 +2855,6 @@ function nextStory(){
     ){
 
       currentChapter++;
-
       currentLine=0;
 
       triggerFlash();
@@ -2284,23 +2867,20 @@ function nextStory(){
     }else{
 
       showStoryEnd();
-
     }
 
     return;
-
   }
 
   renderStoryLine();
-
 }
 
-
-/* ==================================================
-   STORY END
-================================================== */
-
 function showStoryEnd(){
+
+  if(storyTypingTimer){
+    clearInterval(storyTypingTimer);
+    storyTypingTimer=null;
+  }
 
   document.getElementById(
     "storySpeaker"
@@ -2312,43 +2892,40 @@ function showStoryEnd(){
   ).textContent=
     "第5章をクリアしました。\n\n世界の外側には、まだ何かが存在する。\n\n――物語は続く。";
 
-  document.querySelector(
-    ".story-next"
-  ).textContent=
+  const button=
+    document.getElementById(
+      "storyNextButton"
+    );
+
+  button.textContent=
     "メニューへ戻る";
 
-  document.querySelector(
-    ".story-next"
-  ).onclick=
-    ()=>{
-      document.querySelector(
-        ".story-next"
-      ).onclick=nextStory;
+  button.onclick=()=>{
 
-      document.querySelector(
-        ".story-next"
-      ).textContent="▶ 次へ";
+    button.onclick=
+      nextStory;
 
-      showScreen("menuScreen");
-    };
+    button.textContent=
+      "▶ 次へ";
+
+    showScreen(
+      "menuScreen"
+    );
+  };
 
   triggerFlash();
 
   setTimeout(()=>{
+
     seTone(
       55,
       .8,
       "sawtooth",
       .2
     );
+
   },200);
-
 }
-
-
-/* ==================================================
-   FLASH
-================================================== */
 
 function triggerFlash(){
 
@@ -2357,14 +2934,18 @@ function triggerFlash(){
       "storyFlash"
     );
 
-  flash.classList.remove("active");
+  if(!flash)return;
+
+  flash.classList.remove(
+    "active"
+  );
 
   void flash.offsetWidth;
 
-  flash.classList.add("active");
-
+  flash.classList.add(
+    "active"
+  );
 }
-
 
 /* ==================================================
    ENEMIES
@@ -2372,40 +2953,39 @@ function triggerFlash(){
 
 const enemies=[
 
-{
-  id:"slime",
-  name:"深淵スライム",
-  hp:500,
-  attack:45,
-  reward:50
-},
+  {
+    id:"slime",
+    name:"深淵スライム",
+    hp:500,
+    attack:45,
+    reward:50
+  },
 
-{
-  id:"knight",
-  name:"黒鉄の騎士",
-  hp:1000,
-  attack:75,
-  reward:100
-},
+  {
+    id:"knight",
+    name:"黒鉄の騎士",
+    hp:1000,
+    attack:75,
+    reward:100
+  },
 
-{
-  id:"dragon",
-  name:"終焉竜",
-  hp:1800,
-  attack:110,
-  reward:200
-},
+  {
+    id:"dragon",
+    name:"終焉竜",
+    hp:1800,
+    attack:110,
+    reward:200
+  },
 
-{
-  id:"boss",
-  name:"世界の外側に立つ者",
-  hp:3500,
-  attack:145,
-  reward:500
-}
+  {
+    id:"boss",
+    name:"世界の外側に立つ者",
+    hp:3500,
+    attack:145,
+    reward:500
+  }
 
 ];
-
 
 function renderEnemies(){
 
@@ -2413,6 +2993,8 @@ function renderEnemies(){
     document.getElementById(
       "enemyList"
     );
+
+  if(!list)return;
 
   list.innerHTML="";
 
@@ -2448,11 +3030,8 @@ function renderEnemies(){
       </div>
 
     `;
-
   });
-
 }
-
 
 /* ==================================================
    BATTLE
@@ -2464,6 +3043,8 @@ function startBattle(id){
     enemies.find(
       enemy=>enemy.id===id
     );
+
+  if(!currentEnemy)return;
 
   enemyMaxHP=
     currentEnemy.hp;
@@ -2477,6 +3058,8 @@ function startBattle(id){
   guarding=false;
   battleFinished=false;
 
+  adaptationLevel=0;
+
   document.getElementById(
     "battleEnemyName"
   ).textContent=
@@ -2485,7 +3068,20 @@ function startBattle(id){
   document.getElementById(
     "battleLog"
   ).innerHTML=
-    `⚔️ ${currentEnemy.name}が現れた！<br>`;
+
+    `⚔️ ${currentEnemy.name}が現れた！<br>
+     <span class="muted">
+       戦闘キャラ：
+       ${gameData.character}
+     </span><br>
+     <span class="muted">
+       装備スキル：
+       ${
+         gameData.equipped.length
+         ?gameData.equipped.join(" / ")
+         :"なし"
+       }
+     </span><br>`;
 
   createBattleSkills();
 
@@ -2498,28 +3094,44 @@ function startBattle(id){
     .25
   );
 
-  showScreen("battleScreen");
-
+  showScreen(
+    "battleScreen"
+  );
 }
 
+/* ==================================================
+   BATTLE UI
+================================================== */
 
 function updateBattleUI(){
 
-  document.getElementById(
-    "enemyHpBar"
-  ).style.width=
-    Math.max(
-      0,
-      enemyHP/enemyMaxHP*100
-    )+"%";
+  const enemyBar=
+    document.getElementById(
+      "enemyHpBar"
+    );
 
-  document.getElementById(
-    "playerHpBar"
-  ).style.width=
-    Math.max(
-      0,
-      playerHP/playerMaxHP*100
-    )+"%";
+  const playerBar=
+    document.getElementById(
+      "playerHpBar"
+    );
+
+  if(enemyBar){
+
+    enemyBar.style.width=
+      Math.max(
+        0,
+        enemyHP/enemyMaxHP*100
+      )+"%";
+  }
+
+  if(playerBar){
+
+    playerBar.style.width=
+      Math.max(
+        0,
+        playerHP/playerMaxHP*100
+      )+"%";
+  }
 
   document.getElementById(
     "enemyHpText"
@@ -2530,9 +3142,7 @@ function updateBattleUI(){
     "playerHpText"
   ).textContent=
     ` ${playerHP} / ${playerMaxHP}`;
-
 }
-
 
 function battleLog(text){
 
@@ -2541,22 +3151,33 @@ function battleLog(text){
       "battleLog"
     );
 
+  if(!log)return;
+
   log.innerHTML+=
     text+"<br>";
 
   log.scrollTop=
     log.scrollHeight;
-
 }
 
+/* ==================================================
+   NORMAL ATTACK
+================================================== */
 
 function battleAttack(){
 
   if(battleFinished)return;
 
+  const bonus=
+    Math.floor(
+      adaptationLevel*5
+    );
+
   const damage=
     Math.floor(
-      90+Math.random()*31
+      90+
+      Math.random()*31+
+      bonus
     );
 
   enemyHP=
@@ -2583,13 +3204,14 @@ function battleAttack(){
     winBattle();
 
     return;
-
   }
 
   enemyTurn();
-
 }
 
+/* ==================================================
+   GUARD
+================================================== */
 
 function battleGuard(){
 
@@ -2609,9 +3231,11 @@ function battleGuard(){
   );
 
   enemyTurn();
-
 }
 
+/* ==================================================
+   EQUIPPED SKILLS
+================================================== */
 
 function createBattleSkills(){
 
@@ -2620,64 +3244,133 @@ function createBattleSkills(){
       "battleSkillButtons"
     );
 
+  if(!container)return;
+
   container.innerHTML="";
 
-  const skills=[
-    {
-      name:"星の閃光",
-      damage:190
-    },
-    {
-      name:"再生",
-      heal:220
+  const equipped=
+    gameData.equipped || [];
+
+  if(equipped.length===0){
+
+    container.innerHTML=`
+
+      <div class="panel muted">
+        スキルが装備されていません。
+        <br>
+        「スキルセット」から装備してください。
+      </div>
+
+    `;
+
+    return;
+  }
+
+  equipped.forEach(
+    (skillName,index)=>{
+
+      const button=
+        document.createElement(
+          "button"
+        );
+
+      button.className=
+        "battle-skill";
+
+      button.innerHTML=
+        `${skillName}
+        <span class="skill-number">
+          SLOT ${index+1}
+        </span>`;
+
+      button.onclick=
+        ()=>{
+          useEquippedSkill(
+            skillName
+          );
+        };
+
+      container.appendChild(
+        button
+      );
     }
-  ];
-
-  skills.forEach(skill=>{
-
-    const button=
-      document.createElement("button");
-
-    button.textContent=
-      skill.name;
-
-    button.onclick=
-      ()=>useSkill(skill);
-
-    container.appendChild(button);
-
-  });
-
+  );
 }
 
+/* ==================================================
+   USE EQUIPPED SKILL
+================================================== */
 
-function useSkill(skill){
+function useEquippedSkill(skill){
 
   if(battleFinished)return;
 
-  if(skill.damage){
+  if(!gameData.equipped.includes(skill)){
+    return;
+  }
+
+  /* 斬撃 */
+
+  if(skill==="斬撃"){
+
+    const damage=
+      Math.floor(
+        100+
+        Math.random()*41+
+        adaptationLevel*4
+      );
 
     enemyHP=
       Math.max(
         0,
-        enemyHP-skill.damage
+        enemyHP-damage
       );
 
     battleLog(
-      `✨ ${skill.name}！
-      ${skill.damage}ダメージ！`
+      `⚔️ 斬撃！ ${damage}ダメージ！`
     );
 
     seTone(
-      440,
+      220,
+      .12,
+      "square",
+      .18
+    );
+  }
+
+  /* 星の閃光 */
+
+  else if(skill==="星の閃光"){
+
+    const damage=
+      190+
+      Math.floor(
+        adaptationLevel*8
+      );
+
+    enemyHP=
+      Math.max(
+        0,
+        enemyHP-damage
+      );
+
+    battleLog(
+      `✨ 星の閃光！ ${damage}ダメージ！`
+    );
+
+    seTone(
+      600,
       .3,
       "triangle",
       .2
     );
 
+    triggerBattleFlash();
   }
 
-  if(skill.heal){
+  /* 再生 */
+
+  else if(skill==="再生"){
 
     const before=
       playerHP;
@@ -2685,14 +3378,14 @@ function useSkill(skill){
     playerHP=
       Math.min(
         playerMaxHP,
-        playerHP+skill.heal
+        playerHP+220
       );
 
     const healed=
       playerHP-before;
 
     battleLog(
-      `💚 ${skill.name}！
+      `💚 再生！
       HPが${healed}回復した！`
     );
 
@@ -2702,7 +3395,49 @@ function useSkill(skill){
       "sine",
       .18
     );
+  }
 
+  /* 完全適応 */
+
+  else if(skill==="完全適応"){
+
+    adaptationLevel=
+      Math.min(
+        10,
+        adaptationLevel+1
+      );
+
+    const oldMax=
+      playerMaxHP;
+
+    playerMaxHP=
+      1000+
+      adaptationLevel*35;
+
+    playerHP=
+      Math.min(
+        playerMaxHP,
+        playerHP+
+        (playerMaxHP-oldMax)
+      );
+
+    battleLog(
+      `🌌 完全適応！
+      適応率が上昇した！
+      <span class="cyan">
+      現在：${adaptationLevel}/10
+      </span>`
+    );
+
+    seTone(
+      260+
+      adaptationLevel*30,
+      .35,
+      "sine",
+      .2
+    );
+
+    triggerBattleFlash();
   }
 
   updateBattleUI();
@@ -2712,22 +3447,54 @@ function useSkill(skill){
     winBattle();
 
     return;
-
   }
 
   enemyTurn();
-
 }
 
+/* ==================================================
+   BATTLE FLASH
+================================================== */
+
+function triggerBattleFlash(){
+
+  const flash=
+    document.getElementById(
+      "battleEffect"
+    );
+
+  if(!flash)return;
+
+  flash.classList.remove(
+    "active"
+  );
+
+  void flash.offsetWidth;
+
+  flash.classList.add(
+    "active"
+  );
+}
+
+/* ==================================================
+   ENEMY TURN
+================================================== */
 
 function enemyTurn(){
 
   if(battleFinished)return;
 
+  const adaptationReduction=
+    Math.min(
+      .35,
+      adaptationLevel*.035
+    );
+
   let damage=
     Math.floor(
       currentEnemy.attack*
-      (.8+Math.random()*.4)
+      (.8+Math.random()*.4)*
+      (1-adaptationReduction)
     );
 
   if(guarding){
@@ -2740,7 +3507,6 @@ function enemyTurn(){
     battleLog(
       "🛡️ 防御でダメージ半減！"
     );
-
   }
 
   guarding=false;
@@ -2766,13 +3532,13 @@ function enemyTurn(){
   updateBattleUI();
 
   if(playerHP<=0){
-
     loseBattle();
-
   }
-
 }
 
+/* ==================================================
+   WIN
+================================================== */
 
 function winBattle(){
 
@@ -2783,7 +3549,8 @@ function winBattle(){
   const reward=
     currentEnemy.reward;
 
-  gameData.gems+=reward;
+  gameData.gems+=
+    reward;
 
   saveGame();
 
@@ -2803,6 +3570,14 @@ function winBattle(){
     `現在の所持石：${gameData.gems}石`
   );
 
+  if(adaptationLevel>0){
+
+    battleLog(
+      `🌌 最終適応率：
+      ${adaptationLevel}/10`
+    );
+  }
+
   seTone(
     440,
     .2,
@@ -2811,12 +3586,14 @@ function winBattle(){
   );
 
   setTimeout(()=>{
+
     seTone(
       660,
       .3,
       "triangle",
       .18
     );
+
   },130);
 
   document.getElementById(
@@ -2836,9 +3613,11 @@ function winBattle(){
     </button>
 
   `;
-
 }
 
+/* ==================================================
+   LOSE
+================================================== */
 
 function loseBattle(){
 
@@ -2874,9 +3653,7 @@ function loseBattle(){
     "sawtooth",
     .2
   );
-
 }
-
 
 /* ==================================================
    GACHA
@@ -2900,7 +3677,6 @@ function gacha(count){
     );
 
     return;
-
   }
 
   gameData.gems-=cost;
@@ -2919,13 +3695,13 @@ function gacha(count){
     const skill=
       skills[
         Math.floor(
-          Math.random()*skills.length
+          Math.random()*
+          skills.length
         )
       ];
 
     result+=
       `✨ ${skill}<br>`;
-
   }
 
   document.getElementById(
@@ -2945,19 +3721,19 @@ function gacha(count){
   );
 
   setTimeout(()=>{
+
     seTone(
       550,
       .25,
       "triangle",
       .12
     );
-  },180);
 
+  },180);
 }
 
-
 /* ==================================================
-   EQUIP
+   EQUIPMENT
 ================================================== */
 
 function renderEquip(){
@@ -2977,47 +3753,62 @@ function renderEquip(){
   ];
 
   box.innerHTML=
-    skills.map(skill=>`
+    skills.map(
+      (skill)=>`
 
-      <div class="equip">
-
-        <span>
+        <div class="equip
           ${
             gameData.equipped.includes(skill)
-            ?"✅ "
+            ?"skill-equipped"
             :""
-          }
+          }">
 
-          ${skill}
+          <span>
 
-        </span>
+            ${
+              gameData.equipped.includes(skill)
+              ?"✅ "
+              :""
+            }
 
-        <button
-          onclick="equipSkill('${skill}')"
-        >
-          ${
-            gameData.equipped.includes(skill)
-            ?"外す"
-            :"装備"
-          }
-        </button>
+            ${skill}
 
-      </div>
+          </span>
 
-    `).join("");
+          <button
+            onclick="equipSkill('${skill}')"
+          >
 
-  document.getElementById(
-    "equipStatus"
-  ).textContent=
-    "装備中："+
-    (
-      gameData.equipped.length
-      ?gameData.equipped.join(" / ")
-      :"なし"
+            ${
+              gameData.equipped.includes(skill)
+              ?"外す"
+              :"装備"
+            }
+
+          </button>
+
+        </div>
+
+      `
+    ).join("");
+
+  const status=
+    document.getElementById(
+      "equipStatus"
     );
 
-}
+  if(status){
 
+    status.textContent=
+      "装備中："+
+      (
+        gameData.equipped.length
+        ?gameData.equipped.join(" / ")
+        :"なし"
+      )+
+      `　（${gameData.equipped.length}/3）`;
+  }
+}
 
 function equipSkill(skill){
 
@@ -3029,7 +3820,15 @@ function equipSkill(skill){
 
   if(index>=0){
 
-    list.splice(index,1);
+    list.splice(
+      index,
+      1
+    );
+
+    seTone(
+      180,
+      .12
+    );
 
   }else{
 
@@ -3039,8 +3838,13 @@ function equipSkill(skill){
         "スキルは最大3個までです。"
       );
 
-      return;
+      seTone(
+        70,
+        .2,
+        "sawtooth"
+      );
 
+      return;
     }
 
     list.push(skill);
@@ -3049,15 +3853,12 @@ function equipSkill(skill){
       280,
       .12
     );
-
   }
 
   saveGame();
 
   renderEquip();
-
 }
-
 
 /* ==================================================
    CHARACTER
@@ -3065,11 +3866,18 @@ function equipSkill(skill){
 
 function selectCharacter(name){
 
-  gameData.character=name;
+  gameData.character=
+    name;
 
-  document.getElementById(
-    "selectedCharacter"
-  ).textContent=name;
+  const selected=
+    document.getElementById(
+      "selectedCharacter"
+    );
+
+  if(selected){
+    selected.textContent=
+      name;
+  }
 
   saveGame();
 
@@ -3077,9 +3885,7 @@ function selectCharacter(name){
     260,
     .12
   );
-
 }
-
 
 /* ==================================================
    SETTINGS
@@ -3090,31 +3896,48 @@ function toggleBGM(){
   gameData.bgm=
     !gameData.bgm;
 
-  document.getElementById(
-    "bgmState"
-  ).textContent=
-    gameData.bgm?"ON":"OFF";
+  const state=
+    document.getElementById(
+      "bgmState"
+    );
+
+  if(state){
+
+    state.textContent=
+      gameData.bgm
+      ?"ON"
+      :"OFF";
+  }
 
   if(gameData.bgm){
+
     startBGM();
+
   }else{
+
     stopBGM();
   }
 
   saveGame();
-
 }
-
 
 function toggleSE(){
 
   gameData.se=
     !gameData.se;
 
-  document.getElementById(
-    "seState"
-  ).textContent=
-    gameData.se?"ON":"OFF";
+  const state=
+    document.getElementById(
+      "seState"
+    );
+
+  if(state){
+
+    state.textContent=
+      gameData.se
+      ?"ON"
+      :"OFF";
+  }
 
   saveGame();
 
@@ -3124,11 +3947,8 @@ function toggleSE(){
       300,
       .12
     );
-
   }
-
 }
-
 
 function deleteSave(){
 
@@ -3143,12 +3963,7 @@ function deleteSave(){
     );
 
     gameData={
-      gems:300,
-      character:"旅人",
-      bgm:true,
-      se:true,
-      equipped:[],
-      storyProgress:0
+      ...defaultGameData
     };
 
     updateGemDisplays();
@@ -3157,14 +3972,21 @@ function deleteSave(){
 
     renderChapters();
 
+    const selected=
+      document.getElementById(
+        "selectedCharacter"
+      );
+
+    if(selected){
+      selected.textContent=
+        "旅人";
+    }
+
     alert(
       "セーブデータを削除しました。"
     );
-
   }
-
 }
-
 
 /* ==================================================
    CHARACTER PROFILES
@@ -3173,9 +3995,10 @@ function deleteSave(){
 const profiles={
 
 servant:{
-name:"🩵 下僕（げぼく）",
 
-text:`種族：スライム（眷属・人間型）
+  name:"🩵 下僕（げぼく）",
+
+  text:`種族：スライム（眷属・人間型）
 称号：究極眷属
 実力：皇 紅蓮と同格
 ━━━━━━━━━━━━━━
@@ -3217,12 +4040,14 @@ CHA（威圧）　SSS
 下僕
 「私は勝つためではなく、
 守るために戦います。」`
+
 },
 
 guren:{
-name:"🩸 皇 紅蓮｜すめらぎ ぐれん 👻",
 
-text:`種族：最上位吸血鬼 × 幽霊
+  name:"🩸 皇 紅蓮｜すめらぎ ぐれん 👻",
+
+  text:`種族：最上位吸血鬼 × 幽霊
 称号：霊界追放者
 所属：Θαύμα 1期生｜社長SP役員
 ━━━━━━━━━━━━━━
@@ -3265,12 +4090,14 @@ CHA：EX
 《弱点》
 ・推し（焔緋 灯影）の命令には逆らえない。
 ・タンスだけはどうにもならない。`
+
 },
 
 kagari:{
-name:"🔥 焔緋 灯影（ほむらび かがり）",
 
-text:`種族：？？？（正体不明）
+  name:"🔥 焔緋 灯影（ほむらび かがり）",
+
+  text:`種族：？？？（正体不明）
 称号：終焉の管理者
 所属：？？？
 二つ名：最強
@@ -3309,12 +4136,14 @@ CHA：EX+++
 仲間思いで、困っている人は放っておけない。
 戦闘では冷静沈着。
 本気になることは滅多にない。`
+
 },
 
 homurabi:{
-name:"🔥 焔緋（ほむらび）くん",
 
-text:`基本プロフィール
+  name:"🔥 焔緋（ほむらび）くん",
+
+  text:`基本プロフィール
 名前：焔緋（ほむらび）
 愛称：焔緋くん
 性別：男性
@@ -3358,10 +4187,10 @@ text:`基本プロフィール
 「依頼成功率が非常に高い男」
 「笑顔のまま任務を終わらせる」
 「怒らせたら最後、と噂される人物」`
+
 }
 
 };
-
 
 /* ==================================================
    PROFILE
@@ -3371,6 +4200,8 @@ function showProfile(type){
 
   const profile=
     profiles[type];
+
+  if(!profile)return;
 
   document.getElementById(
     "profileBox"
@@ -3392,15 +4223,78 @@ function showProfile(type){
     220,
     .12
   );
-
 }
-
 
 /* ==================================================
    INIT
 ================================================== */
 
-loadGameData();
+function initGame(){
+
+  try{
+
+    forceTitle();
+
+    loadGameData();
+
+    createParticles();
+
+    createBloodRain();
+
+  }catch(error){
+
+    console.error(
+      "初期化エラー:",
+      error
+    );
+
+    const boot=
+      document.getElementById(
+        "bootMessage"
+      );
+
+    if(boot){
+      boot.classList.add("show");
+    }
+  }
+}
+
+/*
+  DOM読み込み完了後に必ずタイトルを出す。
+  これが今回の「真っ暗」対策の本命。
+*/
+
+if(
+  document.readyState==="loading"
+){
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    initGame
+  );
+
+}else{
+
+  initGame();
+}
+
+/*
+  万が一、何かの理由で全画面が消えた場合も
+  タイトルへ戻す。
+*/
+
+setTimeout(()=>{
+
+  const active=
+    document.querySelector(
+      ".screen.active"
+    );
+
+  if(!active){
+    forceTitle();
+  }
+
+},300);
 
 </script>
 
