@@ -13,7 +13,7 @@
 html,body{
   margin:0;
   min-height:100%;
-  background:#030003;
+  background:#020003;
   color:#fff;
   font-family:system-ui,-apple-system,"Noto Sans JP",sans-serif;
 }
@@ -26,23 +26,19 @@ button{
   width:100%;
   padding:14px;
   margin:6px 0;
-  border:1px solid #7d1725;
+  border:1px solid #791426;
   border-radius:12px;
-  background:
-    linear-gradient(135deg,#16050a,#390912,#160307);
+  background:linear-gradient(135deg,#160309,#420914,#130207);
   color:#fff;
   font-size:16px;
   cursor:pointer;
   transition:.25s;
-  box-shadow:0 0 0 transparent;
 }
 
 button:hover{
-  transform:translateY(-3px) scale(1.01);
-  border-color:#ff314c;
-  box-shadow:
-    0 0 12px #ff173844,
-    0 0 35px #ff173822;
+  transform:translateY(-3px);
+  border-color:#ff304d;
+  box-shadow:0 0 25px #ff153855;
 }
 
 button:active{
@@ -63,6 +59,10 @@ button:active{
   display:block;
 }
 
+/* ==================================================
+   TITLE
+================================================== */
+
 .title-screen{
   min-height:100vh;
   display:none;
@@ -71,16 +71,16 @@ button:active{
   position:relative;
   overflow:hidden;
   background:
-    radial-gradient(circle at 50% 45%,#480812 0%,#160308 28%,#050006 65%,#000 100%);
+    radial-gradient(circle at 50% 45%,
+      #620918 0%,
+      #22040b 25%,
+      #070007 60%,
+      #000 100%);
 }
 
 .title-screen.active{
   display:flex;
 }
-
-/* =========================
-   TITLE ANIMATION
-========================= */
 
 .title-bg{
   position:absolute;
@@ -90,78 +90,71 @@ button:active{
 
 .red-glow{
   position:absolute;
-  width:60vw;
-  height:60vw;
-  max-width:800px;
-  max-height:800px;
+  width:65vw;
+  height:65vw;
+  max-width:850px;
+  max-height:850px;
   left:50%;
-  top:48%;
+  top:50%;
   transform:translate(-50%,-50%);
   border-radius:50%;
   background:radial-gradient(
     circle,
-    #ff102522 0%,
-    #b0001820 25%,
+    #ff102633 0%,
+    #a0001822 28%,
     transparent 70%
   );
-  animation:redPulse 4s ease-in-out infinite;
+  animation:redPulse 3.5s ease-in-out infinite;
 }
 
 @keyframes redPulse{
   0%,100%{
-    transform:translate(-50%,-50%) scale(.9);
+    transform:translate(-50%,-50%) scale(.88);
     opacity:.55;
   }
   50%{
-    transform:translate(-50%,-50%) scale(1.12);
+    transform:translate(-50%,-50%) scale(1.15);
     opacity:1;
   }
 }
 
-/* 赤い円 */
 .ring{
   position:absolute;
   left:50%;
   top:50%;
-  border:1px solid #ff183855;
+  border:1px solid #ff173c55;
   border-radius:50%;
   transform:translate(-50%,-50%);
-  animation:ringMove 7s linear infinite;
+  animation:ringMove 8s linear infinite;
 }
 
 .ring:nth-child(1){
-  width:350px;
-  height:350px;
+  width:320px;
+  height:320px;
 }
 
 .ring:nth-child(2){
-  width:520px;
-  height:520px;
+  width:500px;
+  height:500px;
   animation-duration:11s;
   animation-direction:reverse;
 }
 
 .ring:nth-child(3){
-  width:750px;
-  height:750px;
-  animation-duration:16s;
+  width:720px;
+  height:720px;
+  animation-duration:17s;
 }
 
 @keyframes ringMove{
   from{
     transform:translate(-50%,-50%) rotate(0deg) scale(.9);
-    opacity:.15;
-  }
-  50%{
-    opacity:.7;
   }
   to{
     transform:translate(-50%,-50%) rotate(360deg) scale(1.1);
-    opacity:.05;
   }
 }
 
-/* 浮遊粒子 */
 .particles{
   position:absolute;
   inset:0;
@@ -172,14 +165,14 @@ button:active{
   width:3px;
   height:3px;
   border-radius:50%;
-  background:#ff334d;
-  box-shadow:0 0 10px #ff1838;
+  background:#ff304b;
+  box-shadow:0 0 12px #ff1838;
   animation:floatParticle linear infinite;
 }
 
 @keyframes floatParticle{
   from{
-    transform:translateY(110vh) translateX(0) scale(.5);
+    transform:translateY(110vh) translateX(0);
     opacity:0;
   }
   15%{
@@ -189,12 +182,11 @@ button:active{
     opacity:.8;
   }
   to{
-    transform:translateY(-15vh) translateX(80px) scale(1.5);
+    transform:translateY(-15vh) translateX(90px);
     opacity:0;
   }
 }
 
-/* 横切る赤い光 */
 .scan-line{
   position:absolute;
   width:120%;
@@ -205,41 +197,36 @@ button:active{
     90deg,
     transparent,
     #ff243f,
-    #ff8895,
+    #fff,
     #ff243f,
     transparent
   );
-  box-shadow:0 0 20px #ff1938;
-  opacity:.45;
-  animation:scan 5s linear infinite;
+  box-shadow:0 0 25px #ff1938;
+  opacity:.5;
+  animation:scan 4.5s linear infinite;
 }
 
 @keyframes scan{
-  from{
-    top:-10%;
-  }
-  to{
-    top:110%;
-  }
+  from{top:-10%}
+  to{top:110%}
 }
 
-/* 霧 */
 .mist{
   position:absolute;
-  width:120%;
+  width:130%;
   height:35%;
-  left:-10%;
+  left:-15%;
   bottom:-10%;
   background:linear-gradient(
     90deg,
     transparent,
-    #8f001622,
-    #ff002233,
-    #8f001622,
+    #8f001633,
+    #ff002244,
+    #8f001633,
     transparent
   );
   filter:blur(25px);
-  animation:mistMove 8s ease-in-out infinite alternate;
+  animation:mistMove 7s ease-in-out infinite alternate;
 }
 
 @keyframes mistMove{
@@ -256,7 +243,7 @@ button:active{
   z-index:5;
   text-align:center;
   width:min(850px,95vw);
-  animation:titleAppear 1.8s ease-out;
+  animation:titleAppear 1.7s ease-out;
 }
 
 @keyframes titleAppear{
@@ -280,8 +267,8 @@ button:active{
   text-shadow:
     0 0 5px #fff,
     0 0 15px #ff334d,
-    0 0 35px #ff102f,
-    0 0 75px #b0001d;
+    0 0 40px #ff102f,
+    0 0 90px #b0001d;
   animation:
     titlePulse 3s ease-in-out infinite,
     titleFlicker 7s infinite;
@@ -290,48 +277,22 @@ button:active{
 @keyframes titlePulse{
   0%,100%{
     transform:scale(1);
-    text-shadow:
-      0 0 5px #fff,
-      0 0 15px #ff334d,
-      0 0 35px #ff102f;
   }
   50%{
     transform:scale(1.035);
-    text-shadow:
-      0 0 7px #fff,
-      0 0 25px #ff334d,
-      0 0 60px #ff102f,
-      0 0 100px #97001b;
   }
 }
 
 @keyframes titleFlicker{
-  0%,92%,94%,96%,100%{
-    opacity:1;
-  }
-  93%,95%{
-    opacity:.65;
-  }
+  0%,92%,94%,96%,100%{opacity:1}
+  93%,95%{opacity:.6}
 }
 
 .subtitle{
-  color:#dca8ae;
+  color:#e0aab2;
   letter-spacing:8px;
   margin:10px 0 42px;
-  font-size:clamp(12px,2.5vw,18px);
-  text-shadow:0 0 12px #ff1c3a;
-  animation:subtitleFloat 4s ease-in-out infinite;
-}
-
-@keyframes subtitleFloat{
-  0%,100%{
-    transform:translateY(0);
-    opacity:.75;
-  }
-  50%{
-    transform:translateY(-5px);
-    opacity:1;
-  }
+  text-shadow:0 0 15px #ff1c3a;
 }
 
 .enter{
@@ -339,48 +300,267 @@ button:active{
   margin:auto;
 }
 
-.enter button{
+/* ==================================================
+   START NOISE TRANSITION
+================================================== */
+
+#noiseTransition{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  pointer-events:none;
+  opacity:0;
+  background:#000;
+}
+
+#noiseTransition.active{
+  animation:noiseTransition .95s steps(12) forwards;
+}
+
+.noiseLayer{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      #fff0 0px,
+      #fff0 3px,
+      #ff183833 4px,
+      #000 5px
+    );
+  mix-blend-mode:screen;
+  animation:noiseMove .08s infinite;
+}
+
+.noiseRed{
+  position:absolute;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      #ff183855 2px,
+      transparent 5px
+    );
+  animation:noiseGlitch .12s infinite;
+}
+
+@keyframes noiseTransition{
+  0%{
+    opacity:0;
+    transform:scale(1);
+  }
+  15%{
+    opacity:1;
+  }
+  35%{
+    opacity:.65;
+  }
+  55%{
+    opacity:1;
+    transform:scale(1.02);
+  }
+  75%{
+    opacity:.9;
+  }
+  100%{
+    opacity:1;
+    transform:scale(1.1);
+  }
+}
+
+@keyframes noiseMove{
+  from{transform:translateY(-20px)}
+  to{transform:translateY(20px)}
+}
+
+@keyframes noiseGlitch{
+  0%{transform:translateX(-20px)}
+  50%{transform:translateX(20px)}
+  100%{transform:translateX(-10px)}
+}
+
+/* ==================================================
+   STORY
+================================================== */
+
+.story-screen{
+  min-height:100vh;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      #410712,
+      #110208 45%,
+      #020003 100%
+    );
   position:relative;
   overflow:hidden;
-  border-color:#a51b2d;
-  background:
-    linear-gradient(
-      90deg,
-      #100207,
-      #3b0710,
-      #100207
-    );
 }
 
-.enter button::before{
+.story-screen::before{
   content:"";
   position:absolute;
-  top:0;
-  left:-100%;
-  width:60%;
-  height:100%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    #ff526766,
-    transparent
-  );
-  transform:skewX(-20deg);
-  animation:buttonLight 3.5s infinite;
+  inset:0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      #ff18380a 4px
+    );
+  pointer-events:none;
 }
 
-@keyframes buttonLight{
+.story-vignette{
+  position:absolute;
+  inset:0;
+  box-shadow:
+    inset 0 0 180px #000;
+  pointer-events:none;
+}
+
+.story-particles{
+  position:absolute;
+  inset:0;
+}
+
+.story-particle{
+  position:absolute;
+  width:2px;
+  height:20px;
+  background:#ff203d;
+  opacity:.35;
+  animation:storyFall linear infinite;
+}
+
+@keyframes storyFall{
   from{
-    left:-100%;
+    transform:translateY(-30vh) rotate(15deg);
   }
   to{
-    left:150%;
+    transform:translateY(120vh) rotate(15deg);
   }
 }
 
-/* =========================
+.story-inner{
+  position:relative;
+  z-index:5;
+  max-width:900px;
+  min-height:100vh;
+  margin:auto;
+  padding:30px 18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.chapter-number{
+  color:#ff4058;
+  letter-spacing:7px;
+  text-align:center;
+  font-size:14px;
+  text-shadow:0 0 15px #ff1738;
+}
+
+.chapter-title{
+  text-align:center;
+  font-size:clamp(30px,7vw,58px);
+  margin:8px 0 35px;
+  color:#fff;
+  text-shadow:
+    0 0 8px #fff,
+    0 0 20px #ff203d,
+    0 0 50px #8e0018;
+}
+
+.story-box{
+  min-height:260px;
+  padding:25px;
+  border:1px solid #6d1627;
+  border-radius:18px;
+  background:
+    linear-gradient(
+      145deg,
+      #090208ed,
+      #24050cf0
+    );
+  box-shadow:
+    0 0 50px #ff002015,
+    inset 0 0 35px #ff00200c;
+  animation:storyBoxAppear .7s ease-out;
+}
+
+@keyframes storyBoxAppear{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+    filter:blur(8px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:blur(0);
+  }
+}
+
+.story-speaker{
+  color:#ff5068;
+  font-weight:bold;
+  margin-bottom:12px;
+  letter-spacing:2px;
+}
+
+.story-text{
+  font-size:clamp(17px,3vw,22px);
+  line-height:2;
+  white-space:pre-line;
+  min-height:130px;
+}
+
+.story-controls{
+  margin-top:20px;
+}
+
+.story-next{
+  border-color:#a51b32;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.story-flash{
+  position:fixed;
+  inset:0;
+  z-index:9998;
+  pointer-events:none;
+  background:#ff1838;
+  opacity:0;
+}
+
+.story-flash.active{
+  animation:storyFlash .35s ease-out;
+}
+
+@keyframes storyFlash{
+  0%{opacity:.65}
+  100%{opacity:0}
+}
+
+.story-shake{
+  animation:screenShake .25s linear;
+}
+
+@keyframes screenShake{
+  0%{transform:translate(0)}
+  20%{transform:translate(-8px,3px)}
+  40%{transform:translate(8px,-3px)}
+  60%{transform:translate(-5px,-2px)}
+  80%{transform:translate(5px,2px)}
+  100%{transform:translate(0)}
+}
+
+/* ==================================================
    GAME UI
-========================= */
+================================================== */
 
 .panel{
   background:
@@ -400,25 +580,11 @@ button:active{
   gap:9px;
 }
 
-.gold{
-  color:#ffd76a;
-}
-
-.cyan{
-  color:#79eaff;
-}
-
-.blood{
-  color:#ff536b;
-}
-
-.flame{
-  color:#ff8a8a;
-}
-
-.muted{
-  color:#bda8ad;
-}
+.gold{color:#ffd76a}
+.cyan{color:#79eaff}
+.blood{color:#ff536b}
+.flame{color:#ff8a8a}
+.muted{color:#bda8ad}
 
 .character-list{
   display:grid;
@@ -452,7 +618,6 @@ button:active{
   background:
     radial-gradient(circle,#55101d,#080207 70%);
   border:1px solid #8c2638;
-  box-shadow:inset 0 0 30px #ff001015;
 }
 
 .slime-icon{
@@ -526,7 +691,12 @@ button:active{
   margin:0;
 }
 
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
 @media(max-width:650px){
+
   .menu-grid,
   .skill-grid,
   .character-list{
@@ -536,15 +706,32 @@ button:active{
   .character-icon{
     height:150px;
   }
+
+  .story-box{
+    padding:18px;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================
+<!-- ==================================================
+     NOISE TRANSITION
+================================================== -->
+
+<div id="noiseTransition">
+  <div class="noiseLayer"></div>
+  <div class="noiseRed"></div>
+</div>
+
+<div id="storyFlash" class="story-flash"></div>
+
+
+<!-- ==================================================
      TITLE
-========================= -->
+================================================== -->
 
 <div id="titleScreen" class="screen title-screen active">
 
@@ -573,8 +760,15 @@ button:active{
     </div>
 
     <div class="enter">
-      <button onclick="newGame()">はじめから</button>
-      <button onclick="loadGame()">つづきから</button>
+
+      <button onclick="newGame()">
+        はじめから
+      </button>
+
+      <button onclick="loadGame()">
+        つづきから
+      </button>
+
     </div>
 
   </div>
@@ -582,24 +776,85 @@ button:active{
 </div>
 
 
+<!-- ==================================================
+     STORY SCREEN
+================================================== -->
+
+<div id="storyScreen" class="screen story-screen">
+
+  <div class="story-particles" id="storyParticles"></div>
+
+  <div class="story-vignette"></div>
+
+  <div class="story-inner">
+
+    <div id="chapterNumber"
+         class="chapter-number">
+    </div>
+
+    <div id="chapterTitle"
+         class="chapter-title">
+    </div>
+
+    <div id="storyBox"
+         class="story-box">
+
+      <div id="storySpeaker"
+           class="story-speaker">
+      </div>
+
+      <div id="storyText"
+           class="story-text">
+      </div>
+
+      <div class="story-controls">
+
+        <button
+          class="story-next"
+          onclick="nextStory()">
+          ▶ 次へ
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ==================================================
+     GAME
+================================================== -->
+
 <div class="container">
 
-<!-- =========================
-     MENU
-========================= -->
+
+<!-- MENU -->
 
 <div id="menuScreen" class="screen">
 
   <div class="panel">
+
     <h2>Θαύμα</h2>
+
     <p>
       所持石：
-      <span id="menuGems" class="gold">300</span>
+      <span id="menuGems"
+            class="gold">
+        300
+      </span>
       💎
     </p>
+
   </div>
 
   <div class="menu-grid">
+
+    <button onclick="showScreen('storySelectScreen')">
+      📖 ストーリー
+    </button>
 
     <button onclick="showScreen('charactersScreen')">
       キャラクター図鑑
@@ -634,9 +889,34 @@ button:active{
 </div>
 
 
-<!-- =========================
-     CHARACTERS
-========================= -->
+<!-- STORY SELECT -->
+
+<div id="storySelectScreen" class="screen">
+
+  <button onclick="showScreen('menuScreen')">
+    ← 戻る
+  </button>
+
+  <h2>📖 ストーリー</h2>
+
+  <div class="panel">
+
+    <h3>Θαύμα ― 世界の外側にある物語</h3>
+
+    <p class="muted">
+      世界は、最初から完成していたわけではなかった。
+      <br>
+      そして――誰かが、その外側を見つけた。
+    </p>
+
+  </div>
+
+  <div id="chapterList"></div>
+
+</div>
+
+
+<!-- CHARACTERS -->
 
 <div id="charactersScreen" class="screen">
 
@@ -656,13 +936,14 @@ button:active{
       </div>
 
       <b>下僕（げぼく）</b>
+
       <br>
+
       <span class="muted">
         究極眷属
       </span>
 
     </div>
-
 
     <div class="character-card"
          onclick="showProfile('guren')">
@@ -672,6 +953,7 @@ button:active{
       </div>
 
       <b>皇 紅蓮</b>
+
       <br>
 
       <span class="muted">
@@ -679,7 +961,6 @@ button:active{
       </span>
 
     </div>
-
 
     <div class="character-card"
          onclick="showProfile('kagari')">
@@ -689,6 +970,7 @@ button:active{
       </div>
 
       <b>焔緋 灯影</b>
+
       <br>
 
       <span class="muted">
@@ -696,7 +978,6 @@ button:active{
       </span>
 
     </div>
-
 
     <div class="character-card"
          onclick="showProfile('homurabi')">
@@ -706,6 +987,7 @@ button:active{
       </div>
 
       <b>焔緋（ほむらび）くん</b>
+
       <br>
 
       <span class="muted">
@@ -721,9 +1003,7 @@ button:active{
 </div>
 
 
-<!-- =========================
-     SKILLS
-========================= -->
+<!-- SKILLS -->
 
 <div id="skillsScreen" class="screen">
 
@@ -772,9 +1052,7 @@ button:active{
 </div>
 
 
-<!-- =========================
-     GACHA
-========================= -->
+<!-- GACHA -->
 
 <div id="gachaScreen" class="screen">
 
@@ -785,9 +1063,14 @@ button:active{
   <h2>スキルガチャ</h2>
 
   <div class="panel">
+
     所持石：
-    <span id="gachaGems" class="gold">300</span>
+    <span id="gachaGems"
+          class="gold">
+      300
+    </span>
     💎
+
   </div>
 
   <button onclick="gacha(1)">
@@ -798,14 +1081,14 @@ button:active{
     10回引く　3000石
   </button>
 
-  <div id="gachaResult" class="panel"></div>
+  <div id="gachaResult"
+       class="panel">
+  </div>
 
 </div>
 
 
-<!-- =========================
-     CHALLENGE
-========================= -->
+<!-- CHALLENGE -->
 
 <div id="challengeScreen" class="screen">
 
@@ -824,9 +1107,7 @@ button:active{
 </div>
 
 
-<!-- =========================
-     BATTLE
-========================= -->
+<!-- BATTLE -->
 
 <div id="battleScreen" class="screen">
 
@@ -852,7 +1133,9 @@ button:active{
 
   </div>
 
-  <div id="battleLog" class="log"></div>
+  <div id="battleLog"
+       class="log">
+  </div>
 
   <div class="panel">
 
@@ -871,9 +1154,7 @@ button:active{
 </div>
 
 
-<!-- =========================
-     EQUIP
-========================= -->
+<!-- EQUIP -->
 
 <div id="equipScreen" class="screen">
 
@@ -891,18 +1172,19 @@ button:active{
 
     <div id="equipList"></div>
 
-    <p id="equipStatus" class="cyan"></p>
+    <p id="equipStatus"
+       class="cyan">
+    </p>
 
   </div>
 
 </div>
 
 
-<!-- =========================
-     CHARACTER SELECT
-========================= -->
+<!-- CHARACTER SELECT -->
 
-<div id="battleCharacterScreen" class="screen">
+<div id="battleCharacterScreen"
+     class="screen">
 
   <button onclick="showScreen('menuScreen')">
     ← 戻る
@@ -938,11 +1220,10 @@ button:active{
 </div>
 
 
-<!-- =========================
-     SETTINGS
-========================= -->
+<!-- SETTINGS -->
 
-<div id="settingsScreen" class="screen">
+<div id="settingsScreen"
+     class="screen">
 
   <button onclick="showScreen('menuScreen')">
     ← 戻る
@@ -971,60 +1252,80 @@ button:active{
 
 <script>
 
-/* =========================
-   TITLE PARTICLES
-========================= */
+/* ==================================================
+   PARTICLES
+================================================== */
 
 function createParticles(){
 
-  const container =
+  const container=
     document.getElementById("particles");
 
-  if(!container)return;
+  for(let i=0;i<60;i++){
 
-  container.innerHTML="";
-
-  for(let i=0;i<55;i++){
-
-    const particle =
+    const p=
       document.createElement("div");
 
-    particle.className="particle";
+    p.className="particle";
 
-    particle.style.left =
+    p.style.left=
       Math.random()*100+"%";
 
-    particle.style.animationDuration =
+    p.style.animationDuration=
       (5+Math.random()*9)+"s";
 
-    particle.style.animationDelay =
+    p.style.animationDelay=
       (-Math.random()*10)+"s";
 
-    particle.style.opacity =
-      .2+Math.random()*.8;
+    container.appendChild(p);
 
-    particle.style.transform =
-      `scale(${.5+Math.random()*1.5})`;
+  }
 
-    container.appendChild(particle);
+}
+
+
+function createStoryParticles(){
+
+  const container=
+    document.getElementById("storyParticles");
+
+  for(let i=0;i<45;i++){
+
+    const p=
+      document.createElement("div");
+
+    p.className="story-particle";
+
+    p.style.left=
+      Math.random()*100+"%";
+
+    p.style.animationDuration=
+      (3+Math.random()*7)+"s";
+
+    p.style.animationDelay=
+      (-Math.random()*8)+"s";
+
+    container.appendChild(p);
 
   }
 
 }
 
 createParticles();
+createStoryParticles();
 
 
-/* =========================
+/* ==================================================
    GAME DATA
-========================= */
+================================================== */
 
 let gameData={
   gems:300,
   character:"旅人",
   bgm:true,
   se:true,
-  equipped:[]
+  equipped:[],
+  storyProgress:0
 };
 
 let currentEnemy=null;
@@ -1039,56 +1340,13 @@ let guarding=false;
 let battleFinished=false;
 
 
-/* =========================
-   ENEMIES
-========================= */
-
-const enemies=[
-
-  {
-    id:"slime",
-    name:"深淵スライム",
-    hp:500,
-    attack:45,
-    reward:50
-  },
-
-  {
-    id:"knight",
-    name:"黒鉄の騎士",
-    hp:1000,
-    attack:75,
-    reward:100
-  },
-
-  {
-    id:"dragon",
-    name:"終焉竜",
-    hp:1800,
-    attack:110,
-    reward:200
-  },
-
-  {
-    id:"boss",
-    name:"世界の外側に立つ者",
-    hp:3500,
-    attack:145,
-    reward:500
-  }
-
-];
-
-
-/* =========================
+/* ==================================================
    AUDIO
-========================= */
+================================================== */
 
 let audioCtx=null;
-
 let seGain=null;
 let bgmGain=null;
-
 let bgmTimer=null;
 
 function initAudio(){
@@ -1110,8 +1368,6 @@ function initAudio(){
 }
 
 
-/* 効果音 */
-
 function seTone(
   frequency,
   duration,
@@ -1122,6 +1378,10 @@ function seTone(
   if(!gameData.se)return;
 
   initAudio();
+
+  if(audioCtx.state==="suspended"){
+    audioCtx.resume();
+  }
 
   const osc=
     audioCtx.createOscillator();
@@ -1155,7 +1415,9 @@ function seTone(
 }
 
 
-/* 不気味なBGM */
+/* ==================================================
+   DARK BGM
+================================================== */
 
 function startBGM(){
 
@@ -1168,10 +1430,6 @@ function startBGM(){
   }
 
   if(bgmTimer)return;
-
-  /*
-    暗いドローン系の音階
-  */
 
   const notes=[
     55,
@@ -1190,8 +1448,6 @@ function startBGM(){
 
     if(!gameData.bgm)return;
 
-    initAudio();
-
     const osc=
       audioCtx.createOscillator();
 
@@ -1200,19 +1456,11 @@ function startBGM(){
 
     osc.type="sawtooth";
 
-    osc.frequency.setValueAtTime(
-      notes[i%notes.length],
-      audioCtx.currentTime
-    );
+    osc.frequency.value=
+      notes[i%notes.length];
 
-    /*
-      少しだけ音程を揺らす
-    */
-
-    osc.detune.setValueAtTime(
-      Math.sin(i*.8)*8,
-      audioCtx.currentTime
-    );
+    osc.detune.value=
+      Math.sin(i*.7)*10;
 
     gain.gain.setValueAtTime(
       .001,
@@ -1221,12 +1469,12 @@ function startBGM(){
 
     gain.gain.linearRampToValueAtTime(
       .035,
-      audioCtx.currentTime+.15
+      audioCtx.currentTime+.2
     );
 
     gain.gain.exponentialRampToValueAtTime(
       .001,
-      audioCtx.currentTime+2.4
+      audioCtx.currentTime+2.5
     );
 
     osc.connect(gain);
@@ -1235,7 +1483,7 @@ function startBGM(){
     osc.start();
 
     osc.stop(
-      audioCtx.currentTime+2.5
+      audioCtx.currentTime+2.6
     );
 
     i++;
@@ -1254,9 +1502,9 @@ function stopBGM(){
 }
 
 
-/* =========================
+/* ==================================================
    SAVE
-========================= */
+================================================== */
 
 function saveGame(){
 
@@ -1291,9 +1539,12 @@ function loadGameData(){
 
   document.getElementById(
     "selectedCharacter"
-  ).textContent=gameData.character;
+  ).textContent=
+    gameData.character;
 
   renderEquip();
+
+  renderChapters();
 
   document.getElementById(
     "bgmState"
@@ -1312,18 +1563,20 @@ function updateGemDisplays(){
 
   document.getElementById(
     "menuGems"
-  ).textContent=gameData.gems;
+  ).textContent=
+    gameData.gems;
 
   document.getElementById(
     "gachaGems"
-  ).textContent=gameData.gems;
+  ).textContent=
+    gameData.gems;
 
 }
 
 
-/* =========================
+/* ==================================================
    SCREEN
-========================= */
+================================================== */
 
 function showScreen(id){
 
@@ -1347,54 +1600,83 @@ function showScreen(id){
     renderEquip();
   }
 
+  if(id==="storySelectScreen"){
+    renderChapters();
+  }
+
   startBGM();
 
 }
 
 
-/* =========================
+/* ==================================================
    NEW GAME
-========================= */
+================================================== */
 
 function newGame(){
+
+  initAudio();
 
   gameData={
     gems:300,
     character:"旅人",
     bgm:true,
     se:true,
-    equipped:[]
+    equipped:[],
+    storyProgress:0
   };
 
   saveGame();
-  loadGameData();
 
-  initAudio();
+  /*
+    最初の効果音
+  */
 
   seTone(
-    220,
-    .35,
-    "sine",
-    .2
+    90,
+    .15,
+    "sawtooth",
+    .25
   );
 
   setTimeout(()=>{
     seTone(
-      110,
-      .6,
+      45,
+      .5,
       "sawtooth",
-      .12
+      .2
     );
-  },180);
+  },120);
 
-  showScreen("menuScreen");
+  /*
+    ノイズ遷移
+  */
+
+  const noise=
+    document.getElementById(
+      "noiseTransition"
+    );
+
+  noise.classList.remove("active");
+
+  void noise.offsetWidth;
+
+  noise.classList.add("active");
+
+  setTimeout(()=>{
+
+    showScreen("menuScreen");
+
+    noise.classList.remove("active");
+
+  },900);
 
 }
 
 
-/* =========================
-   LOAD GAME
-========================= */
+/* ==================================================
+   LOAD
+================================================== */
 
 function loadGame(){
 
@@ -1403,10 +1685,10 @@ function loadGame(){
   initAudio();
 
   seTone(
-    180,
-    .25,
-    "sine",
-    .15
+    100,
+    .3,
+    "sawtooth",
+    .18
   );
 
   showScreen("menuScreen");
@@ -1414,14 +1696,723 @@ function loadGame(){
 }
 
 
-/* =========================
-   ENEMY LIST
-========================= */
+/* ==================================================
+   STORY DATA
+================================================== */
+
+const storyChapters=[
+
+{
+title:"赤い世界",
+lines:[
+
+{
+speaker:"？？？",
+text:"――目を覚ませ。",
+effect:"normal"
+},
+
+{
+speaker:"？？？",
+text:"ここは、お前が知っている世界ではない。",
+effect:"normal"
+},
+
+{
+speaker:"旅人",
+text:"……ここは……どこだ？",
+effect:"normal"
+},
+
+{
+speaker:"？？？",
+text:"世界だ。",
+effect:"flash"
+},
+
+{
+speaker:"？？？",
+text:"ただし――世界の内側だ。",
+effect:"shake"
+},
+
+{
+speaker:"ナレーション",
+text:"空は赤かった。\n大地には、何もない。\nそれなのに――誰かの視線だけがあった。",
+effect:"normal"
+},
+
+{
+speaker:"下僕",
+text:"ご安心ください。\n私がお守りします。",
+effect:"normal"
+},
+
+{
+speaker:"旅人",
+text:"君は……誰なんだ？",
+effect:"normal"
+},
+
+{
+speaker:"下僕",
+text:"私は、あなたの物語に必要な者です。",
+effect:"flash"
+},
+
+{
+speaker:"ナレーション",
+text:"その瞬間。\n遠くで、世界そのものが軋んだ。",
+effect:"shake"
+}
+
+]},
+
+{
+title:"霊界追放者",
+lines:[
+
+{
+speaker:"ナレーション",
+text:"赤い霧の向こうから、一人の男が歩いてくる。",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"……ああ？\n誰だ、お前。",
+effect:"normal"
+},
+
+{
+speaker:"旅人",
+text:"あなたこそ……誰？",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"皇 紅蓮。\nまあ、覚えなくてもいい。",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"どうせ、この世界じゃ名前なんて意味を持たねぇ。",
+effect:"flash"
+},
+
+{
+speaker:"下僕",
+text:"皇 紅蓮……。",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"……スライムだからって侮れねぇ。\nこいつは俺と渡り合える。",
+effect:"shake"
+},
+
+{
+speaker:"下僕",
+text:"私は勝つためではなく、守るために戦います。",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"……へぇ。\n面白いこと言うじゃねぇか。",
+effect:"normal"
+},
+
+{
+speaker:"ナレーション",
+text:"その瞬間、紅蓮の背後に巨大な影が浮かんだ。",
+effect:"flash"
+}
+
+]},
+
+{
+title:"終焉の管理者",
+lines:[
+
+{
+speaker:"ナレーション",
+text:"赤い空が、割れた。",
+effect:"shake"
+},
+
+{
+speaker:"旅人",
+text:"空が……割れる……？",
+effect:"normal"
+},
+
+{
+speaker:"？？？",
+text:"違う。",
+effect:"flash"
+},
+
+{
+speaker:"？？？",
+text:"割れたのは――世界のほうだ。",
+effect:"shake"
+},
+
+{
+speaker:"焔緋 灯影",
+text:"……騒がしいね。",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"灯影……！",
+effect:"flash"
+},
+
+{
+speaker:"焔緋 灯影",
+text:"大丈夫。\nどうにかなるよ。",
+effect:"normal"
+},
+
+{
+speaker:"旅人",
+text:"あなたは……何者なんだ？",
+effect:"normal"
+},
+
+{
+speaker:"焔緋 灯影",
+text:"僕？",
+effect:"normal"
+},
+
+{
+speaker:"焔緋 灯影",
+text:"世界が終わるときに、それを見届ける者。",
+effect:"flash"
+},
+
+{
+speaker:"ナレーション",
+text:"蒼い炎が、赤い世界を一瞬だけ照らした。",
+effect:"flash"
+}
+
+]},
+
+{
+title:"笑顔の裏側",
+lines:[
+
+{
+speaker:"ナレーション",
+text:"一行は、崩壊しかけた都市へ辿り着いた。",
+effect:"normal"
+},
+
+{
+speaker:"焔緋くん",
+text:"やあ。\n困ってるなら手伝うよ。",
+effect:"normal"
+},
+
+{
+speaker:"旅人",
+text:"……あなたも焔緋？",
+effect:"normal"
+},
+
+{
+speaker:"焔緋くん",
+text:"そう。\nまあ、同じ名前ってだけだけどね。",
+effect:"normal"
+},
+
+{
+speaker:"焔緋くん",
+text:"大丈夫、どうにかなるよ。",
+effect:"normal"
+},
+
+{
+speaker:"ナレーション",
+text:"突然、仲間の一人へ危険が迫る。",
+effect:"shake"
+},
+
+{
+speaker:"焔緋くん",
+text:"……。",
+effect:"normal"
+},
+
+{
+speaker:"焔緋くん",
+text:"俺は怒るのが苦手なんだ。",
+effect:"normal"
+},
+
+{
+speaker:"焔緋くん",
+text:"でも――",
+effect:"flash"
+},
+
+{
+speaker:"焔緋くん",
+text:"仲間を傷つけたのは、お前の失敗だったな。",
+effect:"shake"
+},
+
+{
+speaker:"ナレーション",
+text:"笑顔が消えた。\n赤い霧の中で、その目だけが静かに光っていた。",
+effect:"flash"
+}
+
+]},
+
+{
+title:"世界の外側",
+lines:[
+
+{
+speaker:"ナレーション",
+text:"五つ目の扉が現れた。",
+effect:"normal"
+},
+
+{
+speaker:"旅人",
+text:"……この先に、何がある？",
+effect:"normal"
+},
+
+{
+speaker:"下僕",
+text:"おそらく――世界の外側です。",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"……やめとけ。",
+effect:"normal"
+},
+
+{
+speaker:"旅人",
+text:"紅蓮……？",
+effect:"normal"
+},
+
+{
+speaker:"皇 紅蓮",
+text:"あそこには、俺たちが知らない何かがいる。",
+effect:"normal"
+},
+
+{
+speaker:"焔緋 灯影",
+text:"いるよ。",
+effect:"flash"
+},
+
+{
+speaker:"旅人",
+text:"……え？",
+effect:"normal"
+},
+
+{
+speaker:"焔緋 灯影",
+text:"ずっと、こっちを見てる。",
+effect:"shake"
+},
+
+{
+speaker:"？？？",
+text:"――やっと、ここまで来たか。",
+effect:"flash"
+},
+
+{
+speaker:"ナレーション",
+text:"世界から、音が消えた。",
+effect:"shake"
+},
+
+{
+speaker:"？？？",
+text:"物語の続きを望むなら――",
+effect:"normal"
+},
+
+{
+speaker:"？？？",
+text:"こちら側へ来い。",
+effect:"flash"
+},
+
+{
+speaker:"ナレーション",
+text:"その瞬間、画面が赤く染まる。",
+effect:"flash"
+},
+
+{
+speaker:"Θαύμα",
+text:"第5章 ―― 終",
+effect:"shake"
+},
+
+{
+speaker:"？？？",
+text:"――物語は、まだ終わっていない。",
+effect:"flash"
+}
+
+]}
+
+];
+
+
+/* ==================================================
+   STORY STATE
+================================================== */
+
+let currentChapter=0;
+let currentLine=0;
+
+
+function renderChapters(){
+
+  const list=
+    document.getElementById("chapterList");
+
+  if(!list)return;
+
+  list.innerHTML="";
+
+  storyChapters.forEach((chapter,index)=>{
+
+    const button=
+      document.createElement("button");
+
+    button.textContent=
+      `第${index+1}章　${chapter.title}`;
+
+    button.onclick=()=>startStory(index);
+
+    list.appendChild(button);
+
+  });
+
+}
+
+
+/* ==================================================
+   START STORY
+================================================== */
+
+function startStory(chapter){
+
+  currentChapter=chapter;
+  currentLine=0;
+
+  showScreen("storyScreen");
+
+  renderStoryLine();
+
+  seTone(
+    55,
+    .4,
+    "sawtooth",
+    .18
+  );
+
+}
+
+
+/* ==================================================
+   STORY LINE
+================================================== */
+
+function renderStoryLine(){
+
+  const chapter=
+    storyChapters[currentChapter];
+
+  const line=
+    chapter.lines[currentLine];
+
+  document.getElementById(
+    "chapterNumber"
+  ).textContent=
+    `CHAPTER ${currentChapter+1}`;
+
+  document.getElementById(
+    "chapterTitle"
+  ).textContent=
+    chapter.title;
+
+  document.getElementById(
+    "storySpeaker"
+  ).textContent=
+    line.speaker;
+
+  const text=
+    document.getElementById(
+      "storyText"
+    );
+
+  text.textContent="";
+
+  /*
+    文字を少しずつ表示
+  */
+
+  let i=0;
+
+  const timer=
+    setInterval(()=>{
+
+      text.textContent=
+        line.text.slice(0,i);
+
+      i++;
+
+      if(i>line.text.length){
+        clearInterval(timer);
+      }
+
+    },18);
+
+  /*
+    演出
+  */
+
+  if(line.effect==="flash"){
+
+    triggerFlash();
+
+    seTone(
+      110,
+      .18,
+      "sawtooth",
+      .22
+    );
+
+  }
+
+  if(line.effect==="shake"){
+
+    document
+      .getElementById("storyBox")
+      .classList.remove("story-shake");
+
+    void document
+      .getElementById("storyBox")
+      .offsetWidth;
+
+    document
+      .getElementById("storyBox")
+      .classList.add("story-shake");
+
+    seTone(
+      70,
+      .3,
+      "sawtooth",
+      .25
+    );
+
+  }else{
+
+    seTone(
+      180,
+      .08,
+      "sine",
+      .08
+    );
+
+  }
+
+}
+
+
+function nextStory(){
+
+  const chapter=
+    storyChapters[currentChapter];
+
+  currentLine++;
+
+  if(
+    currentLine>=chapter.lines.length
+  ){
+
+    gameData.storyProgress=
+      Math.max(
+        gameData.storyProgress,
+        currentChapter+1
+      );
+
+    saveGame();
+
+    if(
+      currentChapter<
+      storyChapters.length-1
+    ){
+
+      currentChapter++;
+
+      currentLine=0;
+
+      triggerFlash();
+
+      setTimeout(
+        renderStoryLine,
+        350
+      );
+
+    }else{
+
+      showStoryEnd();
+
+    }
+
+    return;
+
+  }
+
+  renderStoryLine();
+
+}
+
+
+/* ==================================================
+   STORY END
+================================================== */
+
+function showStoryEnd(){
+
+  document.getElementById(
+    "storySpeaker"
+  ).textContent=
+    "SYSTEM";
+
+  document.getElementById(
+    "storyText"
+  ).textContent=
+    "第5章をクリアしました。\n\n世界の外側には、まだ何かが存在する。\n\n――物語は続く。";
+
+  document.querySelector(
+    ".story-next"
+  ).textContent=
+    "メニューへ戻る";
+
+  document.querySelector(
+    ".story-next"
+  ).onclick=
+    ()=>{
+      document.querySelector(
+        ".story-next"
+      ).onclick=nextStory;
+
+      document.querySelector(
+        ".story-next"
+      ).textContent="▶ 次へ";
+
+      showScreen("menuScreen");
+    };
+
+  triggerFlash();
+
+  setTimeout(()=>{
+    seTone(
+      55,
+      .8,
+      "sawtooth",
+      .2
+    );
+  },200);
+
+}
+
+
+/* ==================================================
+   FLASH
+================================================== */
+
+function triggerFlash(){
+
+  const flash=
+    document.getElementById(
+      "storyFlash"
+    );
+
+  flash.classList.remove("active");
+
+  void flash.offsetWidth;
+
+  flash.classList.add("active");
+
+}
+
+
+/* ==================================================
+   ENEMIES
+================================================== */
+
+const enemies=[
+
+{
+  id:"slime",
+  name:"深淵スライム",
+  hp:500,
+  attack:45,
+  reward:50
+},
+
+{
+  id:"knight",
+  name:"黒鉄の騎士",
+  hp:1000,
+  attack:75,
+  reward:100
+},
+
+{
+  id:"dragon",
+  name:"終焉竜",
+  hp:1800,
+  attack:110,
+  reward:200
+},
+
+{
+  id:"boss",
+  name:"世界の外側に立つ者",
+  hp:3500,
+  attack:145,
+  reward:500
+}
+
+];
+
 
 function renderEnemies(){
 
   const list=
-    document.getElementById("enemyList");
+    document.getElementById(
+      "enemyList"
+    );
 
   list.innerHTML="";
 
@@ -1431,7 +2422,9 @@ function renderEnemies(){
 
       <div class="panel">
 
-        <h3>${enemy.name}</h3>
+        <h3>
+          ${enemy.name}
+        </h3>
 
         <p>
           HP：${enemy.hp}
@@ -1461,14 +2454,16 @@ function renderEnemies(){
 }
 
 
-/* =========================
-   BATTLE START
-========================= */
+/* ==================================================
+   BATTLE
+================================================== */
 
 function startBattle(id){
 
   currentEnemy=
-    enemies.find(enemy=>enemy.id===id);
+    enemies.find(
+      enemy=>enemy.id===id
+    );
 
   enemyMaxHP=
     currentEnemy.hp;
@@ -1508,10 +2503,6 @@ function startBattle(id){
 }
 
 
-/* =========================
-   BATTLE UI
-========================= */
-
 function updateBattleUI(){
 
   document.getElementById(
@@ -1543,14 +2534,12 @@ function updateBattleUI(){
 }
 
 
-/* =========================
-   BATTLE LOG
-========================= */
-
 function battleLog(text){
 
   const log=
-    document.getElementById("battleLog");
+    document.getElementById(
+      "battleLog"
+    );
 
   log.innerHTML+=
     text+"<br>";
@@ -1560,10 +2549,6 @@ function battleLog(text){
 
 }
 
-
-/* =========================
-   ATTACK
-========================= */
 
 function battleAttack(){
 
@@ -1606,10 +2591,6 @@ function battleAttack(){
 }
 
 
-/* =========================
-   GUARD
-========================= */
-
 function battleGuard(){
 
   if(battleFinished)return;
@@ -1631,10 +2612,6 @@ function battleGuard(){
 
 }
 
-
-/* =========================
-   SKILLS
-========================= */
 
 function createBattleSkills(){
 
@@ -1743,10 +2720,6 @@ function useSkill(skill){
 }
 
 
-/* =========================
-   ENEMY TURN
-========================= */
-
 function enemyTurn(){
 
   if(battleFinished)return;
@@ -1760,7 +2733,9 @@ function enemyTurn(){
   if(guarding){
 
     damage=
-      Math.floor(damage*.5);
+      Math.floor(
+        damage*.5
+      );
 
     battleLog(
       "🛡️ 防御でダメージ半減！"
@@ -1798,10 +2773,6 @@ function enemyTurn(){
 
 }
 
-
-/* =========================
-   WIN
-========================= */
 
 function winBattle(){
 
@@ -1869,10 +2840,6 @@ function winBattle(){
 }
 
 
-/* =========================
-   LOSE
-========================= */
-
 function loseBattle(){
 
   if(battleFinished)return;
@@ -1911,9 +2878,9 @@ function loseBattle(){
 }
 
 
-/* =========================
+/* ==================================================
    GACHA
-========================= */
+================================================== */
 
 function gacha(count){
 
@@ -1989,14 +2956,16 @@ function gacha(count){
 }
 
 
-/* =========================
-   EQUIPMENT
-========================= */
+/* ==================================================
+   EQUIP
+================================================== */
 
 function renderEquip(){
 
   const box=
-    document.getElementById("equipList");
+    document.getElementById(
+      "equipList"
+    );
 
   if(!box)return;
 
@@ -2070,11 +3039,6 @@ function equipSkill(skill){
         "スキルは最大3個までです。"
       );
 
-      seTone(
-        70,
-        .2
-      );
-
       return;
 
     }
@@ -2095,9 +3059,9 @@ function equipSkill(skill){
 }
 
 
-/* =========================
+/* ==================================================
    CHARACTER
-========================= */
+================================================== */
 
 function selectCharacter(name){
 
@@ -2117,9 +3081,9 @@ function selectCharacter(name){
 }
 
 
-/* =========================
+/* ==================================================
    SETTINGS
-========================= */
+================================================== */
 
 function toggleBGM(){
 
@@ -2132,13 +3096,9 @@ function toggleBGM(){
     gameData.bgm?"ON":"OFF";
 
   if(gameData.bgm){
-
     startBGM();
-
   }else{
-
     stopBGM();
-
   }
 
   saveGame();
@@ -2170,10 +3130,6 @@ function toggleSE(){
 }
 
 
-/* =========================
-   DELETE SAVE
-========================= */
-
 function deleteSave(){
 
   if(
@@ -2191,12 +3147,15 @@ function deleteSave(){
       character:"旅人",
       bgm:true,
       se:true,
-      equipped:[]
+      equipped:[],
+      storyProgress:0
     };
 
     updateGemDisplays();
 
     renderEquip();
+
+    renderChapters();
 
     alert(
       "セーブデータを削除しました。"
@@ -2207,9 +3166,9 @@ function deleteSave(){
 }
 
 
-/* =========================
+/* ==================================================
    CHARACTER PROFILES
-========================= */
+================================================== */
 
 const profiles={
 
@@ -2250,9 +3209,6 @@ CHA（威圧）　SSS
 基本的には優しく、争いを好まない。
 主や仲間を守るためなら迷わず戦う。
 戦闘中も冷静さを失わない。
-━━━━━━━━━━━━━━
-《皇 紅蓮との関係》
-皇は下僕を強敵として認めている。
 
 皇
 「スライムだからって侮れねぇ。
@@ -2323,34 +3279,30 @@ Lv：測定不能
 HP：∞
 MP：∞
 SP：∞
-STR（筋力）　EX+++
-VIT（耐久）　EX+++
-AGI（敏捷）　EX+++
-DEX（技巧）　EX+++
-INT（知力）　EX+++
-MND（精神）　EX+++
-LUK（幸運）　EX+
-CHA（威圧）　EX+++
+STR：EX+++
+VIT：EX+++
+AGI：EX+++
+DEX：EX+++
+INT：EX+++
+MND：EX+++
+LUK：EX+
+CHA：EX+++
 ━━━━━━━━━━━━━━
 《固有能力》
 ◆ 終焉支配
 自身を中心に世界の法則を書き換える。
-能力・魔法・スキルに影響を及ぼす。
 
 ◆ 永劫の焔
 消えることのない蒼い炎を操る。
-防御や再生能力を持つ相手にも有効な攻撃となる。
 
 ◆ 完全解析
-相手の能力や戦闘パターンを瞬時に把握し、
-最適な行動を選択する。
+相手の能力や戦闘パターンを瞬時に把握する。
 
 ◆ 無限再構築
 ダメージや状態異常を即座に回復する。
 
 ◆ 神域武装
-あらゆる武器を自在に扱い、
-状況に応じて最適な戦い方へ切り替える。
+あらゆる武器を自在に扱う。
 ━━━━━━━━━━━━━━
 《性格》
 基本は穏やかで落ち着いている。
@@ -2411,9 +3363,9 @@ text:`基本プロフィール
 };
 
 
-/* =========================
+/* ==================================================
    PROFILE
-========================= */
+================================================== */
 
 function showProfile(type){
 
@@ -2444,9 +3396,9 @@ function showProfile(type){
 }
 
 
-/* =========================
-   START
-========================= */
+/* ==================================================
+   INIT
+================================================== */
 
 loadGameData();
 
