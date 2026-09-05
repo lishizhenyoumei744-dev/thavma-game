@@ -1,0 +1,2428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Θαύμα</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#01040d;
+    color:white;
+    font-family:"Times New Roman","Yu Mincho",serif;
+}
+
+body{
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            #071b3c 0%,
+            #020714 48%,
+            #000209 100%
+        );
+}
+
+/* =========================================
+   星空
+========================================= */
+
+#spaceCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+    pointer-events:none;
+}
+
+.spaceGlow{
+    position:fixed;
+    width:700px;
+    height:700px;
+    max-width:100vw;
+    max-height:100vw;
+    left:50%;
+    top:45%;
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70,170,255,.18),
+            rgba(40,90,255,.08) 40%,
+            transparent 72%
+        );
+
+    filter:blur(30px);
+
+    animation:
+        auraMove 7s ease-in-out infinite alternate;
+
+    pointer-events:none;
+    z-index:1;
+}
+
+@keyframes auraMove{
+
+    from{
+        transform:
+            translate(-50%,-50%)
+            scale(.88);
+        opacity:.55;
+    }
+
+    to{
+        transform:
+            translate(-50%,-50%)
+            scale(1.12);
+        opacity:1;
+    }
+
+}
+
+/* =========================================
+   画面
+========================================= */
+
+.screen{
+    position:relative;
+    z-index:5;
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+}
+
+.hidden{
+    display:none !important;
+}
+
+/* =========================================
+   タイトル
+========================================= */
+
+.titleLight{
+    position:absolute;
+
+    width:550px;
+    height:250px;
+
+    max-width:95vw;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(100,190,255,.2),
+            transparent 70%
+        );
+
+    filter:blur(20px);
+
+    animation:
+        titleAura 3.5s ease-in-out infinite alternate;
+
+    pointer-events:none;
+}
+
+@keyframes titleAura{
+
+    from{
+        transform:scale(.85);
+        opacity:.4;
+    }
+
+    to{
+        transform:scale(1.12);
+        opacity:1;
+    }
+
+}
+
+.title{
+    position:relative;
+
+    margin:0;
+
+    font-size:
+        clamp(75px,14vw,155px);
+
+    font-weight:normal;
+
+    letter-spacing:.08em;
+
+    color:#eefaff;
+
+    text-shadow:
+        0 0 5px #fff,
+        0 0 15px #c9efff,
+        0 0 35px #67c3ff,
+        0 0 75px rgba(60,150,255,.9);
+
+    animation:
+        titleAppear 3s ease-out forwards,
+        titlePulse 4s ease-in-out 3s infinite;
+}
+
+@keyframes titleAppear{
+
+    from{
+        opacity:0;
+        transform:
+            translateY(25px)
+            scale(.94);
+        filter:blur(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:
+            translateY(0)
+            scale(1);
+        filter:blur(0);
+    }
+
+}
+
+@keyframes titlePulse{
+
+    0%,100%{
+        text-shadow:
+            0 0 5px #fff,
+            0 0 15px #c9efff,
+            0 0 35px #67c3ff,
+            0 0 75px rgba(60,150,255,.8);
+    }
+
+    50%{
+        text-shadow:
+            0 0 8px #fff,
+            0 0 25px #e0f7ff,
+            0 0 50px #7ad2ff,
+            0 0 105px rgba(70,160,255,1);
+    }
+
+}
+
+.subtitle{
+
+    position:relative;
+
+    margin-top:5px;
+
+    color:#a9cce8;
+
+    font-size:
+        clamp(13px,2vw,20px);
+
+    letter-spacing:.18em;
+
+    opacity:0;
+
+    animation:
+        subtitleAppear
+        2s ease-out
+        1.3s
+        forwards;
+}
+
+@keyframes subtitleAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* =========================================
+   メニュー
+========================================= */
+
+.menu{
+
+    position:relative;
+
+    width:min(330px,82vw);
+
+    margin-top:48px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:13px;
+}
+
+.menu button{
+
+    opacity:0;
+
+    animation:
+        menuAppear
+        .8s ease
+        forwards;
+}
+
+.menu button:nth-child(1){
+    animation-delay:2s;
+}
+
+.menu button:nth-child(2){
+    animation-delay:2.2s;
+}
+
+.menu button:nth-child(3){
+    animation-delay:2.4s;
+}
+
+.menu button:nth-child(4){
+    animation-delay:2.6s;
+}
+
+@keyframes menuAppear{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* =========================================
+   ボタン
+========================================= */
+
+button{
+
+    appearance:none;
+
+    border:
+        1px solid
+        rgba(130,200,255,.35);
+
+    border-radius:5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(18,50,100,.45),
+            rgba(8,25,60,.75)
+        );
+
+    color:#eaf7ff;
+
+    padding:13px 20px;
+
+    font-family:inherit;
+
+    font-size:16px;
+
+    letter-spacing:.08em;
+
+    cursor:pointer;
+
+    transition:
+        transform .2s,
+        background .2s,
+        box-shadow .2s,
+        border-color .2s;
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+        rgba(160,225,255,.85);
+
+    box-shadow:
+        0 0 22px
+        rgba(70,160,255,.22);
+
+}
+
+button:active{
+
+    transform:
+        translateY(1px)
+        scale(.98);
+
+}
+
+/* =========================================
+   ストーリー
+========================================= */
+
+.storyBox{
+
+    width:min(900px,92vw);
+
+    min-height:310px;
+
+    padding:30px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(4,15,35,.84),
+            rgba(2,8,22,.94)
+        );
+
+    border:
+        1px solid
+        rgba(110,180,255,.28);
+
+    border-radius:8px;
+
+    box-shadow:
+        0 0 40px
+        rgba(20,100,220,.13),
+        inset 0 0 30px
+        rgba(30,100,220,.05);
+
+    backdrop-filter:blur(8px);
+}
+
+#chapterTitle{
+
+    margin:0 0 15px;
+
+    color:#75c8ff;
+
+    font-size:14px;
+
+    letter-spacing:.2em;
+
+    text-shadow:
+        0 0 12px
+        rgba(80,190,255,.6);
+}
+
+#name{
+
+    margin:0 0 18px;
+
+    color:#a8ddff;
+
+    font-size:22px;
+
+    text-shadow:
+        0 0 15px
+        rgba(100,190,255,.6);
+}
+
+#text{
+
+    min-height:150px;
+
+    line-height:2;
+
+    font-size:18px;
+
+    white-space:pre-wrap;
+
+    color:#e8f0fa;
+}
+
+#choiceBox{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-top:20px;
+}
+
+.choiceButton{
+
+    flex:1;
+
+    min-width:220px;
+}
+
+.nextButton{
+
+    margin-top:25px;
+}
+
+.backButton{
+
+    margin-top:20px;
+}
+
+/* =========================================
+   キャラクター
+========================================= */
+
+.characterGrid{
+
+    width:min(900px,92vw);
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:15px;
+
+    margin-top:25px;
+}
+
+.characterCard{
+
+    padding:22px;
+
+    border:
+        1px solid
+        rgba(120,190,255,.25);
+
+    background:
+        rgba(5,20,45,.7);
+
+    border-radius:7px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.characterCard:hover{
+
+    transform:translateY(-4px);
+
+    border-color:
+        rgba(130,210,255,.7);
+
+    box-shadow:
+        0 0 25px
+        rgba(60,150,255,.18);
+}
+
+.characterCard h3{
+
+    margin:0 0 8px;
+
+    color:#bce8ff;
+}
+
+.characterCard p{
+
+    margin:0;
+
+    color:#9db1c8;
+}
+
+.characterDetail{
+
+    width:min(700px,90vw);
+
+    text-align:center;
+
+    padding:35px;
+
+    background:
+        rgba(4,15,35,.85);
+
+    border:
+        1px solid
+        rgba(120,190,255,.25);
+
+    border-radius:8px;
+}
+
+/* =========================================
+   設定
+========================================= */
+
+.settingsBox{
+
+    width:min(650px,90vw);
+
+    padding:30px;
+
+    background:
+        rgba(4,15,35,.82);
+
+    border:
+        1px solid
+        rgba(120,190,255,.25);
+
+    border-radius:8px;
+}
+
+.settingsBox p{
+
+    color:#b4c6da;
+
+    line-height:1.8;
+}
+
+/* =========================================
+   暗転
+========================================= */
+
+#fadeScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#000;
+
+    z-index:100;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    transition:
+        opacity 1.5s ease;
+}
+
+#fadeScreen.active{
+
+    opacity:1;
+}
+
+/* =========================================
+   スマホ
+========================================= */
+
+@media(max-width:600px){
+
+    .storyBox{
+
+        padding:20px;
+
+        min-height:0;
+    }
+
+    #text{
+
+        font-size:16px;
+
+        line-height:1.8;
+    }
+
+    .characterGrid{
+
+        grid-template-columns:1fr;
+    }
+
+    .menu{
+
+        margin-top:35px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="spaceCanvas"></canvas>
+
+<div class="spaceGlow"></div>
+
+<div id="fadeScreen"></div>
+
+
+<!-- =====================================================
+     タイトル
+===================================================== -->
+
+<section
+    id="titleScreen"
+    class="screen">
+
+    <div class="titleLight"></div>
+
+    <h1 class="title">
+        Θαύμα
+    </h1>
+
+    <div class="subtitle">
+        ― 運命は、ここから始まる ―
+    </div>
+
+    <div class="menu">
+
+        <button onclick="startGame()">
+            ▶ はじめから
+        </button>
+
+        <button onclick="continueGame()">
+            ▶ 続きから
+        </button>
+
+        <button onclick="openCharacters()">
+            ▶ キャラクター
+        </button>
+
+        <button onclick="openSettings()">
+            ▶ 設定
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ストーリー
+===================================================== -->
+
+<section
+    id="storyScreen"
+    class="screen hidden">
+
+    <div class="storyBox">
+
+        <div id="chapterTitle">
+            第1章
+        </div>
+
+        <h2 id="name"></h2>
+
+        <div id="text"></div>
+
+        <div id="choiceBox"></div>
+
+        <button
+            id="nextBtn"
+            class="nextButton"
+            onclick="nextStory()">
+            ▶ 次へ
+        </button>
+
+    </div>
+
+    <button
+        class="backButton"
+        onclick="backToTitle()">
+
+        タイトルへ戻る
+
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     キャラクター
+===================================================== -->
+
+<section
+    id="charactersScreen"
+    class="screen hidden">
+
+    <h2>
+        Characters
+    </h2>
+
+    <div class="characterGrid">
+
+        <div
+            class="characterCard"
+            onclick="showCharacter('geboku')">
+
+            <h3>
+                🩵 下僕（げぼく）
+            </h3>
+
+            <p>
+                物語の中心となる存在。
+            </p>
+
+        </div>
+
+
+        <div
+            class="characterCard"
+            onclick="showCharacter('guren')">
+
+            <h3>
+                🩸 皇 紅蓮
+            </h3>
+
+            <p>
+                すめらぎ ぐれん
+            </p>
+
+        </div>
+
+
+        <div
+            class="characterCard"
+            onclick="showCharacter('kagari')">
+
+            <h3>
+                🔥 焔緋 灯影
+            </h3>
+
+            <p>
+                ほむらび かがり
+            </p>
+
+        </div>
+
+
+        <div
+            class="characterCard"
+            onclick="showCharacter('homurabi')">
+
+            <h3>
+                👻 焔緋くん
+            </h3>
+
+            <p>
+                謎に包まれた存在。
+            </p>
+
+        </div>
+
+    </div>
+
+    <button
+        class="backButton"
+        onclick="backToTitle()">
+
+        タイトルへ戻る
+
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     キャラクター詳細
+===================================================== -->
+
+<section
+    id="characterDetailScreen"
+    class="screen hidden">
+
+    <div class="characterDetail">
+
+        <h2 id="characterName"></h2>
+
+        <p id="characterDescription"></p>
+
+    </div>
+
+    <button
+        class="backButton"
+        onclick="backToCharacters()">
+
+        キャラクター一覧へ
+
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     設定
+===================================================== -->
+
+<section
+    id="settingsScreen"
+    class="screen hidden">
+
+    <div class="settingsBox">
+
+        <h2>
+            Settings
+        </h2>
+
+        <p>
+            🎵 音楽：神秘的なBGM
+        </p>
+
+        <p>
+            ✨ 効果音：ボタンのクリック音・光の音
+        </p>
+
+        <p>
+            🌌 星空：ゆっくり移動する星々
+        </p>
+
+        <p>
+            🎧 音楽は外部ファイルを使わず、
+            ブラウザ上でリアルタイム生成されます。
+        </p>
+
+    </div>
+
+    <button
+        class="backButton"
+        onclick="backToTitle()">
+
+        タイトルへ戻る
+
+    </button>
+
+</section>
+
+
+<script>
+
+/* =====================================================
+   星空
+===================================================== */
+
+const canvas =
+    document.getElementById("spaceCanvas");
+
+const ctx =
+    canvas.getContext("2d");
+
+let stars=[];
+let particles=[];
+
+
+function resizeCanvas(){
+
+    canvas.width=
+        window.innerWidth;
+
+    canvas.height=
+        window.innerHeight;
+
+}
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+resizeCanvas();
+
+
+function createStars(){
+
+    stars=[];
+
+    const count=
+        Math.floor(
+            window.innerWidth *
+            window.innerHeight /
+            7000
+        );
+
+    for(
+        let i=0;
+        i<count;
+        i++
+    ){
+
+        stars.push({
+
+            x:
+                Math.random()*
+                canvas.width,
+
+            y:
+                Math.random()*
+                canvas.height,
+
+            size:
+                Math.random()*1.7+.2,
+
+            speed:
+                Math.random()*.18+.03,
+
+            alpha:
+                Math.random()*.7+.2
+
+        });
+
+    }
+
+}
+
+
+function createParticles(){
+
+    particles=[];
+
+    for(
+        let i=0;
+        i<40;
+        i++
+    ){
+
+        particles.push({
+
+            x:
+                Math.random()*
+                canvas.width,
+
+            y:
+                Math.random()*
+                canvas.height,
+
+            size:
+                Math.random()*3+1,
+
+            speedX:
+                (Math.random()-.5)*.25,
+
+            speedY:
+                -Math.random()*.35-.05,
+
+            alpha:
+                Math.random()*.45+.15,
+
+            phase:
+                Math.random()*
+                Math.PI*2
+
+        });
+
+    }
+
+}
+
+
+createStars();
+createParticles();
+
+
+function animateSpace(time){
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    /* 星 */
+
+    for(
+        const star of stars
+    ){
+
+        star.y+=star.speed;
+
+        if(
+            star.y>
+            canvas.height
+        ){
+
+            star.y=-5;
+
+            star.x=
+                Math.random()*
+                canvas.width;
+
+        }
+
+        const alpha=
+            star.alpha+
+            Math.sin(
+                time*.001+
+                star.x
+            )*.12;
+
+        ctx.globalAlpha=
+            Math.max(
+                .05,
+                alpha
+            );
+
+        ctx.fillStyle=
+            "#d9edff";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    }
+
+
+    /* 青い粒 */
+
+    for(
+        const p of particles
+    ){
+
+        p.x+=p.speedX;
+        p.y+=p.speedY;
+
+        p.phase+=.015;
+
+        if(p.y<-10){
+
+            p.y=
+                canvas.height+10;
+
+            p.x=
+                Math.random()*
+                canvas.width;
+
+        }
+
+        if(p.x<-10)
+            p.x=
+                canvas.width+10;
+
+        if(
+            p.x>
+            canvas.width+10
+        )
+            p.x=-10;
+
+
+        const alpha=
+            p.alpha+
+            Math.sin(
+                p.phase
+            )*.12;
+
+        ctx.globalAlpha=
+            Math.max(
+                .03,
+                alpha
+            );
+
+        ctx.shadowBlur=12;
+        ctx.shadowColor="#62baff";
+
+        ctx.fillStyle=
+            "#8bd6ff";
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.size,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+        ctx.shadowBlur=0;
+
+    }
+
+    ctx.globalAlpha=1;
+
+    requestAnimationFrame(
+        animateSpace
+    );
+
+}
+
+requestAnimationFrame(
+    animateSpace
+);
+
+
+/* =====================================================
+   オーディオシステム
+===================================================== */
+
+let audioContext=null;
+let masterGain=null;
+
+let audioReady=false;
+let bgmRunning=false;
+
+let melodyTimer=null;
+let padTimer=null;
+let sparkleTimer=null;
+
+
+/* =====================================================
+   オーディオ初期化
+===================================================== */
+
+function initAudio(){
+
+    if(audioReady)
+        return;
+
+    const AudioCtx=
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+    if(!AudioCtx)
+        return;
+
+    audioContext=
+        new AudioCtx();
+
+    masterGain=
+        audioContext.createGain();
+
+    masterGain.gain.value=.18;
+
+    masterGain.connect(
+        audioContext.destination
+    );
+
+    audioReady=true;
+
+}
+
+
+/* =====================================================
+   「カチッ」効果音
+===================================================== */
+
+function clickSound(){
+
+    initAudio();
+
+    if(!audioContext)
+        return;
+
+    if(
+        audioContext.state===
+        "suspended"
+    ){
+
+        audioContext.resume();
+
+    }
+
+    const osc=
+        audioContext.createOscillator();
+
+    const gain=
+        audioContext.createGain();
+
+    osc.type="square";
+
+    osc.frequency.setValueAtTime(
+        900,
+        audioContext.currentTime
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+        500,
+        audioContext.currentTime+.055
+    );
+
+    gain.gain.setValueAtTime(
+        .08,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        audioContext.currentTime+.06
+    );
+
+    osc.connect(gain);
+
+    gain.connect(masterGain);
+
+    osc.start();
+
+    osc.stop(
+        audioContext.currentTime+.07
+    );
+
+}
+
+
+/* =====================================================
+   光の「キラッ」
+===================================================== */
+
+function sparkleSound(){
+
+    if(!audioReady)
+        return;
+
+    const osc=
+        audioContext.createOscillator();
+
+    const gain=
+        audioContext.createGain();
+
+    osc.type="sine";
+
+    const now=
+        audioContext.currentTime;
+
+    osc.frequency.setValueAtTime(
+        900+Math.random()*500,
+        now
+    );
+
+    osc.frequency.exponentialRampToValueAtTime(
+        1800,
+        now+.45
+    );
+
+    gain.gain.setValueAtTime(
+        .0001,
+        now
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .035,
+        now+.04
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        now+.7
+    );
+
+    osc.connect(gain);
+
+    gain.connect(masterGain);
+
+    osc.start();
+
+    osc.stop(now+.75);
+
+}
+
+
+/* =====================================================
+   BGM用音
+===================================================== */
+
+function playTone(
+    frequency,
+    duration,
+    volume,
+    type="sine",
+    delay=0
+){
+
+    if(!audioReady)
+        return;
+
+    const osc=
+        audioContext.createOscillator();
+
+    const gain=
+        audioContext.createGain();
+
+    const filter=
+        audioContext.createBiquadFilter();
+
+    const start=
+        audioContext.currentTime+
+        delay;
+
+    osc.type=type;
+
+    osc.frequency.setValueAtTime(
+        frequency,
+        start
+    );
+
+    filter.type="lowpass";
+
+    filter.frequency.setValueAtTime(
+        1800,
+        start
+    );
+
+    gain.gain.setValueAtTime(
+        .0001,
+        start
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        volume,
+        start+.08
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        .001,
+        start+duration
+    );
+
+    osc.connect(filter);
+
+    filter.connect(gain);
+
+    gain.connect(masterGain);
+
+    osc.start(start);
+
+    osc.stop(
+        start+
+        duration+
+        .1
+    );
+
+}
+
+
+/* =====================================================
+   神秘的な音階
+===================================================== */
+
+const melody=[
+
+    293.66,
+    349.23,
+    440.00,
+    523.25,
+    440.00,
+    349.23,
+
+    329.63,
+    392.00,
+    493.88,
+    587.33,
+    493.88,
+    392.00
+
+];
+
+
+/* =====================================================
+   BGM開始
+===================================================== */
+
+function startBGM(){
+
+    initAudio();
+
+    if(!audioReady)
+        return;
+
+    if(
+        audioContext.state===
+        "suspended"
+    ){
+
+        audioContext.resume();
+
+    }
+
+    if(bgmRunning)
+        return;
+
+    bgmRunning=true;
+
+
+    /* -------------------------------------
+       柔らかなパッド
+    ------------------------------------- */
+
+    const chords=[
+
+        [146.83,220.00,293.66],
+
+        [174.61,261.63,349.23],
+
+        [196.00,293.66,392.00],
+
+        [130.81,196.00,261.63]
+
+    ];
+
+    let chordIndex=0;
+
+    function padLoop(){
+
+        if(!bgmRunning)
+            return;
+
+        const chord=
+            chords[chordIndex];
+
+        chord.forEach(
+            (freq,index)=>{
+
+                playTone(
+                    freq,
+                    5.5,
+                    .025,
+                    "sine",
+                    index*.08
+                );
+
+            }
+        );
+
+        chordIndex=
+            (chordIndex+1)%
+            chords.length;
+
+        padTimer=
+            setTimeout(
+                padLoop,
+                4200
+            );
+
+    }
+
+    padLoop();
+
+
+    /* -------------------------------------
+       メロディ
+    ------------------------------------- */
+
+    let melodyIndex=0;
+
+    function melodyLoop(){
+
+        if(!bgmRunning)
+            return;
+
+        const note=
+            melody[melodyIndex];
+
+        playTone(
+            note,
+            2.4,
+            .045,
+            "triangle"
+        );
+
+        if(
+            melodyIndex%3===
+            0
+        ){
+
+            playTone(
+                note/2,
+                3,
+                .02,
+                "sine",
+                .05
+            );
+
+        }
+
+        melodyIndex=
+            (melodyIndex+1)%
+            melody.length;
+
+        melodyTimer=
+            setTimeout(
+                melodyLoop,
+                750
+            );
+
+    }
+
+    melodyLoop();
+
+
+    /* -------------------------------------
+       星のきらめき音
+    ------------------------------------- */
+
+    sparkleTimer=
+        setInterval(()=>{
+
+            if(
+                Math.random()<.65
+            ){
+
+                sparkleSound();
+
+            }
+
+        },2800);
+
+}
+
+
+/* =====================================================
+   BGM停止
+===================================================== */
+
+function stopBGM(){
+
+    bgmRunning=false;
+
+    clearTimeout(melodyTimer);
+    clearTimeout(padTimer);
+    clearInterval(sparkleTimer);
+
+    melodyTimer=null;
+    padTimer=null;
+    sparkleTimer=null;
+
+}
+
+
+/* =====================================================
+   全ボタンにクリック音
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target.tagName===
+            "BUTTON"
+        ){
+
+            clickSound();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ストーリー
+===================================================== */
+
+const story={
+
+
+/* =========================
+   第1章
+========================= */
+
+start:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"",
+
+    text:
+        "静かな夜だった。\n\n"+
+        "星々だけが、何かを知っているように輝いていた。",
+
+    next:"intro"
+
+},
+
+
+intro:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"下僕",
+
+    text:
+        "……ここは、どこだ？\n\n"+
+        "目を開けると、見たことのない景色が広がっていた。",
+
+    next:"guren"
+
+},
+
+
+guren:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"皇 紅蓮",
+
+    text:
+        "「やっと目を覚ましたか。」\n\n"+
+        "赤い瞳の少年が、こちらを見つめている。",
+
+    choices:[
+
+        {
+            text:"「あなたは誰？」",
+            next:"choiceA"
+        },
+
+        {
+            text:"黙って見つめ返す",
+            next:"choiceB"
+        }
+
+    ]
+
+},
+
+
+choiceA:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"皇 紅蓮",
+
+    text:
+        "「俺の名は、皇 紅蓮。」\n\n"+
+        "彼は静かに名乗った。",
+
+    next:"homurabi"
+
+},
+
+
+choiceB:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"皇 紅蓮",
+
+    text:
+        "「……警戒しているのか。」\n\n"+
+        "紅蓮は少しだけ笑った。",
+
+    next:"homurabi"
+
+},
+
+
+homurabi:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"焔緋くん",
+
+    text:
+        "「ねえ。」\n\n"+
+        "突然、背後から声がした。",
+
+    choices:[
+
+        {
+            text:"振り返る",
+            next:"homurabiA"
+        },
+
+        {
+            text:"紅蓮を見る",
+            next:"homurabiB"
+        }
+
+    ]
+
+},
+
+
+homurabiA:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"焔緋くん",
+
+    text:
+        "「やっと会えたね。」\n\n"+
+        "そこには、不思議な雰囲気をまとった少年が立っていた。",
+
+    next:"meeting"
+
+},
+
+
+homurabiB:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"皇 紅蓮",
+
+    text:
+        "「……お前、あいつが見えるのか？」\n\n"+
+        "紅蓮の表情が変わった。",
+
+    next:"meeting"
+
+},
+
+
+meeting:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"",
+
+    text:
+        "三人の間に、奇妙な沈黙が流れた。\n\n"+
+        "その瞬間、空に一筋の青い光が走った。",
+
+    next:"geboku"
+
+},
+
+
+geboku:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"下僕",
+
+    text:
+        "「あの光……何？」\n\n"+
+        "誰も答えられなかった。",
+
+    choices:[
+
+        {
+            text:"光を追う",
+            next:"gebokuA"
+        },
+
+        {
+            text:"ここに留まる",
+            next:"gebokuB"
+        }
+
+    ]
+
+},
+
+
+gebokuA:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"",
+
+    text:
+        "三人は青い光を追って歩き始めた。\n\n"+
+        "まだ誰も知らない。\n"+
+        "これが、すべての始まりになることを。",
+
+    next:"chapter1End"
+
+},
+
+
+gebokuB:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"焔緋くん",
+
+    text:
+        "「……うん。今は、ここにいたほうがいい。」\n\n"+
+        "彼は空を見上げた。",
+
+    next:"chapter1End"
+
+},
+
+
+/* =========================
+   第1章終了
+========================= */
+
+chapter1End:{
+
+    chapter:"第1章　星降る夜",
+
+    name:"",
+
+    text:
+        "夜空には、無数の星が輝いていた。\n\n"+
+        "そして――\n\n"+
+        "運命は、静かに動き始めた。",
+
+    next:"chapter2Start"
+
+},
+
+
+/* =========================
+   第2章開始
+========================= */
+
+chapter2Start:{
+
+    chapter:"第2章　青い残響",
+
+    name:"",
+
+    text:
+        "――翌朝。\n\n"+
+        "夜が明けても、あの青い光は消えていなかった。\n\n"+
+        "空の彼方に、淡い光が残っている。",
+
+    next:"chapter2Guren"
+
+},
+
+
+chapter2Guren:{
+
+    chapter:"第2章　青い残響",
+
+    name:"皇 紅蓮",
+
+    text:
+        "「……おかしい。」\n\n"+
+        "紅蓮は空を見上げた。\n\n"+
+        "「あの光は、普通のものじゃない。」",
+
+    next:"chapter2Kagari"
+
+},
+
+
+chapter2Kagari:{
+
+    chapter:"第2章　青い残響",
+
+    name:"焔緋 灯影",
+
+    text:
+        "「知ってるよ。」\n\n"+
+        "静かな声が響いた。\n\n"+
+        "そこには、焔緋 灯影の姿があった。",
+
+    choices:[
+
+        {
+            text:"「あの光を知っているの？」",
+            next:"chapter2ChoiceA"
+        },
+
+        {
+            text:"「灯影……？」",
+            next:"chapter2ChoiceB"
+        }
+
+    ]
+
+},
+
+
+chapter2ChoiceA:{
+
+    chapter:"第2章　青い残響",
+
+    name:"焔緋 灯影",
+
+    text:
+        "「うん。」\n\n"+
+        "灯影は空を見つめた。\n\n"+
+        "「あれは、誰かを呼んでる。」",
+
+    next:"chapter2Mysterious"
+
+},
+
+
+chapter2ChoiceB:{
+
+    chapter:"第2章　青い残響",
+
+    name:"焔緋 灯影",
+
+    text:
+        "「……僕の名前を知ってるんだね。」\n\n"+
+        "灯影は少し驚いたようにこちらを見る。",
+
+    next:"chapter2Mysterious"
+
+},
+
+
+chapter2Mysterious:{
+
+    chapter:"第2章　青い残響",
+
+    name:"焔緋くん",
+
+    text:
+        "「ねえ。」\n\n"+
+        "焔緋くんが空を指差した。\n\n"+
+        "青い光の中に、何かが浮かんでいる。",
+
+    next:"chapter2Choice"
+
+},
+
+
+chapter2Choice:{
+
+    chapter:"第2章　青い残響",
+
+    name:"下僕",
+
+    text:
+        "光の中には、見たことのない紋章が浮かんでいた。\n\n"+
+        "なぜか、それを見た瞬間――\n"+
+        "胸の奥が熱くなった。",
+
+    choices:[
+
+        {
+            text:"紋章に触れる",
+            next:"chapter2Touch"
+        },
+
+        {
+            text:"紅蓮に止めてもらう",
+            next:"chapter2Stop"
+        }
+
+    ]
+
+},
+
+
+chapter2Touch:{
+
+    chapter:"第2章　青い残響",
+
+    name:"",
+
+    text:
+        "指先が光に触れた瞬間――\n\n"+
+        "世界から音が消えた。\n\n"+
+        "そして、誰かの声が聞こえた。\n\n"+
+        "『……ようやく、見つけた。』",
+
+    next:"chapter2End"
+
+},
+
+
+chapter2Stop:{
+
+    chapter:"第2章　青い残響",
+
+    name:"皇 紅蓮",
+
+    text:
+        "「待て！」\n\n"+
+        "紅蓮が腕を伸ばした。\n\n"+
+        "しかし、その瞬間――\n"+
+        "青い光が一気に強くなった。",
+
+    next:"chapter2End"
+
+},
+
+
+chapter2End:{
+
+    chapter:"第2章　青い残響",
+
+    name:"",
+
+    text:
+        "光はゆっくりと消えていった。\n\n"+
+        "残されたのは、静かな空と――\n"+
+        "手のひらに残った、小さな青い光だけだった。\n\n"+
+        "――第2章・終",
+
+    next:null
+
+}
+
+};
+
+
+/* =====================================================
+   現在のストーリー
+===================================================== */
+
+let currentStory=
+    "start";
+
+
+/* =====================================================
+   画面を全部隠す
+===================================================== */
+
+function hideAllScreens(){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(
+            screen=>{
+                screen.classList.add(
+                    "hidden"
+                );
+            }
+        );
+
+}
+
+
+/* =====================================================
+   ゲーム開始
+===================================================== */
+
+function startGame(){
+
+    startBGM();
+
+    const fade=
+        document.getElementById(
+            "fadeScreen"
+        );
+
+    fade.classList.add(
+        "active"
+    );
+
+    setTimeout(()=>{
+
+        hideAllScreens();
+
+        document
+            .getElementById(
+                "storyScreen"
+            )
+            .classList.remove(
+                "hidden"
+            );
+
+        currentStory=
+            "start";
+
+        showStory();
+
+        setTimeout(()=>{
+
+            fade.classList.remove(
+                "active"
+            );
+
+        },100);
+
+    },1500);
+
+}
+
+
+/* =====================================================
+   ストーリー表示
+===================================================== */
+
+function showStory(){
+
+    const data=
+        story[currentStory];
+
+
+    document.getElementById(
+        "chapterTitle"
+    ).textContent=
+        data.chapter ||
+        "";
+
+
+    document.getElementById(
+        "name"
+    ).textContent=
+        data.name ||
+        "";
+
+
+    document.getElementById(
+        "text"
+    ).textContent=
+        data.text ||
+        "";
+
+
+    const choiceBox=
+        document.getElementById(
+            "choiceBox"
+        );
+
+    const nextBtn=
+        document.getElementById(
+            "nextBtn"
+        );
+
+
+    choiceBox.innerHTML="";
+
+
+    if(data.choices){
+
+        nextBtn.style.display=
+            "none";
+
+
+        data.choices.forEach(
+            choice=>{
+
+                const button=
+                    document.createElement(
+                        "button"
+                    );
+
+                button.className=
+                    "choiceButton";
+
+                button.textContent=
+                    choice.text;
+
+                button.onclick=()=>{
+
+                    currentStory=
+                        choice.next;
+
+                    showStory();
+
+                };
+
+                choiceBox.appendChild(
+                    button
+                );
+
+            }
+        );
+
+    }else{
+
+        nextBtn.style.display=
+            "inline-block";
+
+
+        if(
+            data.next===null
+        ){
+
+            nextBtn.textContent=
+                "◆ 終了";
+
+            nextBtn.onclick=()=>{
+                backToTitle();
+            };
+
+        }else{
+
+            nextBtn.textContent=
+                "▶ 次へ";
+
+            nextBtn.onclick=()=>{
+                nextStory();
+            };
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   次へ
+===================================================== */
+
+function nextStory(){
+
+    const data=
+        story[currentStory];
+
+    if(data.next){
+
+        currentStory=
+            data.next;
+
+        showStory();
+
+    }
+
+}
+
+
+/* =====================================================
+   キャラクター
+===================================================== */
+
+const characters={
+
+    geboku:{
+
+        name:
+            "🩵 下僕（げぼく）",
+
+        description:
+            "物語の中心となる存在。\n"+
+            "自分が何者なのかも分からないまま、"+
+            "不思議な世界へと導かれていく。"
+
+    },
+
+    guren:{
+
+        name:
+            "🩸 皇 紅蓮｜すめらぎ ぐれん",
+
+        description:
+            "赤い瞳を持つ謎めいた少年。\n"+
+            "冷静に見えるが、どこか優しさを感じさせる。"
+
+    },
+
+    kagari:{
+
+        name:
+            "🔥 焔緋 灯影｜ほむらび かがり",
+
+        description:
+            "物語の鍵を握る人物。\n"+
+            "その存在には、まだ多くの謎が隠されている。"
+
+    },
+
+    homurabi:{
+
+        name:
+            "👻 焔緋くん",
+
+        description:
+            "突然現れた不思議な少年。\n"+
+            "主人公たちしか知らない何かを知っているようだ。"
+
+    }
+
+};
+
+
+function openCharacters(){
+
+    hideAllScreens();
+
+    document
+        .getElementById(
+            "charactersScreen"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+}
+
+
+function showCharacter(id){
+
+    const character=
+        characters[id];
+
+
+    document.getElementById(
+        "characterName"
+    ).textContent=
+        character.name;
+
+
+    document.getElementById(
+        "characterDescription"
+    ).textContent=
+        character.description;
+
+
+    hideAllScreens();
+
+
+    document
+        .getElementById(
+            "characterDetailScreen"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+}
+
+
+function backToCharacters(){
+
+    openCharacters();
+
+}
+
+
+/* =====================================================
+   設定
+===================================================== */
+
+function openSettings(){
+
+    hideAllScreens();
+
+    document
+        .getElementById(
+            "settingsScreen"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+}
+
+
+/* =====================================================
+   続きから
+===================================================== */
+
+function continueGame(){
+
+    alert(
+        "セーブデータはまだありません。\n"+
+        "現在は「はじめから」のみプレイできます。"
+    );
+
+}
+
+
+/* =====================================================
+   タイトルへ戻る
+===================================================== */
+
+function backToTitle(){
+
+    hideAllScreens();
+
+    document
+        .getElementById(
+            "titleScreen"
+        )
+        .classList.remove(
+            "hidden"
+        );
+
+}
+
+</script>
+
+</body>
+</html>
